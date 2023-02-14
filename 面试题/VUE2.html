@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>VUE2</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<div id="app">
+			{{msg}}
+		</div>
+		<button id="btn"> click me to destroy</button>
+
+	</div> 
+	<script>
+		const app = new Vue({
+			el: '#app',
+            data: {
+                msg:'hello  world',
+                msg2:'ssssss'
+            },
+			//8个生命周期
+			//created mounted  updated  destroyed   还有四个前面加before
+			beforeCreate() {
+				console.log('beforeCreate,挂载了Vue实例的方法,但data没有挂载,在data之前',this.msg);
+			},
+            created() {
+				console.log('create挂载了data',this.msg);
+				setTimeout(() => {
+					this.msg = '你好'
+				}, 1000);
+            },
+			beforeMount () {
+                console.log('beforeMount: data没有渲染到页面',document.getElementById('app').innerHTML);
+			},
+			mounted() {
+                console.log('mounted:data渲染了页面',document.getElementById('app').innerHTML);
+				
+			},
+			beforeUpdate() {
+				console.log('beforeUpdate:数据更改导致DOM更改之前',document.getElementById('app').innerHTML);
+
+				
+			},
+			updated() {
+				console.log('updated:数据更改导致DOM更改之后',document.getElementById('app').innerHTML);
+
+				
+			},
+			beforeDestroy() {
+                console.log('beforeDestroy');
+				
+			},
+			destroyed () {
+                console.log('destroyed');
+				
+			},
+			
+            methods: {
+           
+            },
+            computed: {
+            
+            },
+            watch: {
+                
+            },
+		})
+		document.getElementById('btn').onclick = ()=>{
+			app.$destroy();
+		}
+	</script>
+</body>
+</html>

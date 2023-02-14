@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>BFC相关</title>
+
+	<style type="text/css">
+		.layout{
+			background: red;
+		}
+		.dv1{
+			width: 100px;
+			height: 100px;
+			background: aquamarine;
+			margin-bottom: 20px;
+		}
+		.dv2{
+			width: 110px;
+			height: 110px;
+			background: green;
+			margin-top: 40px;
+		}
+		/*
+		  dv1 dv2 相隔不是 20 + 40   相隔规则:同正取最大(边界重叠) 一正一负取和 同负取绝对值最大
+		  
+		*/
+	</style>
+</head>
+<body>
+	<div class="layout">
+		<div class="dv1">top</div>
+		<div class="dv2">bottom</div>
+
+	</div>
+</body>
+</html>

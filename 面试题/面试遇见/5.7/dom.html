@@ -1,0 +1,19 @@
+<!doctype html> 
+<html> 
+<head> 
+    <meta charset="utf-8"> 
+    <title></title> 
+</head>
+<body>
+<script type="text/javascript">
+	
+var oldTime = new Date().getTime();
+var a = document.body;
+for(var i = 0;i < 10000;i++){
+	a.appendChild(document.createElement('div'));
+};
+console.log(new Date().getTime() - oldTime);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SPA单页面--MVC和MVVM</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<div id="a">
+
+		</div>
+		<div id="b">
+
+		</div>
+		<p><strong>一丶SPA单页面应用优缺点</strong></p>
+		<p>SPA:整个项目还有一个html文件,路由切换进行页面切换</p>
+		<p><strong>优点:</strong></p> 
+		<p>1.用户体验及交互比较流畅</p>
+		<p>2.提取组件开发,易于后期维护</p>
+		<p>3.文件打包比较少,减轻服务器压力(js渲染各个页面html,不再是服务器渲染)</p>
+		<p><strong>缺点</strong></p>
+		<p>1.不利于SEO优化(搜索引擎优化),搜索引擎爬虫只会爬取html不会爬取js</p>
+		<p>2.第一次进入比较慢,因为要一次性加载全部js(已有按需加载策略)</p>
+		<p><strong>二丶MVC和MVVM架构</strong></p>
+		<ul>
+			<li>M : Model 数据层</li>
+			<li>V : View 视图</li>
+			<li>C : Controller 控制器</li>
+			<li>VM : ViewModel 视图数据层</li>
+		</ul>
+		<p>1.MVC:View接受用户行为通知Controller,Controller通知Model进行数据更新,Model再通知View进行页面更新,Model和View进行了交互</p>
+		<p> 三角架构: 用户通过View视图层操作改变数据给Controller控制器,控制器通知Model数据层数据更改,数据层再通知View视图层更新</p>
+		<p>2.MVVM:数据双向绑定,用户行为更改数据,数据可以主动触发视图更新,双向通过ViewModel进行交互,Model和View不直接进行交互</p>
+		<p>也是三角架构,C变成了VM,Model与ViewModel双向交互,Model不与直接View交互而是通过ViewModel进行交互,ViewModel通过双向数据绑定将View和Model层连接了起来</p>
+		
+
+	</div> 
+	<script>
+		
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面向对象编程</title>
+
+	<style type="text/css">
+	
+	</style>
+</head>
+<body>
+	<div class="layout">
+		<div class="dv1">top</div>
+		<div class="dv2">bottom</div>
+
+	</div>
+	<script>
+		console.log('-------------------------面向对象编程----------------------------');
+
+		/**
+		 * 
+		 * 面向对象编程:
+		 * 指程序中的所有操作都是通过对象来完成,做任何事之前都需要找到他的对象,然后通过对象来完成各种操作
+		 * 使用Object创建对象的问题:
+		 * 		1.无法区分不同类型的对象;
+		 *      2,不方便批量创建对象
+		 * 
+		 * 在JS中可以通过类(class)来解决这个问题
+		 * 		1.类是创建的对象模板,可以将对象的属性和方法直接定义在类中,定义后就可以直接通过类来创建对象;
+		 * 		2.通过同一个类创建的对象,称为同类对象,可以使用instanceOf来检查一个对象是否是由某个类创建,
+		 * 		如果某个对象是由某个类所创建,则称该对象是这个类的实例
+		 * 
+		 * 语法:
+		 * 定义类
+		 * 		class 类名{}  //类名要是用大驼峰命名
+		 * 		const 类名 = class {}
+		 * 通过类创建对象
+		 * 		new 类()
+		**/
+		
+		class Person{
+			//类的代码块,默认就是严格模式
+			//类的代码块是用来设置对象的属性的,不是什么代码都能写
+			name = "wukong";   //Person的实例属性name  p1.name
+			age= 1800;     //实例属性只能通过实例访问	p1,age
+			static test = 'test静态属性';  //使用static声明的属性,是静态属性(类属性),静态属性只能通过类去访问(Person.test())
+			//添加方法(实例方法),实例方法中this就是当前实例
+			// sayHello = function (){}
+			sayHello(){
+				console.log('hello,I am ' + this.name);
+			}
+			//添加静态方法(类方法) 静态方法只能通过类去调用 (Person.sayStaticHello() )  静态方法中this指向的是当前类
+			static sayStaticHello(){
+				console.log('hello,I am ' + this.name);
+			}
+		}
+
+		const p1 = new Person();
+		console.log(p1 instanceof Person);
+		p1.sex = 'man';
+		console.log(p1);
+		const p2 = new Person();
+		console.log(p2);
+		console.log(Person.test);
+
+
+
+		console.log('-------------------------constructor----------------------------');
+		class Person_new{
+			//在类中可以添加一个特殊的方法constructor
+			//在方法我们称为构造函数(构造方法)
+			//构造函数会我们在调用类创建对象时执行 const p3 = new Person_new
+			constructor(name,age,sex){
+				console.log('构造函数执行',name,age,sex);
+				//可以在构造函数中,为实例属性进行赋值
+				//在构造函数中,this表示当前所创建的对象
+				this.name = name;
+				this.age = age;
+				this.sex = sex;
+			}
+			sayHello(){
+				console.log('hello,I am ' + this.name);
+			}
+		}
+		const p3 = new Person_new('wukong',18,'man');
+		console.log(p3);
+
+
+
+		console.log('--------------------面向对象的特点:封装丶继承丶多态----------------------');
+		/*
+
+			面向对象的特点:封装丶继承丶多态;
+			1.封装
+				-对象就是一个用来存储不同属性的容器
+				-对象不仅负责存储属性,还要负责数据的安全
+				-直接添加到对象中的属性,并不安全,因为它们可以被任意修改
+				-如何确保数据的安全
+					1.私有化数据
+						-将需要保护的数据设置为私有,只能在类内部使用
+					2.提供setter和getter方法来开放对数据的操作
+						-属性设置私有,通过getter,setter方法操作属性带来的好处
+							1.可以控制属性的读(getter)写(setter)权限
+							2.可以在方法中对属性的值进行验证
+				-封装主要用来确保数据安全
+				-实现封装方式:
+					1.属性私有化 加#
+					2.通过getter setter方法来操作属性
+						get 属性名(){
+							return this.#属性名
+						}
+						set 属性名(参数){
+							this.#属性名 = 参数;
+						}
+
+		*/
+		console.log('------------------封装------------------------');
+
+		class Person1{
+
+			#address = '花果山';  //实例属性添加#开头 就变成了私有属性,私有属性只能在类Person1里面访问
+			//私有属性得先声明再赋值,外部也不能更改
+			#name;
+			#age;
+			#sex;
+			constructor(name,age,sex){
+				
+				this.#name = name;
+				this.#age = age;
+				this.#sex = sex;
+			}
+			sayHello(){
+				console.log('hello,I am ' + this.name + "live in " + this.#address);
+			}
+			getName(){   //读取属性
+				return this.#name;
+			}
+			setName(name){ //设置属性
+				this.#name = name;
+			}
+			getAge(){   //读取属性
+				return this.#age;
+			}
+			setAge(age){ //设置属性  限制设置值得安全
+				if((age)>=0){
+					this.#age = age;
+				}
+			}
+
+			//新优化 同原先一样 还是使用p4.sex  可以省略上面getSex()                   主要使用这个
+			get sex(){
+				return this.#sex
+			}
+			set sex(newSex){
+				//这里还可以增加限制
+				this.#sex = newSex
+			}
+
+		}
+		const p4 = new Person1('wukong',18,'man');
+		p4.setAge(-11);
+		p4.sex = 'women';
+		console.log(p4);
+
+		console.log('---------------------多态--------------------------');
+		class Person2{
+			constructor(name){
+				this.name = name;
+			}
+		}
+		class Dog{
+			constructor(name){
+				this.name = name;
+			}
+		}
+		class Test{
+
+		}
+		let person = new Person2('孙悟空');
+		let dog = new Dog('哮天犬');
+		let test = new Test();
+		console.log(person);
+		console.log(dog);
+		/*
+			定义一个函数,函数接收一个对象作为参数,可以输出hello并打印对象的name属性
+
+			多态
+				多态：同一操作作用于不同的对象，可以有不同的解释，产生不同的执行结果。
+				-在js中不会检查参数的类型,所以意味着任何数据都可以作为参数传递
+				-要调用某个函数,无需指定的类型,只要对象满足某些条件即可
+				-如果一个东西走路像鸭子,叫起来也想鸭子,那么就是鸭子(对于程序来说,设置的条件都满足,它就是鸭子)
+				-多态为我们提供了灵活性
+		*/
+		function sayHello(obj){
+			console.log('Hello :>> ', obj.name);
+		}
+		sayHello(dog);
+		sayHello(test);
+
+
+		console.log('---------------------继承--------------------------');
+		/**
+		 * 继承
+		 * 		-可以通过extends 关键字来完成继承
+		 * 		-当一个类继承另一个类时,就相当于将另一个类中的代码复制到了当前类中(简单理解)
+		 * 		-继承发生时,被继承的类称为:父类(超类),继承的类称为:子类
+		 * 		-通过继承可以减少重复的代码,并且可以在不修改一个类的情况下对其进行扩展
+		 * 
+		 * 继承
+		 * 		-通过继承可以在不修改一个类的情况下对其进行扩展
+		 * 		-OCP 开闭原则
+		 * 			-程序应该对修改关闭,对扩展开放
+		 * 
+		 * 		封装  --安全性
+		 * 		继承  --扩展性
+		 * 		多态  --灵活性
+		 * 		
+		 **/
+
+		class Animal{
+			constructor(name){
+				this.name = name;
+
+			}
+			sayHello(){
+				console.log('动物再叫~');
+			}
+		}
+		class Dog1 extends Animal{
+			// 在子类中可以通过创建同名方法来重写父类的方法
+			sayHello(){
+				console.log('汪汪汪');
+			}
+			
+		}
+		class Cat extends Animal{
+			//重写构造函数
+			constructor(name,age){
+				//重写构造函数时,构造函数第一行代码必须写super();
+				super(name);  //调用父类的构造函数
+				this.age = age;
+			}
+			sayHello(){
+				//调用下父类的sayHello
+				super.sayHello();  //在方法中可以使用super父类的方法
+				console.log('喵喵喵');
+			}
+		}
+		let dog1 = new Dog1('哮天犬');
+		let cat = new Cat('汤姆猫',3);
+		cat.sayHello();
+		console.log(cat);
+
+
+		
+	</script>
+</body>
+</html>

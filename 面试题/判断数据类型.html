@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>判断数据类型</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+	<body>
+		<div class="container">
+			<div class="inner">
+
+			</div>
+
+		</div>
+	</body>
+	<script>
+		//基础数据类型: undefined null Boolean String Number Symbol Bigint
+		//复杂数据类型: Array regExp Date Math Function Object
+		var arr = [];
+		//1. typeof 主要用来判断基本数据类型(null除外): 数字 字符串 布尔值  function, 不能判断复杂数据类型
+		console.log('字符串', typeof '123');  //string
+		console.log('数字', typeof 123);  //number
+		console.log('布尔值', typeof true);  //string
+		console.log('array', typeof array);  //object
+		console.log('{}', typeof {});  //object
+		console.log('null', typeof null);  //object
+		console.log('function', typeof function(){});  //function
+		//2.instanceof : 判断数据instanceof 构造类型   可以准确判断复杂引用数据类型但是不能判断基础数据类型
+		var arr2 = new Array(); // js内置的构造函数
+		arr2 instanceof Array; // true
+		console.log('instanceof',arr2 instanceof Array);
+		console.log('instanceof',{} instanceof Array);
+		//弊端:window,instanceof 只有同一个全局window才会返回 true
+		//最准确的判断数据类型的方法
+		Object.prototype.toString.call({})
+		
+		//手写instanceof
+		function myInstanceof(left,right){
+			//先判断是否为基础数据类型,如果是返回FALSE
+			if(typeof left!=="object" || left === null)return false;
+			let proto = Object.getPrototypeOf(left);
+			while(true){
+				if(proto===null)return false;
+				if(proto===right.prototype)return true;
+				proto = Object.getPrototypeOf(proto)
+			}
+		}
+
+		// 全局通用数据类型判断函数
+		function getType(obj){
+			let type = typeof obj;
+			if(type!=="object"){
+				return type
+			}
+			return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1')
+		}
+		var a  = {
+			value:0,
+			valueOf:function (){
+				this.value ++;
+				return this.value
+			}
+		}
+		console.log(a==1&&a==2&&a==3);
+	</script>
+</html>

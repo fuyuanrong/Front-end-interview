@@ -1,0 +1,33 @@
+<!doctype html> 
+<html> 
+<head> 
+    <meta charset="utf-8"> 
+    <title></title> 
+</head>
+<body>
+<script type="text/javascript">
+
+/*1 
+if((function(){
+	console.log('hello world');
+	console.log=function(){}
+})()){
+	 console.log('hello');
+}
+else{
+	console.log('world');
+};
+*/
+if(console.log=function(v){
+	alert(v+' world');
+	return '';
+}){
+
+	 console.log('hello');
+}
+else{
+	console.log('world');
+};
+</script>
+</body>
+</html>

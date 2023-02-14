@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原型对象和原型链</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+	<body>
+		<div class="container">
+			<div class="inner">
+
+			</div>
+
+		</div>
+	</body>
+	<script>
+		/**
+			prototype   这个属性只有函数对象才有!  (构造函数)函数的原型对象   一定返回一个对象
+			__proto__   所有对象都有此属性,总是指向对应的构造函数的原型对象prototype
+			constructor  __proto__下面的constructor指向构造函数自己
+
+			对象访问属性的时候.先在自身属性查找,找不到就去__proto__原型链上查找 直到找不到为止 找不到返回undefined
+			原型链的终点 是 Object.prototype   Object.prototype.__proto__ 为null
+
+		**/
+		var  obj = {
+			a:1
+		}
+
+		// var obj 相当于 new Object({a:1})
+		console.log('obj',obj);
+		console.log('obj.__proto__',obj.__proto__);
+		console.log('构造函数的原型对象',Object.prototype===obj.__proto__);
+		console.log('obj.__proto__.__proto__',obj.__proto__.__proto__);
+		console.log('终点',Object.prototype.__proto__ === obj.__proto__.__proto__);
+		console.log('终点',Object.prototype.__proto__);
+
+		console.log('constructor--',obj.__proto__.constructor===Object);
+		console.log('-------------------------------------------');
+		 function Vue(){
+			this.name = '小红';
+		 }
+		 const app = new Vue();
+
+		 console.log('app',app);
+		 console.log('app.__proto__',app.__proto__===Vue.prototype);
+		 console.log('app.__proto__1',app.__proto__.__proto__===Vue.prototype.__proto__);
+		 console.log('app.__proto__2',Object.prototype===Vue.prototype.__proto__);
+		 //Vue.prototype 他对应的构造函数就是 Object Vue
+		 //Vue.prototype.__proto__的构造函数原型对象其实就是Object.prototype
+		Vue.prototype.age = 18;
+		Object.prototype.hobby = 'sing';
+
+		const app1 = new Vue()
+		const app2 = new Vue()
+		console.log(app1.name,app1.age,app1.hobby);
+
+		// constructor 判断对象的原型是否从构造函数中来
+		console.log('app-constructor:',app.__proto__.constructor === Vue);
+		console.log('app-constructor-constructor:',app.__proto__.__proto__.constructor === Object);
+
+
+
+		console.log('--------------原型对象--------------------');
+		class Person{
+			name = "wukong";
+			age= 1800;     
+			sayHello(){
+				console.log('hello,I am ' + this.name);
+			}
+		}
+
+		const p1 = new Person();
+		console.log(p1);
+		/*
+		
+			对象中存储属性的区域实际有两个：
+				1. 对象自身
+					- 直接通过对象所添加的属性，位于对象自身中    obj.a = 1;
+					- 在类中通过 x = y 的形式添加的属性，位于对象自身中
+
+				2. 原型对象（prototype）
+					- 对象中还有一些内容，会存储到其他的对象里（原型对象）
+					- 在对象中会有一个属性用来存储原型对象，这个属性叫做__proto__
+					- 原型对象也负责为对象存储属性，
+						当我们访问对象中的属性时，会优先访问对象自身的属性，
+						对象自身不包含该属性时，才会去原型对象中寻找
+					- 会添加到原型对象中的情况：
+						1. 在类中通过xxx(){}方式添加的方法，位于原型中
+						2. 主动向原型中添加的属性或方法 
+
+		*/
+		
+			// 访问一个对象的原型对象
+			// 	对象.__proto__
+			// 	Object.getPrototypeOf(对象)
+
+			// 原型对象中的数据:
+			// 	1. 对象中的数据(属性、方法等）
+			// 	2. constructor (对象的构造函数）
+
+			// 注意:
+			// 	原型对象也有原型,这样就构成了一条原型链,根据对象的复杂程度不同,原型链的长度也不同
+			// 		p对象的原型链:p对象 --> 原型 --> 原型 --> null
+			// 		obj对象的原型链:obj对象 --> 原型 --> null
+
+			// 	原型链:
+			// 		- 读取对象属性时,会优先对象自身属性,
+			// 			如果对象中有,则使用,没有则去对象的原型中寻找
+			// 			如果原型中有,则使用,没有则去原型的原型中寻找
+			// 			直到找到Object对象的原型(Object的原型没有原型(为null))
+			// 				如果依然没有找到,则返回undefined
+
+			// 		- 作用域链,是找变量的链,找不到会报错
+			// 		- 原型链,是找属性的链,找不到会返回undefined
+			
+		
+
+	</script>
+</html>

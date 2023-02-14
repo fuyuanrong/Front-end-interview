@@ -1,0 +1,47 @@
+<!doctype html> 
+<html> 
+<head> 
+    <meta charset="utf-8"> 
+    <title></title> 
+</head>
+<body>
+<script type="text/javascript">
+	var str = 'aaabbbbbccc';
+	//3个a5个b3个c
+	String.prototype.returnText= function(){
+		//alert(this);
+		var json = {};
+		/*
+			{
+				a:3,
+				b:5,
+				c:3
+			}
+		*/
+		for(var i = 0;i < this.length;i++){
+			//json[a]
+			if(json[this[i]]){
+				json[this[i]] = json[this[i]] +1;
+			}
+			else{
+				//json.a = 1
+				json[this[i]] = 1;
+			}
+		};
+
+		var str = '';
+		for(var i in json){
+			//console.log(i,json[i]);
+			str+=i+'有'+json[i]+'个';
+		}
+		return str;
+
+		//console.log(json)
+	};
+
+	console.log(str.returnText());
+
+
+</script>
+</body>
+</html>

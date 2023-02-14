@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Promise异步解决方案</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<div id="a">
+
+		</div>
+		<div id="b">
+
+		</div>
+		<p>这里有些文字</p>
+
+	</div>
+	<script>
+		//异步解决方案
+		// callback   回调函数
+		// promise
+		// async/await
+
+
+
+		// function fun(){
+		// 	var res;
+		// 	setTimeout(() => {
+		// 		res = '你好'
+		// 	}, 100);
+		// 	console.log('res',res);
+		// }
+		// fun()
+
+
+		//callback
+		function getData(callback){
+			setTimeout(() => {
+				callback('callback结果')
+			}, 100);
+		}
+		getData((res)=>{
+			console.log('res',res);
+		})
+
+		//promise (es6 新增)  三种状态  pending=>转换成两个状态 resolve/reject(只可能一种)  转换完后不可逆
+		function p1(param){
+			return new Promise((resolve,reject)=>{
+				setTimeout(() => {
+					// resolve('promise成功结果')
+					reject('promise失败结果')
+				}, 100);
+				
+			})
+		}
+		p1().then(res=>{
+			console.log('res(promise):',res);
+		}).catch(err=>{
+			console.log('err(promise):',err);
+		})
+
+		// Promise.all 多个异步执行完进行操作
+		//用法 Promise.all([p1(),p2(),p3()]).then().catch()
+		function p_1(param){
+			return new Promise((resolve,reject)=>{
+				setTimeout(() => {
+					resolve('1')
+				}, 100);
+				
+			})
+		}
+		function p_2(param){
+			return new Promise((resolve,reject)=>{
+				setTimeout(() => {
+					resolve([1,2,3])
+				}, 100);
+				
+			})
+		}
+		function p_3(param){
+			return new Promise((resolve,reject)=>{
+				setTimeout(() => {
+					resolve({a:123})
+				}, 100);
+				
+			})
+		}
+		//参数为promise对象组成的数组
+		Promise.all([p_1(),p_2(),p_3()]).then(res=>{
+			console.log('promise all成功结果:',res);
+		}).catch(err=>{
+			//返回最近的错误,停止
+			console.log('promise all失败结果:',err);
+		})
+
+
+		//async/await
+
+		function fun2(param){
+			return new Promise((resolve,reject)=>{
+				setTimeout(() => {
+					resolve([1,2,3])
+				}, 100);
+				
+			})
+		}
+		// async可以单独使用 返回的是promise
+		//await (后面跟的是异步/promise函数)必须同async一起使用 不然会报错
+		async function getData1(){
+			const res = await fun2()
+			console.log('res async:',res);
+		}
+		getData1();  //返回的是Promise对象
+		console.log('结果:',getData1());
+
+	</script>
+</body>
+</html>

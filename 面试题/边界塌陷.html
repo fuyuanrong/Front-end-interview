@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>边界塌陷概念</title>
+
+	<style type="text/css">
+		.father{
+			width: 400px;
+			height: 400px;
+			background: red;
+			margin: auto;
+		}
+		.son{
+			width: 100px;
+			height: 100px;
+			background: green;
+			margin-top: 100px;  
+			/* 父子同向下100px */
+			/*
+			边界塌陷概念:父元素包裹子元素,给子元素设置margin-top,想子元素离父元素top一段距离,却出现了父元素距离顶端body出现了位移
+			解决方案: 
+				1. 父元素加border;
+				2.父元素设置overflow:hidden触发bfc机制;
+				3.父元素或者子元素增加float
+					父:float:left;left:50%; transform:translate(-50%,0);
+				4.父元素添加padding-top控制子元素距离
+				5.将父元素转变成行内块元素 display:inline-block;
+			 */
+		}
+	</style>
+</head>
+<body>
+	<div class="father">
+		<div class="son">
+			测试sonBox
+		</div>
+
+	</div>
+</body>
+</html>

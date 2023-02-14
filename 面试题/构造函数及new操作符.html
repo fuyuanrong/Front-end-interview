@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>构造函数及new操作符</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<div id="a">
+
+		</div>
+		<div id="b">
+
+		</div>
+		<p>这里有些文字</p>
+
+	</div>
+	<script>
+		//构造函数,(普通函数,约定构造函数的函数名首字母大写)
+		function Fun1(){
+			console.log('obj22222ect');
+			this.a = '11111222222'
+		}
+		var obj1 = new Fun1();
+		/**
+		 * 问题 new操作符做了什么?
+		 * 1.创建一个新对象 指向构造函数的this
+		 * 2.新对象 的 原型_proto_ 指向构造函数 的prototype
+		 * 3.执行构造函数,新对象设置为函数中的this
+		 * 4.返回:
+		 * 如果没有return  或者return的都是简单数据类型 忽略(则新的对象将会作为返回值返回)  直接return this
+		 * 如果有return 的是复杂数据类型 则返回的就是当前return的值
+		 * 
+		 * **/
+		console.log('obj1',obj1);//返回的是一个对象
+		console.log('是否相等',obj1.__proto__===Fun1.prototype);
+
+		function Build({id="#app",text='hello'}){
+			var rootDom = document.querySelector(id)
+			this.BuildDom = function(){
+				var el = document.createElement('p');
+				var textNode = document.createTextNode(text);
+				el.appendChild(textNode);
+				rootDom.appendChild(el)
+			}
+		}
+		var dom1 = new Build({id:'#a',text:'你好'})
+		dom1.BuildDom();
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!doctype html> 
+<html> 
+<head> 
+    <meta charset="utf-8"> 
+    <title></title> 
+</head>
+<body>
+<script type="text/javascript">
+	var ajax = new XMLHttpRequest();
+	ajax.open('get','http://localhost:2888/php2.php',true);
+	ajax.send();
+	ajax.onload = function(){
+		console.log(ajax.responseText);
+	}
+
+
+</script>
+</body>
+</html>

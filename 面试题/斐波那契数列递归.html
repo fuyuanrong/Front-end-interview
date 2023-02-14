@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>斐波那契数列递归</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<script>
+		// 斐波那契数列
+		// 1 1 2 3 5 8 13
+		//f(n) = f(n-1) + f(n-2)
+		// f(1) = 1;
+		// f(2) = 2;
+
+		// [4,2,6,1,8]
+		// sum(arr,i) = arr[i] + sum(arr,i+1)
+		// sum(arr,maxi) = arr[maxi]
+		function sum(arr,i){
+			if(i === arr.length-1){
+				return arr[i];
+			}else{
+				return sum(arr,i+1) + arr[i]
+			}
+
+		}
+		sum([4,2,6,1,8],0)
+	</script>
+</body>
+
+</html>

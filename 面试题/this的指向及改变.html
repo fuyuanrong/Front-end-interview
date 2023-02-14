@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this指向与改变</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="inner">
+
+		</div>
+		<p>这里有些文字</p>
+
+	</div>
+	<script>
+		//this指的是当前代码执行的上下文
+		//顶层全局作用域window
+		console.log('window',window);
+		//声明的全局变量挂载在window上
+		var nihao = 'hello'; 
+		//全局的this 指向window
+		console.log('this',this);
+		console.log('window===this',this === window);
+		//在方法/函数执行的内部this指向就是调用它的那个对象
+		// .之前的就是this   例如第48行 obj.obj2  就是this
+		function fun1(){
+			console.log('func1->this',this);
+
+		}
+		fun1();  //  等于 执行window.fun1()  全局调用可以省略window
+		var obj = {
+			fun2:function(){
+				console.log('func2->this:',this);
+				console.log('func2->:',this===obj);
+			},
+			obj2:{
+				fun3:function(){
+					console.log('fun3->this:',this);
+					console.log('fun3->:',this===obj.obj2);
+				},
+			}
+		}
+		obj.fun2();
+		obj.obj2.fun3();
+		//es6 箭头函数    箭头函数的this指向是声明的当前上下文环境,并且不可改变this指向
+		//重点:普通函数的this是执行的时候绑定  (.之前谁执行,谁就是this)  箭头函数是声明(父辈 var let const 这一层所处的的this)的时候进行的绑定的this
+		console.log('-----------箭头函数------------------');
+		var obj3 = {
+			oson1:{
+				oson2:{
+					fun1:()=>{
+						console.log('箭头函数this',this);   //window
+					},
+					fun2:function(p1,p2){
+						console.log('普通函数this',this);  //obj3.oson1.oson2
+						if(p1||p2){
+							console.log('参数:',p1,p2);
+						}
+						
+					}
+				}
+			}
+		}
+		obj3.oson1.oson2.fun1();
+		obj3.oson1.oson2.fun2();
+
+		console.log('-------------改变this指向-------------');
+		//改变this指向 三个方法的区别  apply call bind
+
+		/**
+		 1.apply 改变this指向并立即执行函数,参数以数组形式写	.apply('想变this指向的目标对象',[想改变this指向的函数的参数])	 
+		 2.call 改变this指向并立即执行函数,参数逗号分隔			.call('想变this指向的目标对象',参数1,参数2)	
+		 3.bind  语法和call是一样的   但是改变完不会立即执行 需要在后面再加上()执行
+		**/
+		obj3.oson1.oson2.fun2.apply({a:'123'},['A','B']);
+		obj3.oson1.oson2.fun2.call({b:'456'},'C','D');
+		console.log('--');
+		obj3.oson1.oson2.fun2.bind({c:'789'},'E','F')();
+		
+	</script>
+</body>
+</html>

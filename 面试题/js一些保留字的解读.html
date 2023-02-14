@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js一些保留字的解读</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<script>
+	//         undefined
+	/*
+		1.已声明,未赋值
+		let a;
+		console.log(a);
+		2.对象不存在的属性
+		let obj = {};
+		console.log(obj.a)
+		3.函数调用,缺少参数
+		function func(a,b){
+			console.log(a,b)
+		}
+		func(1);
+		4.普通函数的默认返回值
+		function AB(){
+			console.log('1122332')
+		}
+		console.log(AB())
+	*/
+	//  null
+	/*
+		1.手动释放内存
+		let obj = {};
+		obj = null
+		2.作为函数的参数(此参数不是对象)
+		3.原型链的顶端 Object.__proto__
+		let obj = new Object;
+		obj.__proto__.__proto__  // null
+	*/
+	//  filter
+	/*
+		// cur 当前值  index  当前值的下标 array   当前数组对象 
+		// 不改变原数组
+		let a = [1,2,3,14,15]
+		let b = a.filter((cur,index,array)=>{
+			return cur < 10
+		})
+		console.log(a);
+		console.log(b);
+	*/
+
+	// forEach
+		// //1.没有返回值
+		// //2.不能break打断
+		// //3.遍历的是value
+	  	// let  arr = ['a','b','c'];
+	  	// let res = arr.forEach(ele=>{
+		// 	return ele+'1'
+	  	// })
+	  	// console.log(res);   //undefined
+		// console.log(arr);
+	// map 
+		// //1.有返回值(数组)默认return是undefined
+		// // 2.接受的参数是一个函数(key,value)
+		// // 3.不能用break打断
+		// let  arr = ['a','b','c'];
+	  	// let res = arr.map(ele=>{
+		// 	return ele+'1'
+	  	// })
+	  	// console.log(res);   
+		// console.log(arr);
+			
+	//js递归求和1-100
+	// function add(num1,num2){
+	// 	let num = num1 + num2;
+	// 	if(num2+1>100){
+	// 		return num
+	// 	}else{
+	// 		return add(num,num2+1)
+	// 	}
+	// }
+	// console.log(add(1,2));
+	</script>
+</body>
+
+</html>

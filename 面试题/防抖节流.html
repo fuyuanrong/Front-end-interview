@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>防抖节流</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<div id="a">
+
+		</div>
+		<div id="b">
+
+		</div>
+		<p><strong>目的防止重复操作/执行 同一函数</strong></p>
+		<p> <strong>防抖:</strong> 用户一直点击触发某个函数,触发时间间隔如果小于设定的时间间隔,则只触发一次</p>
+		<p> <strong>节流:</strong> 在设定时间之间间隔内执行一次</p>
+		<p>闭包的使用场景</p>
+		<strong>总结:</strong>
+		<p>防抖：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间</p>
+		<p>节流：高频事件触发，但在n秒内只会执行一次，节流会稀释函数的执行频率</p>
+
+		<button id="btn1">防抖</button>
+		<button id="btn2">节流</button>
+		
+
+	</div>
+	<script>
+		const btn1 = document.querySelector('#btn1');
+		const btn2 = document.querySelector('#btn2');
+		function handleBtn(){
+			console.log('请求接口');
+		}
+		// console.log('----------------防抖---------------');
+		//防抖直观效果:无论点多快,只要停下来了就只触发一次(点多快的间隔自己设定)
+		//正常点击会有一定的延迟性 卡顿的感觉,用户体验不好,延迟多久取决于设定的时间
+		function debounce(fn,delay){
+			var timer = null
+			return function(){
+				clearTimeout(timer)
+				timer = setTimeout(() => {
+					fn();
+				}, delay);
+			}
+		}
+		
+		btn1.onclick = debounce(handleBtn,500);
+		// console.log('----------------节流---------------');
+		// 节流直观效果:无论点多快,每隔一定时间间隔就触发一次(间隔自己设定)
+
+		function throttle(fn,delay){
+			var lastTime = 0;
+			return function(){
+				var nowTime = new Date().getTime();
+				if(nowTime-lastTime>delay){
+					fn();
+					lastTime = nowTime;
+				}
+			}
+		}
+		
+		btn2.onclick = throttle(handleBtn,1000);
+
+	</script>
+</body>
+</html>
