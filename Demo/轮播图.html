@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轮播图</title>
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+  <style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  a{
+    text-decoration: none;
+  }
+  li{
+    list-style: none;
+  }
+  .banner {
+    width: 100%;
+
+  }
+  .content {
+    width: 600px;
+    height: 225px;
+    margin: 20px auto;
+    position: relative;
+  }
+  #item {
+    width: 100%;
+    height: 100%;
+  }
+  .item {
+    position: absolute;
+    opacity: 0;
+    transform: all 1s;
+    width: 100%;
+    height: 100%;
+    background-size:100%100%;
+  }
+  .item.active {
+    opacity: 1;
+  }
+  #btn-left {
+    width: 41px;
+    height: 69px;
+    background: url(./icon-slides.png) no-repeat -84px 50%;
+    z-index: 99;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  #btn-left:hover{
+    background-position: 0 50%;
+  }
+  #btn-right {
+    width: 41px;
+    height: 69px;
+    background: url(../icon-slides.png) no-repeat -125px 50%;
+    z-index: 99;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  #btn-right:hover{
+    background-position: -42px 50%;
+  }
+  #point {
+    height: 20px;
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    right: 25px;
+  }
+  .point {
+    width: 6px;
+    height: 6px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    background: rgba(0,0,0,.4);
+    border-color: hsla(0, 1%, 64%, .3);
+    overflow: hidden;
+    cursor: pointer;
+    margin: 5px;
+  }
+  .point:hover {
+    background-color: hsla(0,0%,100%,.4);
+    border-color: rgba(0,0,0,.4);
+  }
+  .point.active {
+    background-color: hsla(0,0%,100%,.4);
+    border-color: rgba(0,0,0,.4);
+  }
+  img {
+    width: 100%;
+  }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <div class="content">
+      <ul id="item">
+        <li class="item active" ><a href="#"><img src="./1.jpg"></a></li>
+        <li class="item" ><a href="#"><img src="./4.jpg"></a></li>
+        <li class="item" ><a href="#"><img src="./1.jpg"></a></li>
+        <li class="item" ><a href="#"><img src="./4.jpg"></a></li>
+        <li class="item" ><a href="#"><img src="./1.jpg"></a></li>
+      </ul>
+      <div id="btn-left"></div>
+      <div id="btn-right"></div>
+      <ul id="point">
+        <li class="point active" data-index="0"></li>
+        <li class="point" data-index="1"></li>
+        <li class="point" data-index="2"></li>
+        <li class="point" data-index="3"></li>
+        <li class="point" data-index="4"></li>
+      </ul>
+    </div>
+  </div>
+</body>
+<!-- <script src="js/index.js"></script> -->
+<script>
+  let items = document.getElementsByClassName("item");
+  let points = document.getElementsByClassName("point");
+  let leftBtn = document.getElementById("btn-left");
+  let rightBtn = document.getElementById("btn-right");
+  let content = document.querySelector(".content");
+  let index = 0;
+  let timer = null;
+
+  // 清除active
+  let clearActive = function() {
+    for(let i = 0; i < items.length; i++) {
+      items[i].className = "item";
+      points[i].className = "point";
+    }
+  }
+
+  let goIndex = function() {
+    clearActive();
+    items[index].className = "item active";
+    points[index].className = "point active";
+  }
+
+  rightBtn.onclick = function() {
+    if (index < items.length-1) {
+      index++;
+    } else {
+      index = 0;
+    }
+    goIndex();
+  }
+
+  leftBtn.onclick = function() {
+    if (index > 0) {
+      index--;
+    } else {
+      index = items.length-1;
+    }
+    goIndex();
+  }
+
+  // 开启
+  timer = setInterval(()=>{
+    rightBtn.onclick();
+  },1500)
+
+  // 当鼠标移入时候，关闭定时器
+  content.onmouseover = function() {
+    clearInterval(timer);
+  }
+
+  // 当鼠标移出时 重新开启计时器
+  content.onmouseout = function() {
+    timer = setInterval(()=>{
+      rightBtn.onclick();
+    },1500);
+  }
+
+  // 当点击原圆点时 跳转到 对应图片
+  for(let i = 0; i < points.length; i++) {
+    points[i].addEventListener("click", function() {
+      // 给所有的圆点添加监听事件
+      let pointIndex = this.getAttribute("data-index");
+      index = pointIndex;
+      goIndex();
+    })
+  }
+</script>
+</html>

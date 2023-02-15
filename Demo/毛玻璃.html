@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+    <style type="text/css">
+        .wrapper{
+            width: 100%;
+            height: 100vh;
+            background-image: url(1.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-size: cover;
+            overflow: hidden;
+        }
+        .box{
+            width: 100%;
+            height:100vh;
+            background: inherit;
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -ms-filter: blur(5px);
+            -o-filter: blur(5px);
+            filter: blur(5px);
+            filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=4, MakeShadow=false);
+        }
+        .main{
+            width:120px;
+            height:120px;
+            background-color: red;
+            margin-top: -200px;
+            margin-left: 100px;
+            position: relative;
+            display: block;
+            border: 1px solid #eee;
+
+        }
+    </style>
+</head>
+<body>
+    <div  id="example" class="">
+        <div class="wrapper">
+            <div class="box"></div>
+            <div class="main">
+
+            </div>
+        </div>
+    </div>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+            
+            },
+            created() {
+                
+            },
+            methods: {
+           
+            },
+            computed: {
+            
+            },
+            watch: {
+                
+            },
+        })
+    </script>
+</body>
+</html>

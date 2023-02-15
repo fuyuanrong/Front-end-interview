@@ -1,0 +1,48 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" id="txt">
+        <input type="text" id="show">
+        <!-- <p id="show"></p> -->
+    </div>
+    <script>
+        // Object.defineProperty(obj, prop, desc)
+        // 
+        // obj 需要定义属性的当前对象
+        // prop 当前需要定义的属性名
+        // desc 属性描述符
+        // 
+        // 
+        // 
+        // 
+        // 
+        // 
+        var obj ={}
+        Object.defineProperty(obj,'txt',{
+            get:function(){
+                return obj
+            },
+            set:function(newValue){
+                newValue = newValue?newValue:''
+                document.getElementById('txt').value = newValue
+                document.getElementById('show').value = newValue
+            }
+        })
+        document.addEventListener('keyup',function(e){
+            obj.txt = e.target.value
+        })
+    </script>
+</body>
+</html>

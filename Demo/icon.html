@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .arrow{
+            position: relative;
+        }
+
+        .arrow::after,
+        .arrow::before {
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-left-color: red;
+            position: absolute;
+            content: "";
+        }
+
+        .arrow::before {
+            top: 0;
+            left: 73px; 
+            border-left-color: blue;
+        }
+
+        .arrow::after {
+            top: 0;
+            left: 70px; 
+            border-left-color: #ffffff;
+        }
+        .arrow2{
+        	border: solid black;
+		    border-width: 0 1px 1px 0;
+		    display: inline-block;
+		    padding: 3px;
+		    transform: rotate(-45deg);
+		    -webkit-transform: rotate(-45deg);
+        }
+        
+
+        .div {
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+ 
+    .message_s {
+        position: relative;
+        width:100%;
+    }
+ 
+        .message_s:after {
+            position: absolute;
+            top: -12px;
+            display: block;
+            width: 0;
+            height: 0;
+            border: 1rem solid transparent;
+            content: "";
+            -webkit-transform: rotate(135deg);
+            right: -12px;
+            z-index: 0;
+            border-right-color: red;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="arrow"></div>
+    <div class="arrow2"></div>
+    <div class="div">
+        <span class="message_s">Internet Explorer 10、Firefox、Opera 支持 transform 属性。Internet Explorer 9 支持替代的 -ms-transform 属性（仅适用于 2D 转换）。Safari 和 Chrome 支持替代的 -webkit-transform 属性（3D 和 2D 转换）。Opera 只支持 2D 转换。</span>
+    </div>
+    
+</body>
+
+</html>

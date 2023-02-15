@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div  id="example" class="wrapper">
+        <el-table :data="copyList" border>
+            <el-table-column v-for='(item,key) in arr' :label=arr[key] :key="key" align="center">
+                <el-table-column label="A类" align="center">
+                    <template slot-scope="scope" >
+                            {{scope.row[key*2]}}       
+                    </template>
+                </el-table-column>
+                <el-table-column label="B类" align="center">
+                        <template slot-scope="scope" >
+                                {{scope.row[(key*2+1)]}}       
+                        </template>
+                </el-table-column>
+          </el-table-column>
+        </el-table>
+        <el-table :data="copyList" border>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.dept}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.企业通信_A}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.企业通信_B}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.数通安全_A}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.数通安全_B}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.IT_A}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.IT_B}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.服务_A}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.服务_B}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.其它_A}}
+                    </template>	
+                </el-table-column>
+                <el-table-column
+                align="center">
+                    <template slot-scope="scope">
+                        {{scope.row.其它_B}}
+                    </template>	
+                </el-table-column>
+        </el-table>
+    </div>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                copyList:[{ IT_A: 80,
+                            IT_B: 1338,
+                            dept: "北京办",
+                            企业通信_A: 1264,
+                            企业通信_B: 3261.5,
+                            其它_A: 322,
+                            其它_B: 2105,
+                            数通安全_A: 340,
+                            数通安全_B: 2785,
+                            服务_A: 0,
+                            服务_B: 86},
+                            {
+                                IT_A: 0,
+                                IT_B: 600,
+                                dept: "广州办",
+                                企业通信_A: 0,
+                                企业通信_B: 210,
+                                其它_A: 0,
+                                其它_B: 615,
+                                数通安全_A: 130,
+                                数通安全_B: 1785,
+                                服务_A: 0,
+                                服务_B: 0
+                            },
+                            {
+                                IT_A: 0,
+                                IT_B: 464,
+                                dept: "深圳办",
+                                企业通信_A: 950,
+                                企业通信_B: 2391.5,
+                                其它_A: 180,
+                                其它_B: 240,
+                                数通安全_A: 100,
+                                数通安全_B: 900,
+                                服务_A: 0,
+                                服务_B: 86
+                            }
+                        ],
+                    arr:["企业通信", "数通安全", "IT", "服务", "其它"],
+                    fileComment:[ { "label": "企业通信", "children": [ { "label": "A" }, { "label": "B" }  ] },
+                                    { "label": "数通安全", "children": [ { "label": "A" }, { "label": "B" }  ] } ,
+                                    { "label": "IT", "children": [ { "label": "A" }, { "label": "B" }  ] } ,
+                                    { "label": "服务", "children": [ { "label": "A" }, { "label": "B" }  ] } ,
+                                    { "label": "其它", "children": [ { "label": "A" }, { "label": "B" } ] } 
+                                ]
+
+            },
+            created() {
+                
+            },
+            methods: {
+               
+
+            },
+            computed: {
+            
+            },
+            watch: {
+                
+            },
+        })
+    </script>
+</body>
+</html>

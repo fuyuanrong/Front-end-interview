@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <input type="text" id="ipt">
+    <button id="btn">change</button>
+    <p id="pval"></p>
+    <script>
+        let Btn = document.getElementById('ipt')
+        function click_button(){
+            console.log(Btn.value)
+            document.getElementById('pval').innerHTML = Btn.value
+        }
+        Btn.oninput = debounce(click_button,1000,false)
+        // Btn.oninput = throttle(click_button, 1500 ,1)
+
+
+        //节流与防抖的区别
+        // 节流与防抖的前提都是某个行为持续地触发，不同之处只要判断是要优化到减少它的执行次数还是只执行一次就行。
+
+        //节流例子，像dom的拖拽，如果用消抖的话，就会出现卡顿的感觉，因为只在停止的时候执行了一次，这个时候就应该用节流，在一定时间内多次执行，会流畅很多。
+        // 防抖例子，像仿百度搜索，就应该用防抖，当我连续不断输入时，不会发送请求；当我一段时间内不输入了，才会发送一次请求；如果小于这段时间继续输入的话，时间会重新计算，也不会发送请求。
+
+        /**
+        * @desc 函数防抖
+        * @param func (function) 函数
+        * @param wait (number) 延迟执行毫秒数
+        * @param immediate (boolean) true 表立即执行，false 表非立即执行
+        */
+        function debounce(func, wait, immediate) {
+            var timeout;
+            return function () {
+                var context = this;
+                var args = arguments;
+                if (timeout) clearTimeout(timeout);
+                if (immediate) {
+                    var callNow = !timeout;
+                    timeout = setTimeout(function () {
+                        timeout = null;
+                    }, wait)
+                    if (callNow) func.apply(context, args)
+                }else {
+                    timeout = setTimeout(function () {
+                        func.apply(context, args)
+                    }, wait);
+                }
+            }
+        }
+
+/**
+ * 如果一个函数持续的，频繁的触发，那么就让他在一定的时间间隔后触发。
+* @desc 函数节流
+* @param func (function) 函数
+* @param wait (number) 延迟执行毫秒数
+* @param type  (number) 1 表时间戳版，2 表定时器版
+*/
+function throttle(func, wait ,type) {
+    if(type===1){
+        var previous = 0;
+    }else if(type===2){
+        var timeout;
+    }
+
+    return function() {
+        var context = this;
+        var args = arguments;
+        if(type===1){
+            var now = Date.now();
+
+            if (now - previous > wait) {
+                func.apply(context, args);
+                previous = now;
+            }
+        }else if(type===2){
+            if (!timeout) {
+                timeout = setTimeout(function(){
+                    timeout = null;
+                    func.apply(context, args)
+                }, wait)
+            }
+        }
+
+    }
+}
+    </script>
+</body>
+</html>

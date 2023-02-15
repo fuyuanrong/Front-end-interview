@@ -1,0 +1,256 @@
+<html>
+<head>
+<title> New Document </title>
+<style>
+    div {
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+ 
+    .message_s {
+        position: relative;
+        width:100%;
+    }
+ 
+        .message_s:after {
+            position: absolute;
+            top: -1.2rem;
+            display: block;
+            width: 0;
+            height: 0;
+            border: 1.2rem solid transparent;
+            content: "";
+            -webkit-transform: rotate(135deg);
+            right: -1.2rem;
+            z-index: 0;
+            border-right-color: red;
+
+        }
+ 
+        .message_s:after {
+                    }
+        table{
+            width: 100%;
+            border: 1px solid #ddd;
+            table-layout: fixed;
+        }
+</style>
+<style>
+  .message_red:after {
+    position: absolute;
+    top: -1.2rem;
+    display: block;
+    width: 0;
+    height: 0;
+    border: 1.2rem solid transparent;
+    content: "";
+    -webkit-transform: rotate(135deg);
+    right: -1.2rem;
+    z-index: 0;
+    border-right-color: red;
+
+  }
+  .message_orange:after {
+    position: absolute;
+    top: -1.2rem;
+    display: block;
+    width: 0;
+    height: 0;
+    border: 1.2rem solid transparent;
+    content: "";
+    -webkit-transform: rotate(135deg);
+    right: -1.2rem;
+    z-index: 0;
+    border-right-color: orange;
+
+  }
+  .message_yellow:after {
+    position: absolute;
+    top: -1.2rem;
+    display: block;
+    width: 0;
+    height: 0;
+    border: 1.2rem solid transparent;
+    content: "";
+    -webkit-transform: rotate(135deg);
+    right: -1.2rem;
+    z-index: 0;
+    border-right-color: rgb(255, 221, 0);
+
+  }
+  .message_blue:after {
+    position: absolute;
+    top: -1.2rem;
+    display: block;
+    width: 0;
+    height: 0;
+    border: 1.2rem solid transparent;
+    content: "";
+    -webkit-transform: rotate(135deg);
+    right: -1.2rem;
+    z-index: 0;
+    border-right-color: blue;
+
+  }
+  .message_green:after {
+    position: absolute;
+    top: -1.2rem;
+    display: block;
+    width: 0;
+    height: 0;
+    border: 1.2rem solid transparent;
+    content: "";
+    -webkit-transform: rotate(135deg);
+    right: -1.2rem;
+    z-index: 0;
+    border-right-color: green;
+
+  }
+  /*.seal{
+	width: 20px;
+	height: 20px;
+	border: solid 1px red;
+	border-radius: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    padding: 2px;
+}
+.seal-son{
+	width: 16px;
+	height: 16px;
+	border: solid 1px red;
+	border-radius: 100%;
+	background-color: rgba(255, 255, 255, 0.8);
+	position: relative;
+    padding: 1px;
+    text-align: center;
+}*/
+#star {
+      position: relative;
+      margin: 200px auto;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-color: transparent transparent red transparent;
+      border-width: 70px 100px;
+      transform: rotate(35deg);
+    }
+ 
+    #star::before {
+      position: absolute;
+      content: '';
+      width: 0;
+      height: 0;
+      top: -128px;
+      left: -95px;
+      border-style: solid;
+      border-color: transparent transparent red transparent;
+      border-width: 80px 30px;
+      transform: rotate(-35deg);
+    }
+ 
+    #star::after {
+      position: absolute;
+      content: '';
+      width: 0;
+      height: 0;
+      top: -45px;
+      left: -140px;
+      border-style: solid;
+      border-color: transparent transparent red transparent;
+      border-width: 70px 100px;
+      transform: rotate(-70deg);
+    }
+
+</style>
+
+<script>
+    //风险等级显示修改
+        // khfxjb_obj.parent('tr').css('position', 'relative');
+        // khfxjb_obj.parent('td').css('position', 'relative');
+        // khfxjb_obj.css('width', '100%');
+        
+        // khfxjb_obj.addClass(`message_${bc}`)
+
+</script>
+
+
+</head>
+<body>
+	<div >
+	    <table border='1'>
+	        <thead>
+	            <tr>
+	                <td>2</td>
+	                <td>2</td>
+	                <td>2</td>
+	                <td>2</td>
+	            </tr>
+	        </thead>
+	        <tbody>
+	            <tr>
+	                <td class="message_s">2</td>
+	                <td>2</td>
+	                <td>2</td>
+	                <td>2</td>
+	            </tr>
+	        </tbody>
+	    </table>
+	    <span class="message_s">Internet Explorer 10、Firefox、Opera 支持 transform 属性。Internet Explorer 9 支持替代的 -ms-transform 属性（仅适用于 2D 转换）。Safari 和 Chrome 支持替代的 -webkit-transform 属性（3D 和 2D 转换）。Opera 只支持 2D 转换。</span>
+	</div>
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<div style="margin-bottom: 20px;position: relative;">
+		<div class="seal" style="position: absolute;width: 20px;height: 20px;border: solid 1px red;border-radius: 100%;background-color: rgba(255, 255, 255, 0.8);position: relative;display: flex;justify-content: center;align-items: center;padding: 2px;">
+			<div class="seal-son" style="width: 16px;height: 16px;border: solid 1px red;border-radius: 100%;background-color: rgba(255, 255, 255, 0.8);position: relative;padding: 1px;text-align: center;">
+				<span style="line-height: 12px;text-align: center;font-size: 12px;color: red;transform: rotate(-45deg);">B</span>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="star" style="padding:0;">
+	</div>
+	
+
+	<div>
+		★
+	</div>
+
+	<div style="color:red;font-size:1.2rem;display: inline-block;float: right;margin-right:2px"> ★ </div>
+
+	//*******重点保障标监听*****  name-star-anchor //  
+		    wf.bindFieldChangeEvent(wf.convertFieldNameToId('zdbz'), function(obj,id,value){
+		        console.log(value)
+		        if(value==='是'){
+		          $('[name=name-star-anchor]').append("<div style='color:red;font-size:1.2rem;display: inline-block;float: right;margin-right:2px'> ★ </div>");
+		        }
+		    });
+
+	//******************重点保障标记**********  name-star-anchor //
+    let zdbz_id = wf.convertFieldNameToId('zdbz');
+    let zdbz_v = wf.getFieldValue(zdbz_id);
+    wf.bindFieldChangeEvent(zdbz_id, function(obj,id,value){
+        // console.log(value)
+        getTag_adbz(value);
+    });
+    
+    (function(){
+      getTag_adbz(zdbz_v);
+    })();
+    function getTag_adbz(value){
+      if(value==='是'){
+        $('[name=name-star-anchor]').append('<div style="float: right;margin-right:10px;display:inline-block;"><div style="width: 20px;height: 20px;border: solid 1px red;border-radius: 100%;position: relative;padding: 1px;"><div  style="width: 16px;height: 16px;border: solid 1px red;border-radius: 100%;position: relative;display: flex;flex-direction: column;justify-content: center;padding: 1px;text-align: center;"><span style="font-size: 12px;color: red;">B</span></div></div></div>');
+      }
+    }
+
+
+</body>
+</html>

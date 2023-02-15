@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div  id="example" class="wrapper">
+        <el-table :data="data_list" >
+            <el-table-column  :label="date=='dept'?'办事处':date" v-for="(date, key) in arr">
+                <template slot-scope="scope">
+                    {{data_list[scope.$index][date]}}
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        let time =3000
+        let onceT = true
+         $('body').on('keydown mousemove mousedown', function(e) {
+            time = 3000
+            console.log('do  it')
+            setTimeout((i)=>{
+            // window.location.href = 'www.baidu.com'
+            // sessionStorage.clear()
+            console.log(time)
+        },time)
+        });
+        
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                loading :true,
+                data_list:[{ IT_A: 80,
+                            IT_B: 1338,
+                            dept: "北京办",
+                            企业通信_A: 1264,
+                            企业通信_B: 3261.5,
+                            其它_A: 322,
+                            其它_B: 2105,
+                            数通安全_A: 340,
+                            数通安全_B: 2785,
+                            服务_A: 0,
+                            服务_B: 86
+                            },
+                            {
+                                IT_A: 0,
+                                IT_B: 600,
+                                dept: "广州办",
+                                企业通信_A: 0,
+                                企业通信_B: 210,
+                                其它_A: 0,
+                                其它_B: 615,
+                                数通安全_A: 130,
+                                数通安全_B: 1785,
+                                服务_A: 0,
+                                服务_B: 0
+                            },
+                            {
+                                IT_A: 0,
+                                IT_B: 464,
+                                dept: "深圳办",
+                                企业通信_A: 950,
+                                企业通信_B: 2391.5,
+                                其它_A: 180,
+                                其它_B: 240,
+                                数通安全_A: 100,
+                                数通安全_B: 900,
+                                服务_A: 0,
+                                服务_B: 86
+                            }
+                        ],
+                    arr:['dept',"企业通信_A","企业通信_B", "数通安全_A",'数通安全_B', "IT_A",'IT_B', "服务_A",'服务_B', "其它_A",'其它_B'],
+            },
+            created() {
+                
+            },
+            methods: {
+               
+
+            },
+            computed: {
+            
+            },
+            watch: {
+                
+            },
+        })
+    </script>
+</body>
+</html>

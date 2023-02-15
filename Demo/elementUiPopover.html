@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div  id="example" class="wrapper">
+            <el-popover
+            placement="top"
+            width="160"
+            trigger="click"
+            v-model="visible1">
+                <p>这是一段内容这是一段内容确定删除吗？</p>
+                <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="visible1 = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="visible1 = false">确定</el-button>
+                </div>
+                <el-button size="small" slot="reference">删除</el-button>
+            </el-popover>
+            <el-popover
+            placement="top"
+            width="160"
+            trigger="click"
+            v-model="visible2">
+                <p>这是一段内容这是一段内容确定删除吗？</p>
+                <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="visible2 = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="visible2 = false">确定</el-button>
+                </div>
+                <el-button type="success" size="small" slot="reference">删除</el-button>
+            </el-popover>
+            <el-popover
+            placement="top"
+            width="160"
+            trigger="click"
+            v-model="visible3">
+                <p>这是一段内容这是一段内容确定删除吗？</p>
+                <div style="text-align: right; margin: 0">
+                <el-button size="mini" type="text" @click="visible3 = false">取消</el-button>
+                <el-button type="primary" size="mini" @click="visible3 = false">确定</el-button>
+                </div>
+                <el-button type="info" size="small" slot="reference">删除</el-button>
+            </el-popover>
+    </div>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                visible1:false,
+                visible2: false,
+                visible3:false,
+                
+            },
+            created() {
+                
+            },
+            methods: {
+           
+            },
+            computed: {
+            
+            },
+            watch: {
+                
+            },
+        })
+    </script>
+</body>
+</html>

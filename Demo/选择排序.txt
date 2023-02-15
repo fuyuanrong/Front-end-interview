@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<stdlib.h>//锟斤拷选锟斤拷锟斤拷锟斤拷
+int a[10] = {1,4,3,5,23,2,45,6,3,5};
+main()
+{
+      int i,j,min,pos,mid;
+     
+      //每锟斤拷锟斤拷循锟斤拷锟斤拷锟斤拷锟斤拷确锟斤拷锟斤拷锟斤拷锟叫碉拷i锟斤拷锟斤拷锟斤拷i~length锟斤拷锟斤拷小锟斤拷锟斤拷锟斤拷
+      for(i=0;i<=9;i++)
+      {
+            min = 9999;
+            //寻锟斤拷剩锟斤拷锟斤拷锟斤拷锟斤拷锟叫≈碉拷锟斤拷锟斤拷i锟斤拷锟斤拷锟斤拷锟叫斤拷锟斤拷
+            for(j=i;j<=9;j++)
+            {
+                if(a[j]<min)
+                {
+                    min = a[j];
+                    pos = j;
+                }
+            }
+            mid = a[pos];
+            a[pos] = a[i];
+            a[i] = mid;
+      }      
+     
+      for(i=0;i<=9;i++)
+            printf("%d   ",a[i]);
+      system("pause");
+}

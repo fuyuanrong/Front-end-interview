@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <style>
+       
+    </style>
+</head>
+<body>
+    <div>
+    </div>
+    <script>
+         // 1.给定数组nums = [2,7,11,15] 和target = 9,找到数组内和为target的两个整数并返回数组下标
+         // 数组中同一元素不能使用两遍
+         let nums = [2,7,11,15]
+         let target = 9
+         function getAddress(arr,target){
+            let result = []
+
+            //方法1
+            // for (var i = 0; i < arr.length-1; i++) {
+            //     for (var j = i; j < arr.length; j++) {
+            //        console.log(arr[i],arr[j])
+            //         if((arr[i]+arr[j])==target){
+            //             result.push(i)
+            //             result.push(j)
+            //         }
+            //     }
+            // }
+            // 
+            // 方法2
+            // let arr1 = []
+            // for (var i = 0; i < arr.length; i++) {
+            //     for (var j = i+1; j < arr.length; j++) {
+            //         arr1.push(arr[i] + ','+arr[j])
+            //     }
+            // }
+            // arr1 = [...new Set(arr1)]   
+            // console.log(arr1)   //["2,7", "2,11", "2,15", "7,11", "7,15", "11,15"]
+            // arr1.forEach(data=>{
+            //     if(Number(data.split(',')[0]) + Number(data.split(',')[1]) == target){
+            //         result = [Number(data.split(',')[0]) ,Number(data.split(',')[1])]
+            //     }
+            // })
+            // 方法3
+            let Len = Number(target)
+            let resultArr = []
+            for (var i = 0; i < Len; i++) {
+                if(i>(Len-i)){
+                    resultArr.includes((Len-i)+','+i)?'':resultArr.push((Len-i)+','+i)
+                }else{
+                    resultArr.includes(i +','+(Len-i))?'':resultArr.push(i +','+(Len-i))
+                }
+                
+            }
+            console.log(resultArr)
+            resultArr = [...new Set(resultArr)]
+            resultArr.forEach(data=>{
+                arr.includes(Number(data.split(',')[0]))&&arr.includes(Number(data.split(',')[1]))?result.push(data):''
+                
+            })
+            result = result.join().split(',')
+            let site=[]
+            result.forEach(data=>{
+                for (var i = 0; i < arr.length; i++) {
+                    if(Number(data)==arr[i]){
+                        site.push(i)
+                    }
+                }
+            })
+
+            return site
+         }
+         getAddress(nums,target)
+
+
+         let arr= [2,7,11,15];
+         let target = 9 ;
+         var twoSum = function(nums, target) {
+          const map = new Map()
+          for (let i = 0; i < nums.length; i ++) {
+            const otherIndex = map.get(target - nums[i])
+            if (otherIndex !== undefined) return [otherIndex, i]
+            map.set(nums[i], i)
+          }
+        };
+        twoSum(arr,target)
+
+        2.给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+            说明：本题中，我们将空字符串定义为有效的回文串。
+            回文串：就是从左边数到右边，和从右边数到左边是一样的
+            abcdefghijklmnopqrstuvwxyz   97~122 小写字母
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ   65~90 大写字母
+            0123456789                   48~57 数字
+            "A man, a plan, a canal: Panama"
+            console.time('x')
+            function Gethuiwen(str){
+                let cleanStr=''
+                for (var i = 0; i < str.length; i++) {
+                    if(str[i].charCodeAt()>=97&&str[i].charCodeAt()<=122){
+                        cleanStr = cleanStr + str[i].toLowerCase()
+                    }else if(str[i].charCodeAt()>=65&&str[i].charCodeAt()<=90){
+                        cleanStr = cleanStr + str[i].toLowerCase()
+                    }else if(str[i].charCodeAt()>=48&&str[i].charCodeAt()<=57){
+                        cleanStr = cleanStr + str[i].toLowerCase()
+                    }
+                }
+                console.log(cleanStr)
+                let ReverseStr = cleanStr.split('').reverse().join('')
+                if(ReverseStr===cleanStr){
+                    return true
+                }else{
+                    return false
+                }
+            }
+            Gethuiwen("A man, a plan, a canal: Panama")
+            console.timeEnd('x');
+
+
+
+        3.无重复最长子串
+        例: 输入abcabcbb
+            输出:3
+            无重复最长子串是abc长度为3
+        console.time('x')
+        function getLongestStr(str){
+            let record = []  //所有不重复字符集合数组
+            let str2 = ''       //临时存储的不重复字符串
+            for (var i = 0; i < str.length; i++) {
+               if(str2&&str2.includes(str[i])){
+                    str2 = str[i]
+               }else{
+                    str2 = str2 + str[i]
+               }
+                record.push(str2)
+            }
+            console.log(record)
+            record.sort((a,b)=>b.length-a.length)
+            
+            return record[0].length
+        }
+        getLongestStr('abcabcbb')
+        console.timeEnd('x');
+
+
+        4.矩阵置零,给定一个 m x n 的矩阵，如果一个元素为 0，则将其所在行和列的所有元素都设为 0。请使用原地算法。
+        示例 1:
+            输入:
+            [
+                [1,1,1],
+                [1,0,1],
+                [1,1,1]
+            ]
+            输出:
+            [
+                [1,0,1],
+                [0,0,0],
+                [1,0,1]
+            ]
+
+            示例 2:
+            输入:
+            [
+                [0,1,2,0],
+                [3,4,5,2],
+                [1,3,1,5]
+            ]
+            输出:
+            [
+                [0,0,0,0],
+                [0,4,5,0],
+                [0,3,1,0]
+            ]
+            function setZero(arrList){
+                let recordRow = []
+                let  recordCol = []
+                arrList.forEach((data,index)=>{
+                    data.forEach((item,index2)=>{
+                        if(item==0){
+                            recordRow.push(index)
+                            recordCol.push(index2)
+                        }
+                    })
+                })
+                // console.log(recordRow)
+                // console.log(recordCol)
+                recordRow.forEach(i=>{
+                    for (var j = 0; j < arrList[i].length; j++) {
+                        arrList[i][j] = 0
+                    }
+                })
+                recordCol.forEach(c=>{
+                    arrList.forEach(data=>{
+                        for (var i = 0; i < data.length; i++) {
+                            if(i==c){
+                                data[i] = 0
+                            }
+                        }
+                    })
+                })
+                return arrList
+            }
+        5.罗马数字转整数
+        罗马数字包含7种字符
+        基本字符
+        相应的阿拉伯数字表示为     
+        I  1
+        V  5
+        X  10
+        L  50
+        C  100
+        D  500
+        M  1000
+        function romanTonumber(str){
+            let obj={
+                I: 1,
+                V: 5,
+                X: 10,
+                L: 50,
+                C: 100,
+                D: 500,
+                M: 1000
+            }
+            let recordArr = []
+            for (var i = 0; i < str.length; i++) {
+                if(i==str.length-1){
+                    recordArr.push(obj[str[i]])
+                }else{
+                    if(obj[str[i]]>=obj[str[i+1]]){
+                        recordArr.push(obj[str[i]])
+                    }else{
+                        recordArr.push(-obj[str[i]])
+                    }
+                }
+            }
+            let sum = 0
+            console.log(recordArr)
+            recordArr.forEach(data=>{
+                sum = sum + data
+            })
+            return sum
+        }
+        6.整数转罗马数字
+        function numberToroman(nums){
+            let arrList =[
+                ["","I","II","III","IV","V","VI","VII","VIII","IX"],
+                ["","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"],
+                ["","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"],
+                ["","M","MM","MMM"]
+            ]
+            let roman = ''
+            roman = roman.concat(arrList[3][parseInt(nums / 1000 % 10)]);
+            roman = roman.concat(arrList[2][parseInt(nums / 100 % 10)]);
+            roman = roman.concat(arrList[1][parseInt(nums / 10 % 10)]);
+            roman = roman.concat(arrList[0][parseInt(nums % 10)]);
+            return roman;
+        }
+        7.给定一个只包括 '('，')'，'{'，'}'，'['，']' 的字符串，判断字符串是否有效。
+
+        有效字符串需满足：
+        左括号必须用相同类型的右括号闭合。
+        左括号必须以正确的顺序闭合。
+        注意空字符串可被认为是有效字符串。
+        示例 1:
+        输入: "()"
+        输出: true
+        示例 2:
+        输入: "()[]{}"
+        输出: true
+        示例 3:
+        输入: "(]"
+        输出: false
+        示例 4:
+        输入: "([)]"
+        输出: false
+        示例 5:
+        输入: "{[]}"
+        输出: true
+        function Brackets(str){
+            let tableObj = {
+                '(':')',
+                '[':"]",
+                '{':'}'
+            }
+            tableObj1 = {
+                ')':'(',
+                "]":'[',
+                '}':'{'
+            }
+            let stack = []
+            for (var i = 0; i < str.length; i++) {
+                if(i==0){
+                    stack.push(str[i])
+                }else{
+                    if(tableObj[str[i]]){    // 如果是true 说明 str[i]  是 '(','[','{'  三个中的一个
+                        stack.push(str[i])
+                    }else{                   //false   说明是str[i] ')',']','}' 中的一个
+                        if(stack[stack.length-1]==tableObj1[str[i]]){
+                            stack.splice(stack.length-1,1)
+                        }else{
+                            stack.push(str[i])
+                        }
+                    }
+                }
+            }
+            console.log(stack)
+            if(stack.length){
+                return false
+            }else{
+                return true
+            }
+        }
+
+        8.字符删除,输入两个字符串，从第一字符串中删除第二个字符串中所有的字符
+        示例:
+            输入:  str='They are students'，sub='aeiou'
+            输出: ”Thy r stdnts”
+            function StrDelete(str,subs){
+                let proofArr = subs.split('')
+                let address = []
+                let result = []
+                for (var i = 0; i < str.length; i++) {
+                    if(proofArr.includes(str[i])){
+                        address.push(i)
+                    }else{
+                        result.push(str[i])
+                    }
+                }
+                if(address.length){
+                    return result.join('')
+                }else{
+                    return str
+                }
+                console.log(proofArr)
+                console.log(address)
+            }
+
+        9.算法：实现36进制转换
+            num : 转换的数字
+            type: 1 十进制  0 三十六进制
+            function ToString36(num,type){
+                if(type==1){
+                    return num.toString(36)
+                }else if(type == 0){
+                    return parseInt(num,36)
+                }
+            }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1567 @@
+1.一个 tcp 连接能发几个 http 请求？
+	HTTP 1.0 版本协议,不支持长连接,因此在每次请求发送完毕之后，TCP 连接即会断开，因此一个 TCP 发送一个 HTTP 请求,但是有一种情况可以将一条 TCP 连接保持在活跃状态，那就是通过 Connection 和 Keep-Alive 首部，在请求头带上 Connection: Keep-Alive，并且可以通过 Keep-Alive 通用首部中指定的，用逗号分隔的选项调节 keep-alive 的行为，如果客户端和服务端都支持，那么其实也可以发送多条，不过此方式也有限制，可以关注《HTTP权威指南》4.5.5 节对于 Keep-Alive 连接的限制和规则。
+	HTTP 1.1 版本协议，支持了长连接，因此只要 TCP 连接不断开，便可以一直发送 HTTP 请求，持续不断，没有上限；
+	HTTP 2.0 版本协议，支持多用复用，一个 TCP 连接是可以并发多个 HTTP请求的，同样也是支持长连接，因此只要不断开TCP的连接，HTTP请求数也是可以没有上限地持续发送
+2.Virtual Dom 的优势在哪里？
+	VDOM 提出的背景和原因:频繁的 DOM 操作,重新计算布局、重新绘制图像会引起更大的性能消耗。引起页面卡顿,用户体验很差
+	VDOM 和真实 DOM 的区别和优化：
+	虚拟 DOM 不会立马进行排版与重绘操作
+	虚拟 DOM 进行频繁修改，然后一次性比较并修改真实 DOM 中需要改的部分，最后在真实 DOM 中进行排版与重绘，减少过多DOM节点排版与重绘损耗
+	虚拟 DOM 有效降低大面积真实 DOM 的重绘与排版，因为最终与真实 DOM 比较差异，可以只渲染局部
+
+3.common.js 和 es6 中模块引入的区别？
+	CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+	CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+	CommonJs 是单个值导出，ES6 Module可以导出多个
+	CommonJs 是动态语法可以写在判断里，ES6 Module 静态语法只能写在顶层
+	CommonJs 的 this 是当前模块，ES6 Module的 this 是 undefined
+
+	即使我们使用了 ES6 的模块系统，如果借助 Babel 的转换，ES6 的模块系统最终还是会转换成 CommonJS 的规范。
+	Babel5 中使用 require 时，引入值是 module.export 返回的值或者是 export default 返回的值。
+	Babel6中，使用 import 引入时，可以直接获取到 export default 的值 ； 但是如果是 require 导入的组件， 无论导出是 module.export 、export 、 export default可以直接获取到 export default 的值都必须要加上一个 default。
+
+4. cookie token 和 session 的区别
+	 Cookie、 Session、Token 的产生背景、原理、有什么问题，在回答这个的基础上把差别讲出来。
+
+
+5.小程序和 H5 有什么区别？
+	渲染方式与 H5 不同，小程序一般是通过 Native 原生渲染的，但是小程序同时也支持 web 渲染，如果使用 web 渲染的方式，我们需要初始化一个WebView 组件，然后在 WebView 中加载 H5 页面；
+	所以当我们开发一个小程序时，通常会使用 hybrid 的方式，即会根据具体情况选择部分功能用小程序原生的代码来开发，部分功能通过 WebView 加载 H5 页面来实现。Native 与 Web 渲染混合使用，以实现项目的最优解；这里值得注意的是，小程序下，native 方式通常情况下性能要优于 web 方式。小程序特有的双线程设计。 H5 下我们所有资源通常都会打到一个 bundle.js 文件里（不考虑分包加载），而小程序编译后的结果会有两个bundle，index.js封装的是小程序项目的 view 层，以及 index.worker.js 封装的是项目的业务逻辑，在运行时，会有两条线程来分别处理这两个bundle，一个是主渲染线程，它负责加载并渲染 index.js 里的内容，另外一个是 Service Worker线 程，它负责执行 index.worker.js 里封装的业务逻辑，这里面会有很多对底层api调用。
+
+6.关于对WEB标准以及W3C的理解与认识问题
+	web标准简单来说可以分为结构、表现和行为,分别对应html,css,javascript,web标准一般是将该三部分独立分开，使其更具有模块化
+	1.对于结构要求：（标签规范可以提高搜索引擎对页面的抓取效率，对SEO很有帮助）
+
+		1）标签字母要小写
+	
+		2）标签要闭合
+	
+		3）标签不允许随意嵌套
+	
+	2.对于css和js来说
+	
+		1）尽量使用外链css样式表和js脚本。是结构、表现和行为分为三块，符合规范。同时提高页面渲染速度，提高用户的体验。
+	
+		2）样式尽量少用行间样式表，使结构与表现分离，标签的id和class等属性命名要做到见文知义，标签越少，加载越快，用户体验提高，代码维护简单，便于改版
+	
+		3）不需要变动页面内容，便可提供打印版本而不需要复制内容，提高网站易用性。
+
+7.浏览器的内核有哪些？分别有什么代表的浏览器？
+	Trident 内核：IE，搜狗高速浏览器等
+	Gecko 内核：Mozilla Firefox（火狐浏览器），Netscape6及以上版本
+	Webkit 内核：Safari 、曾经的 Chrome
+	Presto 内核：Opera 7到Opera12.17（欧朋浏览器）之间的版本采用的内核
+	Blink 内核：现在 Chrome 内核是 Blink，Opera现已改用Google Chrome的Blink内核
+
+8.一次js请求，一般会有哪些缓存处理
+	DNS缓存：短时间内多次访问某个网站，在限定时间内，不用多次访问DNS服务器。
+
+	CDN缓存：内容分发网络（人们可以在就近的代售点取火车票了，不用非得到火车站去排队）
+	
+	浏览器缓存：浏览器在用户磁盘上，对最新请求过的文档进行了存储。
+	
+	服务器缓存：将需要频繁访问的Web页面和对象保存在离用户更近的系统中，当再次访问这些对象的时候加快了速度。
+
+9.post 和 get 方式提交数据有什么区别？
+	get ：
+	1、明文提交，提交的数据是可以显示在地址栏上的。
+	2、安全性低。
+	3、大小限制为2kb
+	post: 
+	1、隐式提交，提交的数据不显示在网页上
+	2、安全性高
+	3、无大小限制
+
+10.前端SEO需要注意哪些？
+	1.title,description,keyswords 的使用
+	2.html标签语义化符合W3C规范
+	3.重要内容html放前面,搜索引擎 抓取自上而下
+	4.重要内容不要js输出
+	5.尽量少用iframe
+	6.非装饰图片必须加alt关键词描述
+	7.提高网站进入速度
+
+11.CSRF 攻击是什么？如何防范？
+	CSRF（Cross-site request forgery）也被称为 one-click attack或者 session riding，中文全称是叫跨站请求伪造。一般来说，攻击者通过伪造用户的浏览器的请求，向访问一个用户自己曾经认证访问过的网站发送出去，使目标网站接收并误以为是用户的真实操作而去执行命令。常用于盗取账号、转账、发送虚假消息等。
+	solutions:
+	1.验证 HTTP Referer 字段
+	2.使用验证码
+	3.在请求地址中添加token并验证
+	4.在HTTP 头中自定义属性并验证
+
+12.简述一下 src 与 href 的区别。
+	src是引入文件 href是链接跳转
+	src表示来源地址 主要用于img,script,iframe等,指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置；在请求src资源时会将其指向的资源下载并应用到文档内，例如js脚本，img图片和frame等元素。
+	href表示超文本引用 建立和当前元素（锚点）或当前文档（链接）之间的链接 主要用于link a等
+
+13.页面导入时，使用 link 和 @import 有什么区别？
+	link属于XHTML标签，除了加载CSS外，还能用于定义RSS, 定义rel连接属性等作用；而@import是CSS提供的，只能用于加载CSS;
+	页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
+	import是CSS2.1 提出的，只在IE5以上才能被识别，而link是XHTML标签，无兼容问题;
+	link方式的样式的权重>@import的权重。
+
+14.px，em，rem，vw 有什么区别？
+	px:px就是pixel像素的缩写，相对长度单位，网页设计常用的基本单位。像素px是相对于显示器屏幕分辨率而言的
+	em:em是相对长度单位。相对于当前对象内文本的字体尺寸（参考物是父元素的font-size
+		如当前父元素的字体尺寸未设置，则相对于浏览器的默认字体尺寸
+		1. em的值并不是固定的；
+	　　2. em会继承父级元素的字体大小
+	rem:CSS3新增相对单位,rem是相对于HTML根元素的字体大小（font-size）来计算的长度单位,默认浏览器字体大小，一般是16px
+	em与rem的区别：rem是相对于根元素（html）的字体大小，而em是相对于其父元素的字体大小
+	vm:vw、vh、vmax、vmin这四个单位都是基于视口,相对视口（viewport）的宽度而定的
+
+15.IE 盒模型和W3C盒模型有什么区别
+	W3C标准盒模型中padding、border所占的空间不在width、height范围内   content = width
+	IE盒模型中width、height包括content尺寸+padding+border			  content + padding + border = width
+
+
+
+
+16. 题目
+	var a = 1
+    var c = {name: "oli", age: 2}
+    function f1(n) {
+      ++n
+    }
+    function f2(obj) {
+      ++obj.age
+    }
+    f1(a) 
+    f2(c) 
+    f1(c.age) 
+    console.log(a)   //1
+    console.log(c)   //{name: "oli", age: 3}
+    解析: f1 f2 未写return  默认返回undefined
+    当传参是一个数组时 未返回 a仍然是1
+    当传参是一个对象时 虽然未返回 但是对象内部改了东西 所以age会加1
+
+
+17.闭包专题
+    闭包:闭包就是能够读取其他函数内部变量的函数
+    在函数外面无法访问函数内部的变量，但是闭包的出现解决了这一现象。闭包延长了变量的生命周期，使得函数外也可以访问函数内部的变量。
+    由于闭包延长了变量的生命周期，所以会造成内存空间的泄漏，因为系统对于函数内部变量的回收不及时。闭包使得Javascript的垃圾回收机制GC（垃圾回收机制）不会收回a所占用的资源
+    闭包的应用场景
+    保护函数内的变量安全。 如迭代器、生成器。
+    在内存中维持一个变量。 如缓存数据、柯里化。
+
+百度前端面试题
+
+1.该正则可以匹配下列哪个字符串？ /^sjm/ 
+	A、absjm B、phpsjm C、sjmphp D、phpsimd 
+参考答案：C 答案解析：该正则匹配以 sjm 开头的字符串 
+
+2.新窗口打开网页，用到以下哪个值（）。 
+A、_self B、_blank C、_top D、_parent 参考答案：B 
+答案解析：在 html 中通过标签打开一个链接，通过 标签的 target 属性规定在何处打开链接文档。 如果在标签中写入 target 属性，则浏览器会根据 target 的 属性值去打开与其命名或名称相符的 框架或者窗口. 在 target 中还存在四个保留的属性值如下， ### 属性值 值描述 \_blank 在新窗口中打开被链接文档。 \_self 默认。在相同的框架中打开被链接文档。 \_parent 在父框架集中打开被链接文档。 \_top 在整个窗口中打开被链接文档。*framename* 在指定的框架中打开被链接文档。 这些 target 的所有 4 个值都以下划线开始。任何其他用 一个下划线作为开头的窗口或者目标都会被浏览器忽略，因 此，不要将下划线作为文档中定义的任何框架 name 或 id 的第一个字符。 上面这段出自 w3c。。 
+
+3.如果一个 HTML 文档内含有阿拉伯文，则应该？ 
+A、使用 utf-8 编码 B、将阿拉伯文转为图片并嵌入到文档内 C、使用 GBK 编码 D、使用 iso-8859-2 编码 
+参考答案：A 答案解析：UTF-8（8-bit Unicode Transformation Format）是一 种针对 Unicode 的可变长度字符编码，又称万国码。UTF-8 用 1 到 6 个字节编码 UNICODE 字符。用在网页上可以同 一页面显示中文简体繁体及其它语言（如英文，日文，韩文）。 GBK 是汉字编码，是双字节码，可表示繁体字和简体字。 ``` ISO8859-2 字符集，也称为 Latin-2，收集了东欧字符。 ``` 
+
+4.以下哪个选项不是块级元素（）
+
+A、div   B、span   C、p   D、h1 
+参考答案：B答案解析： 常见的内联元素/常见的块级元素：见总结.txt
+
+5.下面关于二叉树的说法正确的是？ 
+A、满二叉树就是完全二叉树 
+B、满二叉树中有可能存在度数为 1 的节点 
+C、完全二叉树就是满二叉树
+D、完全二叉树中某个节点可以没有左孩子，只有右孩子 
+参考答案：A 答案解析：满二叉树的任意节点，要么度为 0，要么度为 2. 换个说法即要么为叶子结点，要么同时具有左右孩子。 完全二叉树：所有子树要么没有孩子，要么一定有左孩子。 满二叉树一定为完全二叉树,但完全二叉树不一定为满二叉树；
+
+6.下面有关 csrf 的描述，说法错误的是？ 
+
+A、CSRF 则通过伪装来自受信任用户的请求来利用受信任 的网站 
+
+B、xss 是实现 csrf 的诸多途径中的一条 
+
+C、在客户端页面增加伪随机数可以阻挡 csrf 
+
+D、过滤用户输入的内容也可以阻挡 csrf 
+
+参考答案：D 答案解析：D；
+跨站请求伪造（英语：Cross-site request forgery），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF， 是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。跟跨网站脚本（XSS）相比，XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。
+1.XSS 全称“跨站脚本”，是注入攻击的一种。其特点是不对服务器端造成任何伤害，而是通过一些正常的站内交互途径，例如发布评论，提交含有 JavaScript 的内容文本。这时服务器端如果没有过滤或转义掉这些脚本，作为内容发布到了页面上,其他用户访问这个页面的时候就会运行这些脚 本。2.CSRF 的全称是“跨站请求伪造”，而 XSS 的全称是“跨站脚本”。看起来有点相似，它们都是属于跨站攻击——不攻击服务器端而攻击正常访问网站的用户，但前面说了，它们的攻击类型是不同维度上的分类。CSRF 顾名思义，是伪造请求，冒充用户在站内的正常操作。我们知道，绝大多 数网站是通过 cookie 等方式辨识用户身份（包括使用服务 器端 Session 的网站，因为 Session ID 也是大多保存在 cookie 里面的），再予以授权的。所以要伪造用户的正常操作，最好的方法是通过 XSS 或链接欺骗等途径，让用户在本机（即拥有身份 cookie 的浏览器端）发起用户所不知道的请求。3.XSS 是实现 CSRF 的诸多途径中的一条，但绝对不是唯一的一条。一般习惯上把通过 XSS 来实现的 CSRF 称为 XSRF。 
+
+7.下面 span 标签中 Hello World 字体的颜色是 ？
+
+< style type="text/css"> 
+span { color: green; } 
+.red { color: red; } 
+#blue { color: blue;}</style>
+<span class="red" id="blue" style="color:black;"> Hello World</span> HTML 
+
+A、green B、red C、blue D、black 
+参考答案：D 行内样式权重最高
+
+8.数字签名 elgamal 算法的原理是? 
+
+A、扩展欧几里得定理 B、中国剩余定理 C、欧拉定理 D、拉斐尔定律
+参考答案：A
+
+9.如果想在一个指定的元素后添加内容，下面哪个是实现该功能的？ 
+A、append(content) B、appendTo(content) C、insertAfter(content) D、after(content) 
+参考答案：D
+答案解析：append  添加匹配元素到调用主体内部结尾处 appendTo 添加所有匹配元素到调用主体内部结尾处  insertAfter指定的元素前
+
+10.在 jquery 中想要实现通过远程 http get 请求载入信息功能的是下面的哪一下事件？ 
+A、$.ajax() B、load(url) C、$.get(url) D、$. getScript(url)
+参考答案：C
+
+11.因特网用户大多数情况下都是通过浏览器访问网页的， 浏览器采用超文本传输协议与 Web 服务器进行通信。超文本传输协议的英文缩写是 
+A、 HTML B、 URL C、 HTTP D、 FTP 
+参考答案：C
+
+12.JavaScript 中通过 navigator.userAgent 获取到的是： 
+A、用户浏览器信息 B、用户代理信息 C、用户地理位置 D、用户 IP 地址
+参考答案：A
+
+13.想匹配字符串 "abc123" 中的数字，哪个正则表达 式是正确的？ 
+A、/\d*/ B、/[0-9]*/ C、/[^a-z]*/ D、/\d+/
+参考答案：B
+
+14.HTML 语言中的换行标记是 ( ) 
+A、html B、br C、title D、p 
+参考答案：B
+
+15.以下对 HTML 中使用 CSS 说法不正确的是：（ ）
+A、CSS 必须在 HTML 中使用 B、HTML 中必须使用 CSS C、在 HTML 中可以使用 CSS，也可以不使用 D、在 HTML 元素中通过属性完成的设置，部分也可以通过 CSS 来设置 
+参考答案：B
+
+16.以下对 HTML 中使用 CSS 说法不正确的是：（ ） 
+A、CSS 必须在 HTML 中使用 B、HTML 中必须使用 CSS C、在 HTML 中可以使用 CSS，也可以不使用 D、在 HTML 元素中通过属性完成的设置，部分也可以通过 CSS 来设置 
+参考答案：B
+
+17.HTML5 应用中如果需要在浏览器端存储一组50k大小的数据，而且不受浏览器关闭影响，最好使用以下那种技术：
+A、localStorage B、sessionStorage C、cookie D、url 
+参考答案：A
+
+18.虽然不同的操作系统可能装有不同的浏览器。但是这些 浏览器都符合（ ）协议。 
+A、SNMP B、 HTTP C、HTML D、SMTP 
+参考答案：B
+
+19.以下 PCRE 正则表达式在 php 中能与哪个选项匹配？ '/\*+\\\+/' 
+A、aaa\+ B、***\+ C、****\ D、**\+ 
+参考答案：C
+
+
+20.与 document.getElementById("myHeader")具有同样 效果的 jQuery 选择器是（） 
+A、$("myHeader") B、$(".myHeader") C、$("#myHeader") D、都不正确 
+参考答案：C
+
+21.在实际使用中，下面哪一个可以很方便的获得页面中定 义的 HTML 对象？（） 
+A、document.GetElementsByTagName B、document.getElementByTagNames C、document.getElementsById D、document.getElementById 
+参考答案：D
+
+22.表示有序列表的是 A、ul B、dl C、li D、ol 
+参考答案：D
+答案解析:ul 无序列表 ol 有序列表 li 定义列表项目 dl 定义列表
+
+23.文本文件和二进制文件的存取，错误的是？ 
+A、用记事本打开二进制文件时, 出现乱码是很必然了 B、二进制文件还是文本文件, 在存储时都是一连串的 0 和 1 C、打开方式是一样的 D、二进制文件最小单位则是位
+参考答案：D
+
+24.下面哪一种属于“creational”的设计模式？ 
+A、Façade B、Singleton C、Bridge D、Composite E、上面都不是
+参考答案：B
+设计模式分为三大类：
+创建型模式，共五种：工厂方法模式、抽象工厂模式、单例模式、建造者模式、原型模式。
+结构型模式，共七种：适配器模式、装饰器模式、***模式、外观模式、桥接模式、组合模式、享元模式。
+行为型模式，共十一种：策略模式、模板方法模式、观察者模式、迭代子模式、责任链模式、命令模式、备忘录模式、状态模式、访问者模式、中介者模式、解释器模式。
+
+25.哪一个不是浏览器默认的天生 inline-block 标签（拥有内在尺寸，可设置高宽，不会自动换行）？ 
+A、<button> B、<input> C、<label> D、<img>
+参考答案：C
+
+二、多选题
+1.GET 方法与 POST 方法的区别 
+A、区别一： get 重点在从服务器上获取资源，post 重点在向服务器发送数据； 
+B、区别二： get 传输数据是通过 URL 请求，以 field（字段）= value 的形式，置于 URL 后，并用"?"连接，多个请求数据间用"&"连接，如 http://127.0.0.1/Test/login.action?name=admin&p assword=admin，这个过程用户是可见的； post 传输数 据通过 Http 的 post 机制，将字段与对应值封存在请求实体 中发送给服务器，这个过程对用户是不可见的；
+C、区别三： Get 传输的数据量小，因为受 URL 长度限制， 但效率较高； Post 可以传输大量数据，所以上传文件时只能用 Post 方式； 
+D、区别四： get 是不安全的，因为 URL 是可见的，可能会泄露私密信息，如密码等； post 较 get 安全性较高； 
+参考答案：ABCD
+答案解析： abcd 都对，还有区别五： get 方式只能支持 ASCII 字符，向服务器传的中文字符可能会乱码。post 支持标准字符集，可以正确传递中文字符。 
+
+2.关于 focus/blur 与 focusin/focusout 的描述，正确的有？ 
+A、focus/blur 冒泡，focusin/focusout 不冒泡 
+B、focus/blur 兼容性好，focusin/focusout 在除 FireFox 外的浏览器下都保持良好兼容性，如需使用事件托管，可考虑在 FireFox 下使用事件捕获 elem.addEventListener('focus', handler, true) 
+C、可获得焦点的元素： window 、链接被点击或键盘操作、表单空间被点击或键盘操作 
+D、设置 tabindex 属性的元素被点击或键盘操作并不会获得焦点 
+参考答案:B
+答案解析:
+focus:当focusable元素获得焦点时，不支持冒泡；
+focusin:和focus一样，只是此事件支持冒泡；
+blur:当focusable元素失去焦点时，不支持冒泡；
+focusout:和blur一样，只是此事件支持冒泡；
+focusable元素:input、select、textarea、button 和 object
+如果带有 href 或 tabindex 属性，则是可聚焦的（focusable）
+
+3.下列 JS 框架中，系列不包含开箱即用的 UI 控件和小部 件的是（）
+A、MooTools B、ExtJS C、jQuery D、YUI
+参考答案：AC
+
+4.input 元素的 type 属性的取值可以是（） 
+A、image B、checkbox C、select D、button 
+参考答案：A,B,D 答案解析：input 的 type 属性取值总结
+
+5.以下标签中，默认是块级元素的标签有：
+A、span B、div C、p D、img 
+参考答案：B C, 答案解析： img 是内联元素
+
+
+在浏览器地址栏中输入URL到页面显示，浏览器到底发生了什么？
+第一步：处理输入
+	输入内容按下回车时,UI thread会判断输入的内容是搜索关键词（searchquery）还是URL,如果是搜索关键词,跳转至默认搜索引擎对应都搜索URL,如果输入的内容是URL,则开始请求URL。
+第二步：开始导航
+	回车按下后，UI thread将关键词搜索对应的URL或输入的URL交给网络线程Network thread，此时UI线程使Tab前的图标展示为加载中状态，然后网络进程进行一系列诸如DNS寻址，建立TLS连接等操作进行资源请求，如果收到服务器的301重定向响应，它就会告知UI线程进行重定向然后它会再次发起一个新的网络请求。
+第三步：读取响应
+	network thread接收到服务器的响应后，开始解析HTTP响应报文，然后根据响应头中的Content-Type字段来确定响应主体的媒体类型（MIME Type），如果媒体类型是一个HTML文件，则将响应数据交给渲染进程（renderer process）来进行下一步的工作，如果是 zip 文件或者其它文件，会把相关数据传输给下载管理器。与此同时，浏览器会进行 Safe Browsing 安全检查，如果域名或者请求内容匹配到已知的恶意站点，network thread 会展示一个警告页。除此之外，网络线程还会做 CORB（Cross Origin Read Blocking）检查来确定那些敏感的跨站数据不会被发送至渲染进程。
+第四步：查找渲染进程
+	各种检查完毕以后，network thread 确信浏览器可以导航到请求网页，network thread 会通知 UI thread 数据已经准备好，UI thread 会查找到一个 renderer process 进行网页的渲染。
+	浏览器为了对查找渲染进程这一步骤进行优化，考虑到网络请求获取响应需要时间，所以在第二步开始，浏览器已经预先查找和启动了一个渲染进程，如果中间步骤一切顺利，当 network thread 接收到数据时，渲染进程已经准备好了，但是如果遇到重定向，这个准备好的渲染进程也许就不可用了，这个时候会重新启动一个渲染进程。
+第五步：提交导航
+	到了这一步，数据和渲染进程都准备好了，Browser Process 会向 Renderer Process 发送IPC消息来确认导航，此时，浏览器进程将准备好的数据发送给渲染进程，渲染进程接收到数据之后，又发送IPC消息给浏览器进程，告诉浏览器进程导航已经提交了，页面开始加载。
+	这个时候导航栏会更新，安全指示符更新（地址前面的小锁），访问历史列表（history tab）更新，即可以通过前进后退来切换该页面。
+第六步：初始化加载完成
+	当导航提交完成后，渲染进程开始加载资源及渲染页面（详细内容下文介绍），当页面渲染完成后（页面及内部的iframe都触发了onload事件），会向浏览器进程发送IPC消息，告知浏览器进程，这个时候UI thread会停止展示tab中的加载中图标。
+
+下题涉及的知识点众多，包括变量定义提升、this指针指向、运算符优先级、原型、继承、全局变量污染、对象属性及原型属性优先级等等。
+function Foo() {
+    getName = function () { alert (1); };   //没有使用var 声明
+    return this;
+}
+Foo.getName = function () { alert (2);};
+Foo.prototype.getName = function () { alert (3);};
+var getName = function () { alert (4);};
+function getName() { alert (5);}
+
+//请写出以下输出结果：
+Foo.getName();   //2
+getName();       //4
+Foo().getName(); //1
+getName();		//1
+new Foo.getName(); //2
+new Foo().getName();//3
+new new Foo().getName();//3
+
+解析:
+1:Foo.getName()自然是访问Foo函数上存储的静态属性,所以是 2
+2:直接调用getName函数,那么就是访问当前上文作用域内的叫getName的函数
+	分析:var getName变量提升到最前面,function getName 函数声明也提升至最上方
+	所以最终函数声明的getName变量提升到最前面覆盖了变量声明的getName变量提升到最前面
+	倒数第二行getName赋值等于 = function () { alert (4);};
+	最后一行已经提到最前 所以输出是4
+	最终执行顺序:
+	function Foo() {
+	    getName = function () { alert (1); };
+	    return this;
+	}
+	var getName;//只提升变量声明
+	function getName() { alert (5);}//提升函数声明，覆盖var的声明
+
+	Foo.getName = function () { alert (2);};
+	Foo.prototype.getName = function () { alert (3);};
+	getName = function () { alert (4);};//最终的赋值再次覆盖function getName声明
+
+	getName();//最终输出4
+3:Foo().getName();
+	Foo()执行后,调用Foo函数的返回值对象的getName属性函数。返回的是this指的是window
+	Foo函数的第一句getName = function () { alert (1); }; 是一句函数赋值语句注意它没有var声明，所以先向当前Foo函数作用域内寻找getName变量，没有。
+	再向当前函数作用域上层，即外层作用域内寻找是否含有getName变量，找到了，也就是第二问中的alert(4)函数，第二问执行后执行第三问,Foo()执行,此时getName是window上的属性
+	在将getName赋值为 function(){alert(1)}。
+	所以输出1
+4:getName();
+	直接调用getName函数，相当于window.getName()，因为这个变量已经被Foo函数执行时修改了，遂结果与第三问相同，为1。
+5:new Foo.getName()
+	考运算符优先级问题 .的优先级大于new
+	相当于new (Foo.getName)(); 
+	Foo.getName前面第一问输出2
+	new (Foo.getName)() 将他作为构造函数来执行所以输出2
+6:new Foo().getName();//3 
+	类似5思路,但是优先级不同,相当于
+	(new Foo()).getName() 先执行new Foo(),因为Foo原型链上声明Foo.prototype.getName = function () { alert (3);};
+	所以输出3
+7:new new Foo().getName();//3
+	同样相当于new ((new Foo()).getName)(); 
+	先初始化Foo的实例化对象，然后将其原型上的getName函数作为构造函数再次new，遂最终结果为3。
+
+
+Html&CSS
+1、谈谈你对web标准的理解web标准的理解
+	https://www.jianshu.com/p/14c5b7ca56b8
+2、列举html中至少三个实体&、  、<、>、®、©
+	详细请看w3schoolHTML实体符号参考手册  https://www.w3school.com.cn/tags/html_ref_entities.html
+3、cellpadding与cellspacing有何区别？
+	cellpadding：代表单元格边框到内容之间的距离（留白）
+	cellspacing：cellspacing属性用来指定表格各单元格之间的空隙。此属性的参数值是数字，表示单元格间隙所占的像素点数。
+4、CSS 选择符有哪些？哪些属性可以继承？优先级算法如何计算？ CSS3新增伪类有哪些？
+	1.id选择器（ # myid）
+	2.类选择器（.myclassname）
+	3.标签选择器（div, h1, p）
+	4.相邻选择器（h1 + p）
+	5.子选择器（ul > li）
+	6.后代选择器（li a）
+	7.通配符选择器(*)
+	8.属性选择器（a[rel = "external"]）
+	9.伪类选择器（a: hover, li: nth - child）
+	**可继承的样式： ** font-size font-family color, UL LI DL DD DT;
+	不可继承的样式：border padding margin width height
+	优先级优先级就近原则，同权重情况下样式定义最近者为准，载入样式以最后载入的定位为准;
+	优先级为:!important >  id > class > tag
+	important 比 内联优先级高
+	CSS3新增伪类举例
+	p:first-of-type 选择属于其父元素的首个<p>元素的每个<p>元素。
+	p:last-of-type  选择属于其父元素的最后<p>元素的每个<p>元素。
+	p:only-of-type  选择属于其父元素唯一的<p>元素的每个<p>元素。
+	p:only-child    选择属于其父元素的唯一子元素的每个<p>元素。
+	p:nth-child(2)  选择属于其父元素的第二个子元素的每个<p>元素。
+	:enabled  :disabled 控制表单控件的禁用状态。
+	:checked  单选框或复选框被选中。
+5、display与visibility有何异同？
+	display可以有很多值，visibility只有两个常用值：visible、hidden。
+	当display为none、visibility为hidden时都会隐藏元素。但display会隐藏掉元素空间，visibility会保留元素空间。
+6、怎么在网页中实现绝对定位？
+	position:absolute
+	https://www.jianshu.com/p/b4565f691614
+7、table-layout、border-collapse有何用途？
+	1.table-layout：设置表格是否自动调整宽高
+	2.border-collapse：表格与单元格及单元格间的边框是否融合在一起。
+8、简述盒模型简述盒模型
+	https://www.jianshu.com/p/afb119b66e7b
+9、链接标记target属性的_top、_parent、_blank、main、left、top各有何用处?
+	https://www.jianshu.com/p/b43baa832eff
+	链接标记target与Dom，Bom
+10、你对浏览器兼容怎么看？通常你都做哪些处理？
+	浏览器的兼容性  https://www.jianshu.com/p/f971aae86f4d
+11、get和post的区别？
+	GET：一般用于信息获取，使用URL传递参数，对所发送信息的数量也有限制，一般在2000个字符
+	POST：一般用于修改服务器上的资源，对所发送的信息没有限制。GET方式需要使用Request.QueryString来取得变量的值，而POST方式通过Request.Form来获取变量的值，也就是说Get是通过地址栏来传值，而Post是通过提交表单来传值。
+	然而，在以下情况中，请使用 POST 请求：
+	①无法使用缓存文件（更新服务器上的文件或数据库）向服务器发送大量数据（POST 没有数据量限制）。
+	②发送包含未知字符的用户输入时，POST 比 GET 更稳定也更可靠。
+12、xhtml和html有什么区别
+	①HTML是一种基本的WEB网页设计语言,XHTML是一个基于XML的置标语言
+	②最主要的不同：XHTML 元素必须被正确地嵌套。XHTML 元素必须被关闭。标签名必须用小写字母。XHTML 文档必须拥有根元素。
+13、行内元素有哪些?块级元素有哪些?空(void)元素有那些？行内元素和块级元素的区别是什么？行内块元素的兼容性使用？（IE8 以下）
+	块级元素：div p h1 h2 h3 h4 form ul ol dl dt dd
+	行内元素:a b br i span input select image strong（强调的语气）
+	常见空元素：<br>/<hr>/<img>/<input>/<link>/<meta>
+	不常见空元素：<area>/<base>/<col>/<command>/<embed>/<keygen>/<param>/<source>/<track>/<wbr>
+	行内元素：会在水平方向排列，不能包含块级元素，设置width无效，height无效(可以设置line-height)，margin上下无效，padding上下无效。
+	块级元素：各占据一行，垂直方向排列。从新行开始结束接着一个断行。兼容性：display:inline-block;*display:inline;*zoom:1;
+14、CSS引入的方式有哪些? link和@import的区别是?
+	CSS引入的方式包括内联 内嵌 外链 
+	导入link和@import的区别是：
+	①link属于XHTML标签，除了加载CSS外，还能用于定义RSS, 定义rel连接属性等作用；而@import是CSS提供的，只能用于加载CSS；
+	②页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载；
+	③import是CSS2.1 提出的，只在IE5以上才能被识别，而link是XHTML标签，无兼容问题；
+	④后者优先级更高
+15、你做的页面在哪些流览器测试过?这些浏览器的内核分别是什么?介绍一下你对浏览器内核的理解Ie(Ie内核) 火狐（Gecko） 谷歌（webkit） opera(blink)对内核的理解：
+	主要分成两部分：渲染引擎(layout engineer或Rendering Engine)和JS引擎。
+	①渲染引擎：负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入CSS等），以及计算网页的显示方式，然后会输出至显示器或打印机。浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核。
+	②JS引擎：解析和执行javascript来实现网页的动态效果。最开始渲染引擎和JS引擎并没有区分的很明确，后来JS引擎越来越独立，内核就倾向于只指渲染引擎。
+16、解释css sprites，如何使用。
+	Css 精灵把一堆小的图片整合到一张大的图片上，减轻服务器对图片的请求数量。适用于以下情况：
+	①静态图片，不随用户信息的变化而变化
+	②小图片，图片容量比较小
+	③加载量比较大
+17、清除浮动的几种方式，各自的优缺点?
+（1）父级div定义height。
+（2）结尾处加空div标签clear:both。
+（3）父级div定义伪类:after和zoom。
+（4）父级div定义overflow:hidden。
+（5）父级div定义overflow:auto。
+（6）父级div也浮动，需要定义宽度。
+（7）父级div定义display:table。
+（8）结尾处加br标签clear:both。比较好的是第3种方式，好多网站都这么用。
+18、Doctype作用？标准模式与兼容模式各有什么区别?
+	①<!DOCTYPE>告知浏览器的解析器用什么文档标准解析这个文档。DOCTYPE不存在或格式不正确会导致文档以兼容模式呈现。
+	②标准模式的排版和JS运作模式都是以该浏览器支持的最高标准运行。在兼容模式中，页面以宽松的向后兼容的方式显示,模拟老式浏览器的行为以防止站点无法工作。注意点：HTML5 只需要写不需要对DTD进行引用，因为HTML5不基于 SGML，因此不需要对DTD进行引用，但是需要doctype来规范浏览器的行为（让浏览器按照它们应该的方式来运行）。而HTML4.01基于SGML,所以需要对DTD进行引用,才能告知浏览器文档所使用的文档类型。
+19、iframe有哪些缺点？
+	①iframe会阻塞主页面的Onload事件，搜索引擎的检索程序无法解读这种页面，不利于SEO；
+	②iframe和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。使用iframe之前需要考虑这两个缺点。如果需要使用iframe，最好是通过javascript动态给iframe添加src属性值，这样可以绕开以上两个问题。
+20、如何实现浏览器内多个标签页之间的通信?
+	①通过WebSocket、SharedWorker来实现；
+	②也可以调用localstorge、cookies等本地存储方式。localstorge另一个浏览上下文（另一个标签页）里被添加、修改或删除时，它都会触发一个事件，我们通过监听事件，控制它的值来进行页面信息通信。注意quirks：Safari 在无痕模式下设置localstorge值时会抛出 QuotaExceededError 的异常。
+21、如何在页面上实现一个圆形的可点击区域？
+	①map+area或者svg②border-radius
+	③纯js实现 需要求一个点在不在圆上简单算法、获取鼠标坐标等等
+22、CSS3有哪些新特性？
+	①  CSS3实现圆角（border-radius:8px），阴影（box-shadow:10px）；
+	②  对文字加特效（text-shadow、），线性渐变（gradient），旋转（transform）；
+	③   transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜
+	④ 增加了更多的CSS选择器多背景 rgba   CSS3新增属性https://www.cnblogs.com/wuyanliang/p/5862643.html
+Html5
+1、Html5与html4相比，各有何优缺点？ 怎样处理html5新标签的兼容性问题？
+html5余html4的异同请看以下的链接  https://www.jianshu.com/p/fa5c54451d1e
+兼容性问题
+IE8/IE7/IE6支持通过document.createElement方法产生的标签，可以利用这一特性让这些浏览器支持HTML5新标签，浏览器支持新标签后，还需要添加标签默认的样式。当然也可以直接使用成熟的框架、比如html5shim。<!--[if lt IE 9]><script> src="http://html5shim.googlecode.com/svn/trunk/html5.js"</script><![endif]-->
+
+Javascript
+1、JS如何使页面跳转?怎么引入一个外部JS文件?
+	①直接在head标签内写入js代码，如下 <ScriptLanguage="JavaScript">js 语句</Script>
+	②引入写好的js文件，使用语句<scriptlanguage="JavaScript"src="test.js"></script> 也是直接放入到head标签里头，也有的是放在</body>前面。
+2、输入框的验证用什么事件?
+	change(fn)
+3、undefined与null有何异同？
+	null是一个表示"无"的对象，转为数值时为0；undefined是一个表示"无"的原始值，转为数值时为NaN。
+	undefined：
+	（1）变量被声明了，但没有赋值时，就等于undefined。
+	（2) 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+	（3）对象没有赋值的属性，该属性的值为undefined。
+	（4）函数没有返回值时，默认返回undefined。
+	null：
+	（1） 作为函数的参数，表示该函数的参数不是对象。
+	（2） 作为对象原型链的终点。它们都表示空，转换为boolean后都为false，但是null代表一个对象变量已经被初始化，但未装入对象；undefined表示未初始化变量
+4、===与==有何异同？
+	相同点：都是判定两个值是否相等
+	不同点：==不会判断类型，而===会判断类型
+5、如何判断一个变量的值是否为数字？以及有哪些手段判断变量值的数据类型？
+	全局函数isNaN可以判断一个变量的值是否为数字。可以使用运算符type、instanceof判断变量值的数据类型。
+6、什么是Bom什么是Dom?你如何理解Dom?
+	链接标记target与Dom，Bom  https://www.jianshu.com/p/b43baa832eff
+7、Array的join、push、splice、slice各有何用途，splice与slice有何异同？
+	join：使用指定间隔符连接所有元素为字符串
+	push：在尾部添加元素并维护array实例的length
+	splice与slice都是截取一部分元素。不同的在于：slice返回截取后的新实例，splice在原array实例上操作
+8、如何阻止表单提交？
+	在onsubmit事件中返回false
+9、如何动态操作表格？
+	可以像普通dom一样操作，但是因为表格的dom比较复杂，所以我通常是使用table的insertRow、deleteRow及tr对象的insetCell、deleteCell操作。
+10、String.match与RegExp.exec有何区别？
+	match只会返回没有分组的全部匹配结果或者有分组的第一次匹配结果；而exec可以利用循环返回全部匹配结果。
+11、为验证手机号写一个正则。
+function checkSubmitMobil(){
+	if($("#phoneNum").val()==""){
+		alert("手机号码不能为空！");
+		//$("#moileMsg").html("<font color='red'>手机号码不能为空！</font>");
+		$("#mobile").focus();
+		returnfalse;
+	}
+	if(!$("#phoneNum").val().match(/^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/)){
+		alert("手机号码格式不正确！");
+		//$("#moileMsg").html("<font color='red'>手机号码格式不正确！请重新输入！</font>");
+		$("#phoneNum").focus();
+		returnfalse;
+	}
+	return true;
+}
+12、正则的i标记与g标记各有何用途？
+	i：不区分大小写；
+	g：全局匹配。
+13、为String添加trim()方法。
+	String.prototype.trim=function(){
+		return this.replace(/^ +| +$/g,"");
+	}
+14、简述COOKIE。在JS中如何操作Cookie?
+	简述cookie，在JS中如何操作cookie  https://www.jianshu.com/p/f348a388411d
+15、谈谈javascript数组排序方法sort()的使用，重点介绍sort()参数的使用及其内部机制。
+	JS数组排序方法sort()的使用 https://www.jianshu.com/p/14f0ca5c0b29
+16、谈谈innerHTML outerHTML innerText之间的区别。
+	①innerHTML是w3c的html dom定义的方法，而后两者是IE独有的方法；
+	②innerHTML代表一个元素节点内由所有子节点，不包括当前节点组成的html代码；
+	③outerHTML代表一个元素节点内由所有子节点和当前节点组成的html代码；
+	④innerText代表一个元素节点内由所有子文本节点内容组成的文本；
+17、在JavaScript中定时调用函数 foo() 如何写？
+	setTimeout(foo,1000//这里设置延时数);
+18、setTimeout与setInterval有何区别?
+	①setTimeout和setInterval的语法相同。它们都有两个参数，一个是将要执行的代码字符串，还有一个是以毫秒为单位的时间间隔，当过了那个时间段之后就将执行那段代码。
+	②不过这两个函数还是有区别的，setInterval在执行完一次代码之后，经过了那个固定的时间间隔，它还会自动重复执行代码，而setTimeout只执行一次那段代码。
+19、你在js中用过array吗？如果用过，array中添加数据用什么方法？
+	在尾部添加使用push();
+	在头部添加使用unshift();
+	在任意位置添加使用splice(),但要注意把它的删除个数设置为0;
+20、简述javascript的优缺点。
+	优点：简单易用，与Java有类似的语法，可以使用任何文本编辑工具编写，只需要浏览器就可执行程序，并且事先不用编译，逐行执行，无需进行严格的变量声明，而且内置大量现成对象，编写少量程序可以完成目标；
+	缺点：不适合开发大型应用程序；
+21、Javascript有哪些内置对象?
+	只有Math和Global（在浏览器环境中，Global就是Window）
+22、列举Javascript的本地对象。
+	Object、Function、Array、String、Boolean、Number、Date、RegExp、Error、EvalError、RangeError、ReferenceError、SyntaxError、TypeError、URIError
+23、javascript的typeof返回哪些数据类型?
+		object number function boolean undefind string
+24、例举3种强制类型转换和2种隐式类型转换?
+	强制（parseInt,parseFloat,number）
+	隐式（== – ===）
+25、IE和DOM事件流的区别?
+	①执行顺序不一样、
+	②参数不一样
+	③事件加不加on
+	④this指向问题
+26、事件绑定和普通事件有什么区别?
+	①事件绑定就是针对dom元素的事件，绑定在dom元素上
+	②普通事件即为非针对dom元素的事件
+27、事件委托是什么?
+	利用事件冒泡的原理，让自己的所触发的事件，由他的父元素代替执行！通俗的讲，事件就是onclick，onmouseover，onmouseout，等就是事件，委托呢，就是让别人来做，这个事件本来是加在某些元素上的，然而你却加到别人身上来做，完成这个事件。
+	例子请看以下链接JS中的事件委托 https://www.cnblogs.com/leejersey/p/3801452.html
+28、闭包是什么，有什么特性，对页面有什么影响?
+	什么是闭包“官方”的解释：所谓“闭包”，指的是一个拥有许多变量和绑定了这些变量的环境的表达式（通常是一个函数），因而这些变量也是该表达式的一部分。在 Scala、Scheme、Common Lisp、Smalltalk、Groovy、JavaScript、Ruby、 Python、Go、Lua、objective c、swift 以及Java（Java8及以上）等语言中都能找到对闭包不同程度的支持。通俗的讲就是函数a的内部函数b，被函数a外部的一个变量引用的时候，就创建了一个闭包。
+	闭包的特性：
+	①.封闭性：外界无法访问闭包内部的数据，如果在闭包内声明变量，外界是无法访问的，除非闭包主动向外界提供访问接口；
+	②.持久性：一般的函数，调用完毕之后，系统自动注销函数，而对于闭包来说，在外部函数被调用之后，闭包结构依然保存在；对页面的影响使用闭包会占有内存资源，过多的使用闭包会导致内存溢出等。
+	详细请看以下推荐链接
+	深入理解JavaScript的闭包特性 如何给循环中的对象添加事件 https://blog.csdn.net/gaoshanwudi/article/details/7355794
+29、javascript的本地对象，内置对象和宿主对象
+	①本地对象为array obj regexp等可以new实例化
+	②内置对象为gload Math 等不可以实例化的
+	③宿主为浏览器自带的document,window 等
+30、编写一个数组去重的方法
+	思路：
+	1.创建一个新的数组存放结果
+	2.创建一个空对象
+	3.for循环时，每次取出一个元素与对象进行对比，如果这个元素不重复，则把它存放到结果数组中，同时把这个元素的内容作为对象的一个属性，并赋值为1，存入到第2步建立的对象中。说明：至于如何对比，就是每次从原数组中取出一个元素，然后到对象中去访问这个属性，如果能访问到值，则说明重复。
+	代码如下：
+	Array.prototype.unique3 = function(){
+		var res=[];
+		var json={};
+		for(vari=0;i<this.length;i++){
+			if(!json[this[i]]){
+				res.push(this[i]);
+				json[this[i]]=1;
+			}
+		} 
+		return res;
+	}
+	var arr=[112,112,34,'你好',112,112,34,'你好','str','str1'];
+	alert(arr.unique3());
+31、this对象的理解
+	①this总是指向函数的直接调用者（而非间接调用者）；
+	②如果有new关键字，this指向new出来的那个对象；
+	③在事件中，this指向触发这个事件的对象，特殊的是，IE中的attachEvent中的this总是指向全局对象Window；
+32、eval是做什么的？
+	①它的功能是把对应的字符串解析成JS代码并运行；
+	②应该避免使用eval，不安全，非常耗性能（2次，一次解析成js语句，一次执行）。
+	③由JSON字符串转换为JSON对象的时候可以用eval，var obj =eval('('+ str +')');
+33、new操作符具体干了什么呢?
+	①创建一个空对象，并且 this 变量引用该对象，同时还继承了该函数的原型。
+	②属性和方法被加入到 this 引用的对象中。
+	③新创建的对象由 this 所引用，并且最后隐式的返回 this 。
+34、call() 和 apply() 的区别和作用？
+	①apply()函数有两个参数：第一个参数是上下文，第二个参数是参数组成的数组。如果上下文是null，则使用全局对象代替。
+	如：function.apply(this,[1,2,3])；
+	②call()的第一个参数是上下文，后续是实例传入的参数序列。
+	如：function.call(this,1,2,3)；
+	如何获取UA JS代码
+	function whatBrowser(){
+		document.Browser.Name.value=navigator.appName;
+		document.Browser.Version.value=navigator.appVersion;
+		document.Browser.Code.value=navigator.appCodeName;
+		document.Browser.Agent.value=navigator.userAgent;
+	}
+35、请解释一下 JavaScript 的同源策略?
+	概念:同源策略是客户端脚本（尤其是Javascript）的重要的安全度量标准。它最早出自Netscape Navigator2.0，其目的是防止某个文档或脚本从多个不同源装载。这里的同源策略指的是：协议，域名，端口相同，同源策略是一种安全协议。指一段脚本只能读取来自同一来源的窗口和文档的属性。为什么要有同源限制？我们举例说明：比如一个黑客程序，他利用Iframe把真正的银行登录页面嵌到他的页面上，当你使用真实的用户名，密码登录时，他的页面就可以通过Javascript读取到你的表单中input中的内容，这样用户名，密码就轻松到手了。
+36、请描述一下 cookies，sessionStorage 和 localStorage 的区别？
+cookie在浏览器和服务器间来回传递。 sessionStorage和localStorage不会sessionStorage和localStorage的存储空间更大；sessionStorage和localStorage有更多丰富易用的接口；sessionStorage和localStorage各自独立的存储空间；
+
+Ajax
+1、什么是Ajax？
+	Ajax（Asynchronous JavaScript + XML），即异步JavaScript + XML的缩写，主要用来页面异步刷新，也是构建RIA的一种基础技术。
+2、如何使用Ajax从服务器获取数据？
+	①创建XMLHttpRequest对象，注意兼容IE6的情况
+	②使用XMLHttpRequest对象的open方法，其中有三个参数：a.字符串，代表html的请求:GET,POST。b.要访问的服务器的URL。c.Boolean值，true表示异步，flase表示同步，一般情况下是异步，默认为true。
+	③ajax的回调函数。xhr.readyState==4表示请求已经结束，服务器响应完成。status表示http请求的状态，200表示正常响应；404表示资源找不到；500表示服务器端错误。
+	④发送ajax请求。如果没有数据，可以不传或者传递null；如果post请求传递数据：首先设置xhr的请求头信息：xhr.setRequestHeader("Content-type","application/x-www-formurlencoded");再传递参数：xhr.send(name=liujianhong&password=123);
+3、解释XMLHttpRequest是什么？
+	XMLHttpRequest是我们得以实现异步通讯的根本。最早在IE5 中以ActiveX组件实现；最近，Mozilla 1.0和Safari 1.2中实现为本地对象。XMLHttpRequest虽然不是W3C标准，但却得到了FireFox、Safari、Opera、Konqueror、IE等绝大多数浏览器的支持。
+4、谈谈你对Ajax的理解。你在项目中如何使用Ajax？手写一个简单的Ajax操作。
+	Ajax（Asynchronous JavaScript + XML），即异步JavaScript+XML的缩写，主要用来页面异步刷新，也是构建RIA的一种基础技术。因为它涉及浏览器兼容、跨域等问题，在项目中一般会使用一些基础类库辅助实现，如jQuery等。
+	一个简单的Ajax操作如下。
+	var xhr=new XMLHttpRequest();//在环境中需要做浏览器兼容，这里省略了
+	xhr.onreadystatechange = function(){
+		//这里注册当xhr状态发生改变后调用事件
+		if(xhr.readyState==4){//通常在读取状态为4的时候才能获取到部分数据所以一般状态在4的时候才进行处理
+			if(status==200){
+				//当正常请求到资源时的处理,可以调用xhr.responseText或xhr.responseXml获取数据
+			}else{
+				//当请求资源失败时的处理
+			}
+		}
+	}
+	xhr.open("GET",url);
+	//设置xhr的请求方式和url,这里使用的是GET方式，
+	//如果有参数，则连接在url后面
+	/*  如果是POST请求，还当设置请求的Content-Type  数据使用send作为参数发送 */
+	xhr.send();
+5、谈谈你对JSON的理解。
+	JSON(JavaScript Object Notation) 是一种轻量级的数据交换格式。 易于人阅读和编写。同时也易于机器解析和生成。 它基于JavaScript Programming Language, Standard ECMA-262 3rd Edition - December 1999的一个子集。 JSON采用完全独立于语言的文本格式，但是也使用了类似于C语言家族的习惯（包括C, C++, C#, Java, JavaScript, Perl, Python等）。 这些特性使JSON成为理想的数据交换语言。所以它往往在AJAX中替代XML，交换数据。
+6、你的项目中有使用到跨域吗？你在项目中是如何处理JS跨域问题的？
+	①有。
+	②主要是使用其它网站提供的javascript api如QQ。使用script的src可以直接读取跨域资源。
+	③当然跨域还有其它处理方式：如代理服务器、改变domain、JSONP等。
+	7、你在项目中有使用到网页到服务器的即时通信吗？说说你都采用什么手段处理以及你所知道的处理办法？
+	没有用到，但我知道html的websockets、flash的socket、ajax长轮询等都可以实现。
+8、你在AJAX中有遇到乱码吗？如果遇到，你是如何解决的？
+	①遇到过。
+	②一般我首先统一页面和服务器编码，对请求和响应的Content-Type设置正确编码；对请求参数进行编码处理。
+9、解释jsonp的原理，以及为什么不是真正的ajax
+	①Ajax与JSONP这两种技术看起来很像，目的也一样，都是请求一个url，然后把服务器返回的数据进行处理，因此jQuery等框架都把JSONP作为Ajax的一种形式。
+	②实际上Ajax与JSONP有着本质上的不同。Ajax的核心是通过XMLHttpRequest获取数据，而JSONP的核心则是动态添加标签来调用服务器提供的js文件。
+	③Ajax与JSONP的区别也不在于是否跨域，Ajax通过服务端代理也可以跨域，JSONP也可获取同源数据。具体请看一下参考：【原创】说说json和jsonp,也许你会豁然开朗，含jQuery用例深入浅出jsonp--解决ajax跨域问题浏览器的同源策略-MDN
+10、ajax 有那些优缺点?如何解决跨域问题?
+	优点：
+	①通过异步模式，提升了用户体验.
+	②优化了浏览器和服务器之间的传输，减少不必要的数据往返，减少了带宽占用.
+	③Ajax在客户端运行，承担了一部分本来由服务器承担的工作，减少了大用户量下的服务器负载。
+	④Ajax可以实现动态不刷新（局部刷新）
+	缺点：
+	①安全问题 AJAX暴露了与服务器交互的细节。
+	②对搜索引擎的支持比较弱。
+	③不容易调试。跨域问题：jsonp、 iframe、window.name、window.postMessage、服务器上设置代理页面。
+11、JavaScript原型，原型链 ? 有什么特点？
+	①原型对象也是普通的对象，是对象一个自带隐式的proto属性，原型也有可能有自己的原型，如果一个原型对象的原型不为null的话，我们就称之为原型链。
+	②原型链是由一些用来继承和共享属性的对象组成的（有限的）对象链。
+JQuery
+1、你使用过jQuery吗？如果有，你为什么要使用jQuery呢？
+	①用过。
+	②如果使用原生javascript开发的话，会面临很多问题，如浏览器兼容、Ajax数据解析、Dom、事件注册操作等都非常烦锁，而jQuery正好解决了这些问题。
+	③当然jQuery还有非常有用的其它特性，如为dom对象绑定数据、动画、等。并且jQuery还非常容易扩展，在它的基础上开发非常灵活，也有众多的插件可用，如jQueryUI、easyUI等。
+2、Javascript与jQuery有什么区别？
+	jquery 就对javascript的一个扩展，封装，就是让javascript更好用，更简单。
+3、在jQuery中如何注册事件？
+	使用bind()方法注册事件，但通常我们使用与事件同名的方法注册更方便，如：click()、hover()等。
+4、如何获取Html内容？如何获取文本内容？如何获取属性值？如何获取input值？如何创建新的节点？
+	可以使用html()获取html内容。
+	使用text()获取文本内容。
+	使用attr()可以获取属性值，使用css()可以获取样式属性值。
+	通过val()便可以获取input的值
+	把节点元素名加上<、>作为参数调用jQuery方法便可创建新节点,如：jQuery(“”)。
+5、如何向页面插入节点？
+	调用append方法，将新节点作为参数。
+6、ajax、get、post、ajaxSetup、getJSON各有何用途？
+	①ajax：jQuery对ajax执行的核心方法。其它ajax方法都是使用该方法实现。
+	②get：专门用于发送get请求的便捷方法。
+	③post：专门用于发送post请求的便捷方法。
+	④ajaxSetup：设置调用ajax方法时的默认值。
+	⑤getJSON：专门用于向服务器请求json格式数据的便捷方法。
+7、如何使用从服务器获取一个复杂数据（对象）？
+	①通常会把这个数据转换为通用的数据交换格式，如xml或json。由于xml解析比较麻烦，所以使用json比较多。
+	②在jQuery中有专门的获取服务器json数据的方法，getJSON()，在回调中，jQuery会自动将json转换为javascript对象。
+8、addClass、css有何用途？
+	①addClass：为元素设置class属性，如果该元素已经存在class属性，则在其值后添加空格及新的class值。
+	②css：操作元素的style属性的方法。
+9、如何获取一个元素的实际位置？
+	使用position()或offset()都可以。
+10、bind()、unbind()、hover()有何用途？
+	bind()：注册特定事件。
+	unbind()：删除特定事件。
+	hover()：同时注册鼠标移入、移出事件。
+11、你知道jQuery插件吗？你了解jQuery执行原理和插件机制吗？你都用过哪些jQuery插件？
+	①知道jQuery插件。
+	②其原理是扩展jQuery本身及其核心函数的原型实现。可以调用其extend实现对它的扩展。
+	③jQuery插件有很多，常见的有：jQueryUI、jQuery-Cookie、jQuery-Timer等。
+其它
+1、HTTP状态码知道哪些？
+	100  Continue  继续，一般在发送post请求时，已发送了http header之后服务端将返回此信息，表示确认，之后发送具体参数信息
+	200  OK   正常返回信息
+	201  Created  请求成功并且服务器创建了新的资源
+	202  Accepted  服务器已接受请求，但尚未处理
+	301  Moved Permanently  请求的网页已永久移动到新位置。
+	302 Found  临时性重定向。
+	303 See Other  临时性重定向，且总是使用 GET 请求新的 URI。
+	304  Not Modified  自从上次请求后，请求的网页未修改过。
+	400 Bad Request  服务器无法理解请求的格式，客户端不应当尝试再次使用相同的内容发起请求。
+	401 Unauthorized  请求未授权。
+	403 Forbidden  禁止访问。
+	404 Not Found  找不到如何与 URI 相匹配的资源。
+	500 Internal Server Error  最常见的服务器端错误。
+	503 Service Unavailable 服务器端暂时无法处理请求（可能是过载或维护）。
+2、你有哪些性能优化的方法
+（1） 减少http请求次数：CSS Sprites, JS、CSS源码压缩、图片大小控制合适；网页Gzip，CDN托管，data缓存 ，图片服务器。
+（2） 前端模板 JS+数据，减少由于HTML标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量，不用请求，减少请求次数。
+（3） 用innerHTML代替DOM操作，减少DOM操作次数，优化javascript性能。
+（4） 当需要设置的样式很多时设置className而不是直接操作style。
+（5） 少用全局变量、缓存DOM节点查找的结果。减少IO读取操作。
+（6） 避免使用CSS Expression（css表达式)又称Dynamic properties(动态属性)。
+（7） 图片预加载，将样式表放在顶部，将脚本放在底部  加上时间戳。
+3、什么叫优雅降级和渐进增强？
+	优雅降级：
+	Web站点在所有新式浏览器中都能正常工作，如果用户使用的是老式浏览器，则代码会检查以确认它们是否能正常工作。由于IE独特的盒模型布局问题，针对不同版本的IE的hack实践过优雅降级了,为那些无法支持功能的浏览器增加候选方案，使之在旧式浏览器上以某种形式降级体验却不至于完全失效。
+	渐进增强：
+	从被所有浏览器支持的基本功能开始，逐步地添加那些只有新式浏览器才支持的功能,向页面增加无害于基础浏览器的额外样式和功能的。当浏览器支持时，它们会自动地呈现出来并发挥作用。
+4、哪些常见操作会造成内存泄漏？
+	①内存泄漏指任何对象在您不再拥有或需要它之后仍然存在。
+	②垃圾回收器定期扫描对象，并计算引用了每个对象的其他对象的数量。如果一个对象的引用数量为 0（没有其他对象引用过该对象），或对该对象的惟一引用是循环的，那么该对象的内存即可回收。
+	③setTimeout 的第一个参数使用字符串而非函数的话，会引发内存泄漏。
+	④闭包、控制台日志、循环（在两个对象彼此引用且彼此保留时，就会产生一个循环）
+5、线程与进程的区别
+	①一个程序至少有一个进程,一个进程至少有一个线程。
+	②线程的划分尺度小于进程，使得多线程程序的并发性高。
+	③另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。
+	④线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。
+	⑤从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。
+6、一个页面从输入 URL 到页面加载显示完成，这个过程中都发生了什么？
+（1）查找浏览器缓存
+（2）DNS解析、查找该域名对应的IP地址、重定向（301）、发出第二个GET请求
+（3）进行HTTP协议会话
+（4）客户端发送报头(请求报头)
+（5）服务器回馈报头(响应报头)
+（6）html文档开始下载
+（7）文档树建立，根据标记请求所需指定MIME类型的文件
+（8）文件显示
+
+字节跳动面试题
+1.简述https原理，以及与http的区别
+	HTTP：是互联网上应用最为广泛的一种网络协议，是一个客户端和服务器端请求和应答的标准（TCP），用于从WWW服务器传输超文本到本地浏览器的传输协议，它可以使浏览器更加高效，使网络传输减少。
+	HTTPS：是以安全为目标的HTTP通道，简单讲是HTTP的安全版，即HTTP下加入SSL层，HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。
+	HTTPS协议的主要作用可以分为两种：一种是建立一个信息安全通道，来保证数据传输的安全；另一种就是确认网站的真实性。
+HTTP与HTTPS的区别
+　　1、https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用。
+　　2、http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议。
+　　3、http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。
+　　4、http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。
+HTTP的工作原理：一次HTTP操作称为一个事物，其工作过程可分为四步
+	1、Client与Server建立连接，单击某个超链接，HTTP的工作开始。
+	2、连接建立后，Client发送一个请求给Server，请求方式的格式为：统一资源标识符（URL）、协议版本号，后边是MIME信息包括请求修饰符，Client信息和可能的内容。
+	3、Server接到请求后，给予相应的响应信息，其格式为一个状态行，包括信息的协议版本号、一个成功或错误的代码，后边是MIME信息包括Server信息、实体信息和可能的内容。
+	4、Client接收Server返回的信息通过浏览器显示在用户的显示屏上，然后Client和Server断开连接。
+HTTPS的工作原理：
+	1、Client使用HTTPS的URL访问Web服务器，要求与Web服务器建立SSL连接。
+	2、Web服务器收到客户端请求后，会将网站的证书信息（证书中包含公钥）传送一份给客户端。
+	3、客户端的浏览器与Web服务器开始协商SSL连接的安全等级，也就是信息加密的等级。
+	4、客户端的浏览器根据双方同意的安全等级，建立会话密钥，然后利用网站的公钥将会话密钥加密，并传送给网站。
+	5、Web服务器利用自己的私钥解密出会话密钥。
+	6、Web服务器利用会话密钥加密与客户端之间的通信。
+
+操作系统进程通信与线程通信
+进程和线程的区别
+	1. 进程是资源分配的最小单位，线程是程序执行的最小单位，CPU调度的最小单位
+	2. 进程有自己独立的地址空间，线程共享进程的地址空间
+	3. 进程之间的资源是独立的，线程共享本进程的资源
+1. 进程间通信
+	1.1 管道(包括管道和命名管道) 内存中类似于文件的模型，多进程可读写
+	1.2 消息队列 内核中的队列
+	1.3 共享内存
+	1.4 信号量
+	1.5 套接字 不同主机上的进程通信方式
+2. 线程通信
+	2.1 共享内存
+	2.2 管道
+
+
+
+
+字节跳动面试题：
+你对Vue的理解有多少。
+用css2和css3分别写一下垂直居中和水平居中。
+	css2:
+		水平居中：
+		text-align: center;(水平)
+		margin: 0 auto;(水平)
+		 
+		垂直居中：
+		单行内容垂直居中设置相同的height和line-height
+		多行内容垂直居中通过设置上下的padding
+		vertical-align:center;(垂直居中)
+		 
+		绝对定位实现水平垂直居中：
+		top:50%;
+		left:50%;
+		transform: translateX(-50%);
+		transform: translateY(-50%);
+	css3:
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+你对计算机网络的认识怎么样。
+讲述一下计算机网络的七层。
+应用层 表示层 会话层 传输层 网络层 数据链路层 物理层
+TCP和UDP的区别是什么。
+TCP和UDP属于计算机网络中的哪一层。
+HTTPS是什么。
+介绍几种常见的状态码。
+闭包是什么。
+NaN是什么，用typeof会输出什么。
+	not a number 不是数字   typeof NaN   ==>'number'
+js的隐性转换和显性转换。
+跨域问题如何解决。
+知道babel么。
+	简单来说把 JavaScript 中 es2015/2016/2017/2046 的新语法转化为 es5(更低的规范)，让低端运行环境(如浏览器和 node )能够认识并执行。
+用js实现判断一个变量是否为整数的函数。
+进程和线程是什么。
+死锁是什么。
+Left Join、Right Join、Inner Join 指的是什么。
+快速排序用js怎么写。
+
+
+腾讯面试题：
+BOM浏览器信息
+浏览器兼容性举例
+闭包作用与举例
+新闻ul列表，插入3个，获取index
+全文单词首字母大写
+ajax过程
+
+【逻辑题】
+
+任何时间分针和时针夹角
+文章单词（字母）频率出现最高
+30分钟等到车概率是70%，那10分钟呢？
+一个班学舞蹈的有75%，学唱歌的有85%，问同时学习舞蹈和唱歌的最多多少，最少多少？
+两个很大数的加法运算
+
+
+滴滴面试题：
+【一面】
+1、对vue怎么看（balabala）。
+2、你的项目的对自己成长最大的部分在哪。
+3、组件中的通信，着重问了兄弟组件的通信。
+4、小程序的生命周期。
+5、讲一下js的继承、作用域链。
+6、px、rem、em的区别。
+7、居中的样式如何实现。
+8、树的遍历查询。（介绍一下思想，没手撕）
+【二面】
+1、组件的封装。
+2、手机端不同屏幕如何适配。
+3、动画的优化，接着问为什么transition比margin的性能好。
+4、垂直居中的样式怎么实现。（这里严重怀疑滴滴面试是不知道以前的面试问过什么的）
+5、闭包。
+6、vue的组件通信和vuex。（再次怀疑滴滴面试是不知道以前的面试问过什么的）
+【三面】
+1、设计模式介绍一下。
+2、什么是虚拟dom。
+3、http缓存介绍一下。
+4、前端发展的瓶颈在哪（自己附加了前端的性能优化）。
+5、快排算法。
+
+顺丰科技 面试题
+链接：https://zhuanlan.zhihu.com/p/179276176
+
+一面（二十多分钟）： 
+自我介绍 
+你的技术栈都有哪些 
+说说你对组件化思想的理解 
+谈谈你对js单线程的理解 
+有什么操作或任务是异步的，举两个例子 
+能否描述一下事件队列中的微任务和宏任务，我们平时会用到哪些微任务 
+聊聊你对上下文（作用域）的理解 
+this指向 
+怎么理解js里面的原型，原型链继承是怎么做的，继承有多种方式，你对哪种继承方式熟悉一些，介绍一下 
+你用vue用了多久 
+你对模块化的理解，模块化主要为了解决什么问题 
+谈谈对MVVM的理解 
+vue响应式的原理 
+vue里有一个nexttick了解过吗，它是做什么用的 反问 
+二面（二十多分钟）： 
+vue数据响应式机制是如何实现（一面问过的，当时答的不好，没想到二面上来第一个问题又是这，，好在一面完补了点这个知识）
+vue中的data为什么要设计成一个函数 
+webpack打包的流程是怎样的 
+loader和plugin有什么区别，举一个loader和plugin的例子 
+讲一下前端路由是基于什么机制实现的，如果想使用history模式需要进行什么配置 
+代码题：
+用es5的方式实现es6中的const（汗 ，没有思路，让面试官提醒下思路，然后提示了也还是没思路，汗 ++），想了一两分钟面试官看我没思路，说再出一题吧，你写个防抖函数，这个我之前倒是练过，但是当时也没写的很好，细节还是有点问题的。然后面试官说时间差不多了，你有什么问题想问我吗 面完因为代码题没写好，一度以为凉了，不过第二天收到了三面通知。
+ Object.defineProperty(obj, prop, desc)
+
+
+ 前锋教育 前端100问
+ 第 1 题：（滴滴、饿了么）写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？
+ 	key是给每一个vnode的唯一id,可以依靠key,更准确, 更快的拿到oldVnode中对应的vnode节点。
+ 	1. 更准确
+	因为带key就不是就地复用了，在sameNode函数 a.key === b.key对比中可以避免就地复用的情况。所以会更加准确。
+
+	2. 更快
+	利用key的唯一性生成map对象来获取对应节点，比遍历方式更快。map会比遍历更快
+	没有key的情况diff速度会更快
+ 第 2 题：`['1', '2', '3'].map(parseInt)` what & why ?
+	parseInt(string, radix)
+	array.map(function(currentValue,index,arr), thisValue)
+ 	[].map((item, index, thisArr) => parseInt(item, index) )
+ 	[]按顺序 0号位对应item,1号位对应index,三号位忽略
+ 	parseInt('1', 0) =>1
+ 	parseInt('2', 1) =>NaN
+ 	parseInt('3', 2) =>NaN
+ 	[1,NaN,NaN]
+ 第 3 题：（挖财）什么是防抖和节流？有什么区别？如何实现？
+ 防抖节流.html
+ 第 4 题：介绍下 Set、Map、WeakSet 和 WeakMap 的区别？
+ 总结.txt
+ 第 5 题：介绍下深度优先遍历和广度优先遍历，如何实现？
+ 	深度优先遍历（Depth-First Search）:
+ 		该方法是以纵向的维度对dom树进行遍历，从一个dom节点开始，一直遍历其子节点，直到它的所有子节点都被遍历完毕之后在遍历它的兄弟节点
+ 	广度优先遍历（breadth-first traverse）:
+ 	该方法是以横向的维度对dom树进行遍历，从该节点的第一个子节点开始，遍历其所有的兄弟节点，再遍历第一个节点的子节点，完成该遍历之后，暂时不深入，开始遍历其兄弟节点的子节点。
+ 第 6 题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？
+ 第 7 题：ES5/ES6 的继承除了写法以外还有什么区别？
+ 第 8 题：setTimeout、Promise、Async/Await 的区别
+ 第 9 题：（头条、微医）Async/Await 如何通过同步的方式实现异步
+ 第 10 题：（头条）异步笔试题
+ 	请写出下面代码的运行结果
+ 	async function async1() {
+	    console.log('async1 start');
+	    await async2();
+	    console.log('async1 end');
+	}
+	async function async2() {
+	    console.log('async2');
+	}
+	console.log('script start');
+	setTimeout(function() {
+	    console.log('setTimeout');
+	}, 0)
+	async1();
+	new Promise(function(resolve) {
+	    console.log('promise1');
+	    resolve();
+	}).then(function() {
+	    console.log('promise2');
+	});
+	console.log('script end');
+
+第 11 题：（携程）算法手写题已知如下数组：
+var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];
+编写一个程序将数组扁平化去并除其中重复部分数据，最终得到一个升序且不重复的数组
+第 12 题：（滴滴、挖财、微医、海康）JS 异步解决方案的发展历程以及优缺点。
+第 13 题：（微医）Promise 构造函数是同步执行还是异步执行，那么 then 方法呢？
+第 14 题：（兑吧）情人节福利题，如何实现一个 new
+	function objectFactory() {
+        let Constructor = [].shift.call(arguments);
+        const obj = new Object();
+        obj.__proto__ = Conctructor.prototype;
+        Constructor.call(obj,...arguments);
+        return obj;
+    }
+第 15 题：（网易）简单讲解一下http2的多路复用
+第 16 题：谈谈你对TCP三次握手和四次挥手的理解
+第 17 题：A、B 机器正常连接后，B 机器突然重启，问 A 此时处于 TCP 什么状态如果A 与 B 建立了正常连接后，从未相互发过数据，这个时候 B 突然机器重启，问 A 此时处于 TCP 什么状态？如何消除服务器程序中的这个状态？（超纲题，了解即可）
+第 18 题：（微医）React 中 setState 什么时候是同步的，什么时候是异步的？
+第 19 题：React setState 笔试题，下面的代码输出什么？
+class Example extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      val: 0
+    };
+  }
+
+  componentDidMount() {	
+    this.setState({val: this.state.val + 1});
+    console.log(this.state.val);    // 第 1 次 log
+
+    this.setState({val: this.state.val + 1});
+    console.log(this.state.val);    // 第 2 次 log
+
+    setTimeout(() => {
+      this.setState({val: this.state.val + 1});
+      console.log(this.state.val);  // 第 3 次 log
+
+      this.setState({val: this.state.val + 1});
+      console.log(this.state.val);  // 第 4 次 log
+    }, 0);
+  }
+
+  render() {
+    return null;
+  }
+};
+//0 0 2 3 
+第 20 题：介绍下 npm 模块安装机制，为什么输入 npm install 就可以自动安装对应的模块？
+第 21 题：有以下 3 个判断数组的方法，请分别介绍它们之间的区别和优劣Object.prototype.toString.call() 、 instanceof 以及 Array.isArray()
+第 22 题：介绍下重绘和回流（Repaint & Reflow），以及如何进行优化
+第 23 题：介绍下观察者模式和订阅-发布模式的区别，各自适用于什么场景
+第 24 题：聊聊 Redux 和 Vuex 的设计思想
+第 25 题：说说浏览器和 Node 事件循环的区别
+第 26 题：介绍模块化发展历程可从IIFE、AMD、CMD、CommonJS、UMD、webpack(require.ensure)、ES Module、<script type="module"> 这几个角度考虑。
+第 27 题：全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？。
+第 28 题：cookie 和 token 都存放在 header 中，为什么不会劫持 token？
+第 29 题：聊聊 Vue 的双向数据绑定，Model 如何改变 View，View 又是如何改变 Model 的
+
+第 30 题：两个数组合并成一个数组请把两个数组 
+['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'D1', 'D2'] 和 ['A', 'B', 'C', 'D']，
+合并为 ['A1', 'A2', 'A', 'B1', 'B2', 'B', 'C1', 'C2', 'C', 'D1', 'D2', 'D']。
+第 31 题：改造下面的代码，使之输出0 - 9，写出你能想到的所有解法。
+for (var i = 0; i< 10; i++){
+    setTimeout(() => {
+        console.log(i);
+    }, 1000)
+}
+第 32 题：Virtual DOM 真的比操作原生 DOM 快吗？谈谈你的想法。
+第 33 题：下面的代码打印什么内容，为什么？
+var b = 10;
+(function b(){
+    b = 20;
+    console.log(b); 
+})();
+第 34 题：简单改造下面的代码，使之分别打印 10 和 20var b = 10;
+(function b(){
+    b = 20;
+    console.log(b); 
+})();
+第 35 题：浏览器缓存读取规则可以分成 Service Worker、Memory Cache、Disk Cache 和 Push Cache，那请求的时候 from memory cache 和 from disk cache 的依据是什么，哪些数据什么时候存放在 Memory Cache 和 Disk Cache中？
+第 36 题：使用迭代的方式实现 flatten 函数。
+第 37 题：为什么 Vuex 的 mutation 和 Redux 的 reducer 中不能做异步操作？
+第 38 题：（京东）下面代码中 a 在什么情况下会打印 1？var a = ?;
+if(a == 1 && a == 2 && a == 3){
+     console.log(1);
+}
+第 39 题：介绍下 BFC 及其应用。
+第 40 题：在 Vue 中，子组件为何不可以修改父组件传递的 Prop如果修改了，Vue 是如何监控到属性的修改并给出警告的。
+第 41 题：下面代码输出什么var a = 10;
+(function () {
+    console.log(a)  //undefined
+    a = 5
+    console.log(window.a) //undefined
+    var a = 20;  //var a  会提前
+    console.log(a)  //20
+})()
+第 42 题：（喜马拉雅）实现一个 sleep 函数比如 sleep(1000) 意味着等待1000毫秒，可从 Promise、Generator、Async/Await 等角度实现
+第 43 题：使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果
+第 44 题：介绍 HTTPS 握手过程
+第 45 题：HTTPS 握手过程中，客户端如何验证证书的合法性
+第 46 题：输出以下代码执行的结果并解释为什么
+var obj = {
+    '2': 3,
+    '3': 4,
+    'length': 2,
+    'splice': Array.prototype.splice,
+    'push': Array.prototype.push
+}
+obj.push(1)
+obj.push(2)
+console.log(obj)
+第 47 题：双向绑定和 vuex 是否冲突
+第 48 题：call 和 apply 的区别是什么，哪个性能更好一些
+第 49 题：为什么通常在发送数据埋点请求的时候使用的是 1x1 像素的透明 gif 图片？
+第 50 题：（百度）实现 (5).add(3).minus(2) 功能。例：5 + 3 - 2，结果为 6
+
+第 51 题：Vue 的响应式原理中 Object.defineProperty 有什么缺陷？为什么在 Vue3.0 采用了 Proxy，抛弃了 Object.defineProperty？
+第 52 题：怎么让一个 div 水平垂直居中
+第 53 题：输出以下代码的执行结果并解释为什么
+var a = {n: 1};
+var b = a;
+a.x = a = {n: 2};
+
+console.log(a.x)     
+console.log(b.x)
+第 54 题：冒泡排序如何实现，时间复杂度是多少， 还可以如何改进？
+第 55 题：某公司 1 到 12 月份的销售额存在一个对象里面如下：
+{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]。
+第 56 题：要求设计 LazyMan 类，实现以下功能。
+LazyMan('Tony');
+// Hi I am Tony
+
+LazyMan('Tony').sleep(10).eat('lunch');
+// Hi I am Tony
+// 等待了10秒...
+// I am eating lunch
+
+LazyMan('Tony').eat('lunch').sleep(10).eat('dinner');
+// Hi I am Tony
+// I am eating lunch
+// 等待了10秒...
+// I am eating diner
+
+LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk food');
+// Hi I am Tony
+// 等待了5秒...
+// I am eating lunch
+// I am eating dinner
+// 等待了10秒...
+// I am eating junk food
+第 57 题：分析比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景。
+第 58 题：箭头函数与普通函数（function）的区别是什么？构造函数（function）可以使用 new 生成实例，那么箭头函数可以吗？为什么？
+第 59 题：给定两个数组，写一个方法来计算它们的交集。例如：给定 nums1 = [1, 2, 2, 1]，nums2 = [2, 2]，返回 [2, 2]。
+第 60 题：已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改。<img src="1.jpg" style="width:480px!important;”>
+	增加左右padding border    改变盒子模型:box-sizing  border-box   盒子模型 padding border 盒子模型不变大向内扩展 
+第 61 题：介绍下如何实现 token 加密
+第 62 题：redux 为什么要把 reducer 设计成纯函数
+第 63 题：如何设计实现无缝轮播
+第 64 题：模拟实现一个 Promise.finally
+第 65 题：`a.b.c.d` 和 `a['b']['c']['d']`，哪个性能更高？
+第 66 题：ES6 代码转成 ES5 代码的实现思路是什么
+第 67 题：数组编程题随机生成一个长度为 10 的整数类型的数组，例如 [2, 10, 3, 4, 5, 11, 10, 11, 20]，将其排列成一个新数组，要求新数组形式如下，例如 [[2, 3, 4, 5], [10, 11], [20]]。
+第 68 题：如何解决移动端 Retina 屏 1px 像素问题
+第 69 题：如何把一个字符串的大小写取反（大写变小写小写变大写），例如 ’AbC' 变成 'aBc' 。
+第 70 题：介绍下 webpack 热更新原理，是如何做到在不刷新浏览器的前提下更新页面的
+
+第 71 题：实现一个字符串匹配算法，从长度为 n 的字符串 S 中，查找是否存在字符串 T，T 的长度是 m，若存在返回所在位置。
+
+第 72 题：为什么普通 `for` 循环的性能远远高于 `forEach` 的性能，请解释其中的原因。
+
+第 73 题：介绍下 BFC、IFC、GFC 和 FFC
+第 74 题：使用 JavaScript Proxy 实现简单的数据绑定
+第 75 题：数组里面有10万个数据，取第一个元素和第10万个元素的时间相差多少
+第 76 题：输出以下代码运行结果
+// example 1
+var a={}, b='123', c=123;  
+a[b]='b';
+a[c]='c';  
+console.log(a[b]);
+
+---------------------
+// example 2
+var a={}, b=Symbol('123'), c=Symbol('123');  
+a[b]='b';
+a[c]='c';  
+console.log(a[b]);
+
+---------------------
+// example 3
+var a={}, b={key:'123'}, c={key:'456'};  
+a[b]='b';
+a[c]='c';  
+console.log(a[b]);
+第 77 题：算法题「旋转数组」给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。示例 1：输入: [1, 2, 3, 4, 5, 6, 7] 和 k = 3
+输出: [5, 6, 7, 1, 2, 3, 4]
+解释:
+向右旋转 1 步: [7, 1, 2, 3, 4, 5, 6]
+向右旋转 2 步: [6, 7, 1, 2, 3, 4, 5]
+向右旋转 3 步: [5, 6, 7, 1, 2, 3, 4]
+示例 2：输入: [-1, -100, 3, 99] 和 k = 2
+输出: [3, 99, -1, -100]
+解释: 
+向右旋转 1 步: [99, -1, -100, 3]
+向右旋转 2 步: [3, 99, -1, -100]
+第 78 题：Vue 的父组件和子组件生命周期钩子执行顺序是什么
+第 79 题：input 搜索如何防抖，如何处理中文输入
+第 80 题：介绍下 Promise.all 使用、原理实现及错误处理
+
+第 81 题：打印出 1 - 10000 之间的所有对称数例如：121、1331 等
+第 82 题：周一算法题之「移动零」给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。示例:输入: [0,1,0,3,12]输出: [1,3,12,0,0] 说明:必须在原数组上操作，不能拷贝额外的数组。尽量减少操作次数。
+第 83 题：var、let 和 const 区别的实现原理是什么
+第 84 题：请实现一个 add 函数，满足以下功能。
+add(1);             // 1
+add(1)(2);      // 3
+add(1)(2)(3)；// 6
+add(1)(2, 3); // 6
+add(1, 2)(3); // 6
+add(1, 2, 3); // 6
+第 85 题：react-router 里的 <Link> 标签和 <a> 标签有什么区别如何禁掉 <a> 标签默认事件，禁掉之后如何实现跳转。
+第 86 题：（京东、快手）周一算法题之「两数之和」给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。示例：给定 nums = [2, 7, 11, 15], target = 9
+
+因为 nums[0] + nums[1] = 2 + 7 = 9
+所以返回 [0, 1]
+第 87 题：在输入框中如何判断输入的是一个正确的网址。
+第 88 题：实现 convert 方法，把原始 list 转换成树形结构，要求尽可能降低时间复杂度以下数据结构中，id 代表部门编号，name 是部门名称，parentId 是父部门编号，为 0 代表一级部门，现在要求实现一个 convert 方法，把原始 list 转换成树形结构，parentId 为多少就挂载在该 id 的属性 children 数组下，结构如下：// 原始 list 如下
+let list =[
+    {id:1,name:'部门A',parentId:0},
+    {id:2,name:'部门B',parentId:0},
+    {id:3,name:'部门C',parentId:1},
+    {id:4,name:'部门D',parentId:1},
+    {id:5,name:'部门E',parentId:2},
+    {id:6,name:'部门F',parentId:3},
+    {id:7,name:'部门G',parentId:2},
+    {id:8,name:'部门H',parentId:4}
+];
+const result = convert(list, ...);
+
+// 转换后的结果如下
+let result = [
+    {
+      id: 1,
+      name: '部门A',
+      parentId: 0,
+      children: [
+        {
+          id: 3,
+          name: '部门C',
+          parentId: 1,
+          children: [
+            {
+              id: 6,
+              name: '部门F',
+              parentId: 3
+            }, {
+              id: 16,
+              name: '部门L',
+              parentId: 3
+            }
+          ]
+        },
+        {
+          id: 4,
+          name: '部门D',
+          parentId: 1,
+          children: [
+            {
+              id: 8,
+              name: '部门H',
+              parentId: 4
+            }
+          ]
+        }
+      ]
+    },
+  ···
+];
+第 89 题：设计并实现 Promise.race()
+第 90 题：实现模糊搜索结果的关键词高亮显示
+第 91 题：介绍下 HTTPS 中间人攻击
+
+第 92 题：已知数据格式，实现一个函数 fn 找出链条中所有的父级 id
+const value = '112'
+const fn = (value) => {
+...
+}
+fn(value) // 输出 [1， 11， 112]
+
+第 93 题：给定两个大小为 m 和 n 的有序数组 nums1 和 nums2。请找出这两个有序数组的中位数。要求算法的时间复杂度为 O(log(m+n))。示例 1：nums1 = [1, 3]
+nums2 = [2]
+中位数是 2.0示例 2：nums1 = [1, 2]
+nums2 = [3, 4]
+中位数是(2 + 3) / 2 = 2.5
+第 94 题：vue 在 v-for 时给每项元素绑定事件需要用事件代理吗？为什么？
+第 95 题：模拟实现一个深拷贝，并考虑对象相互引用以及 Symbol 拷贝的情况第 96 题：介绍下前端加密的常见场景和方法
+第 97 题：React 和 Vue 的 diff 时间复杂度从 O(n^3) 优化到 O(n) ，那么 O(n^3) 和 O(n) 是如何计算出来的？
+第 98 题：（京东）写出如下代码的打印结果
+function changeObjProperty(o) {
+  o.siteUrl = "http://www.baidu.com"
+  o = new Object()  //o被重新初始化之后，地址已经指向新的对象，修改并不会返回。
+  o.siteUrl = "http://www.google.com"
+} 
+let webSite = new Object();
+changeObjProperty(webSite);
+console.log(webSite.siteUrl);
+扩展:
+function changeObjProperty(o) {
+ 	o.siteUrl="http://www.google.com";
+    o.name="谷歌";
+    o = new Object();
+    o.siteUrl = "http://www.baidu.com"
+    o.name="百度"
+    o = new Object()
+    o.siteUrl = "http://www.jd.com"
+    o.name="京东"
+}
+    let webSite = new Object();
+    changeObjProperty(webSite);
+    console.log(webSite.siteUrl);
+    console.log(webSite.name);
+
+第 99 题：（bilibili）编程算法题用 JavaScript 写一个函数，输入 int 型，返回整数逆序后的字符串。
+如：输入整型 1234，返回字符串“4321”。要求必须使用递归函数调用，不能用全局变量，输入函数必须只有一个参数传入，必须返回字符串。
+
+第 100 题：（京东）请写出如下代码的打印结果
+function Foo() {
+	Foo.a = function() { console.log(1)    } 
+	this.a = function() { console.log(2)    }
+}
+Foo.prototype.a = function() { console.log(3)}
+Foo.a = function() { console.log(4)}
+Foo.a();
+let obj = new Foo();
+obj.a();
+Foo.a();
+
+
+拼多多前端面试题
+
+
+CSS
+1.盒模型
+2.css文件中开头加*号/上下盒子重叠问题（为正值如何/负值如何）
+3.伪类和伪元素的了解，伪类有什么作用JS
+4.原型链
+5.继承
+6.为什么3.tostring()会报错
+7.var先使用会怎样
+8.函数表达式和函数声明有什么区别
+9.高阶函数了解过吗
+10.对ES6新属性用过哪些
+11.var 和function声明时的不同
+12.class的用处
+13.改写reduce函数
+14.数组改写flat函数，怎么做到拉伸
+15.数组将重复的元素进行输出
+16.输入汉字的多少多少万转成数字
+17.promise的api
+18.三个promise完成之后怎么判断
+19.把方法直接写到原型上有什么坏处
+20.判断是对象上的方法还是原型上的方法Vue
+21.父子组件通信
+22.vue指令中v-if/v-show的区别
+23.vue的声明周期jQuery
+24.jQuery的api方法
+25.jQuery做过动画没有
+26.jQuery
+27.取到某id下面所有的某个classHTTP请求头
+28.请求的时候怎么设置不缓存
+编程题：
+29.spacify('hello world') // => 'h e l l o w o r l d'怎么转化怎么实现这个'hello world'.spacify();
+
+
+
+
+前端基础知识：
+(1)css的盒模型(老生常谈)，BFC的理解，选择器,层级上下文，三栏布局多种实现(position,flex,float等)，自适应布局rem原理(如何兼容不同手机dpi)，font-size10px如何实现、移动端一像素、媒体查询等等比较基础的问题，都是知识点。
+(2)html方面基本问很少，这个重要程度没什么, 也就是一些标签语义化理解，和h5新特性，storage/cookie
+(3)js这个是重点，会从基础去考察。 
+从浏览器返回html到渲染出页面，再到中间涉及到的优化点。
+DOM和css如何解析，如何渲染出元素？回流和重排怎么优化？js为什么需要放在body(更好的回答其实是浏览器的渲染引擎和js解析引擎的冲突，当然回答js是单线程执行也没问题,如何优化)？
+操作DOM为什么是昂贵的？js如何执行(even Loop/宏任务、微任务，事件队列，promise,async/await)？
+js的作用域？闭包的理解(防抖和节流)？(通过一些题进行考察)，基础类型以及如何判断类型？事件机制以及如何实现一个事件队列？oop编程和原型链？最优的继承方式，es6 super的作用（进阶），this指向问题和new的过程(bind函数&&new函数手写)？js深拷贝？（JSON方法实现拷贝有什么问题？）掌握如上基本可以横行了，如何霸道呢，那就是框架和打包工具的使用和原理知识了~~~
+后续详解透漏几个面试小技巧
+（1）简历写的贼**，看了简历各种框架会用，什么webpack/vue全家桶、react全家桶、rollup/node都有，一问基础就凉了。 ~~~~框架的底层还是js基础，基础不扎实，面试两行泪。
+（2）简历的技术点要写自己擅长的，面试一妹子，2年工作经验，写着深刻了解vue原理，一个问题nextTick是怎么可以获取到更新后的DOM的，很简单，不知道~~~当然会扣分。问基础很多不知道，凉~~~
+（3）面试要诚实，不可以浮躁，不会一些知识点也没什么问题。一精神小伙，问rem响应式布局原理，js判断怎么实现的，不知道~~~_~~~,问我可不可跳过这个题，最近没怎么看。 我：最近在看哪方面？jsxh:前端工程化东西？ 我：心里想很浮躁~~~，说一下common.js/es6模块化方案的不同？多个项目文件共用nodeModules如何做工作区间？如何监听git提交？ts解决哪些问题？ 凉~~~~ 工程化是个很大的一个问题，从开发，编译，部署，上线都是有很多的点
+（4）项目说的很到位，手写一个节流~~emmm,手写一个深拷贝~~emmm,手写一个promise.all，~~emmmm
+(5）遇到几个不错的候选人，虽然一些知识点和手写代码能力差一些，人很靠谱很nice，看到了以前初级开发工程师的我，我会给机会通过,不是技术会把人卡的死死的。
+
+
+第一问：Chrome为什么打开一个页面，会有4个进程？
+	线程是不能单独存在的，它是由进程来启动和管理的，一个进程就是一个程序的运行实例。线程是依附于进程的，而进程中使用多线程并行处理能提升运算效率。线程之间共享进程中的数据。当一个进程关闭后，操作系统会回收进程所占用的内存。
+	目前的多进程架构浏览器Chrome包括，1个浏览器主进程，1个GPU进程，1个网络进程，多个渲染进程和多个插件进程。
+
+	so，打开一个页面，为啥有4个进程？因为打开1个页面：至少需要1个网络进程，1个浏览器进程，1个GPU进程以及1个渲染进程。
+第二问：TCP协议是如何保证页面文件能被完整送达浏览器的？
+	TCP协议的运作：连接创建，数据传送，连接终止。
+	TCP用三次握手过程创建一个连接,四次挥手结束连接
+第三问：HTTP请求流程，为什么很多站点第二次打开速度会很快呢？
+	浏览器发起HTTP请求流程：
+	1.构建请求(构建请求行信息)
+	2.查找缓存（浏览器缓存是一种在本地保存资源副本，以供下次请求时直接使用的技术）；
+	3.准备IP地址和端口；
+	4.等待TCP队列；
+	5.建立TCP连接；
+	6.发送HTTP请求。
+	第二次站点的打开为啥速度快？
+
+	原因是第一次加载页面过程中，缓存了一些耗时的数据，主要缓存有 DNS缓存 和 页面资源缓存 两个方面。
+
+第四问：输入URL到页面展示发生了什么？
+	简单地说一下就是：
+	浏览器主进程提交url给网络进程
+	网络进程请求服务器，返回响应头行体，判断是否需要重定向
+	网络进程将页面类型的响应资源提交给渲染进程
+	渲染进程渲染结束，加载完毕
+	分步骤简单说一下就是：
+	首先是域名解析
+	建立TCP链接
+	建立Http请求
+	服务器处理Http请求
+	关闭TCP连接
+	浏览器解析资源
+	浏览器渲染页面
+
+一、vue部分
+1.vue 核心思想：数据驱动与组件化
+数据响应式：vue会将data内部对象使用 object.defineproperty() 转为 getter/setter ，当访问或更改这些对象时，同时触发getter/setter，内部对 DOM 进行操作，实现响应式。 vue3.x 中使用 proxy 监听这些对象，而非属性，避免递归循环监听。
+2.data 为什么是函数？
+避免组件相互影响，data 每次返回的是一个新对象，存放组件内部自己的数据，党内部数据改变时，并不会影响基于组件的其他组件，当组件被多次复用也是有独立数据的，每个组件实例都有自己的状态。
+3.keep-alive
+保存页面/组件的状态还可以避免组件反复创建和渲染，有效提升系统性能，就是保存组件的渲染状态。例如：用户在某个列表页面筛选条件得到列表页面数据后，进入详情页查看，当返回列表页我们还期望是用户筛选后的结果，就需要keep-alive注：kee-alive 之后便不会执行前四个生命周期，增加 activated() 与 deactivated()
+4.组件传值
+	(1).父组件标签属性传值，子组件props 接收，$emit 修改，props/$emit
+	(2).$emit/$on：公共组件Bus
+	(3).$attrs/$listeners:
+	(4).provide/inject
+	(5).$parent/$children 与 ref
+5.computed与watchcomputed： 依赖数据的缓存，当数据未改变，则不会重新计算，可以设置 get  与 set。watch：可以获取新旧值，但是引用类型的值无法获取，也可在内部有异步操作
+6.v-for 与 v-if在同一标签体上时，v-for 先执行，vue 内部判断是先判断 v-for 然后 v-if 如果 v-if 可在外部，则不要和 v-for 统一标签出现，如需内部数据判断，可先对数据进行 computed 计算然后 v-for ，减少 render
+7.$nextTick需要在更新视图之后，基于新的视图进行操作使用场景：点击按钮获取并显示搜索框，获取焦点/点击显示元素的DOM元素获取
+8.路由守卫
+全局守卫：
+beforEach 全局前置守卫
+afterEach 全局后置守卫
+beforeResolve 全局解析守卫
+独享守卫：beforeEnter    单个路由守卫
+组件内部守卫：
+beforeRouterEnter 无法获取组件 this
+beforeRouteUpdate      当前路由改变，但组件被复用时调用；例：foo/1  => foo/2
+beforeRouteLeave    离开后，禁止用户在未保存修改前离开
+流程：beforeRouteLeave => beforEach => beforeRouteUpdate =>  beforeEnter    =>  beforeRouterEnter  =>  beforeResolve   => afterEach    => mounted => beforeRouterEnter 
+9.vuex
+store：单一状态树标识
+mutations：组件使用this.store.commit() 提交mutations
+getter：相当于计算属性，getter的返回值会根据依赖缓存，只有当依赖值发生改变，才会被重新计算 this.store.getters  获取，
+action：进行异步操作，最终提交 mutation，而不是直接改变状态；使用 this.store.dispatch() 触发action
+二、js与浏览器等基础知识
+1.Es6 新增
+(1). let const 块级作用域（只在声明中生效）
+(2). 数组与对象的解构 
+(3).模板字符串，${} 允许换行
+(4). 字符串扩展方法    message.startsWith()/endSwith()/includes()
+(5). 箭头函数：this 指向，代码优化
+(6). 对象字面量增强​       => 对象内部定义function 可省略关键字 function​       => 通过 [] 使表达式作为数组​       => 键值相等可省略值
+(7). 对象的扩展方法：object.assign()    object.is() Proxy
+(8). class 类
+(9). Set 与 Map 数据结构：​       Set： Set 集合的值是唯一的，可用来去重；例如：let s = new Set();   s.size()；s.has('100')；s.delete('s')；s.clear();let result = [...new Set(arr)];    => 数组去重​       Map：类似于对象，但是健可以是任意类型    WeakMap 弱引用版本；let m = new Map();    m.set(健，值)；m.get(健)；m.has()；m.delete()；m.clear()；m.forEach();
+(10). symbol()：全新原始数据类型 Object.getOwnPropertySymbol(obj)
+(11). for-of：可遍历任意一种数据类型，可中断，也可遍历 Set 与 Map(12). iterable(13). generator(14). promise
+2.深拷贝&浅拷贝实现深拷贝   Json.stringify()    Json.parse()
+3.关于this：
+(1). 沿着作用域向上寻找最近的一个 function （不包含箭头函数），查看它的调用者
+(2). 正常调用   foo() , 指向 window；严格模式指向undefined；方法调用，谁调用指向谁；
+(3). 构造函数调用指向构造函数本身
+(4). 特殊调用   foo.call()  apply() bind()
+4.事件委托&&事件监听&&事件捕获&&事件冒泡
+事件捕获：从最外层到最内层
+事件冒泡：默认事件在冒泡阶段触发啊，从内在外；事件触发阶段的 e.target() 是点击的元素
+事件委托：子集的事件委托父级处理（处理 e.target() ）
+事件监听：可以给相同 DOM 添加事件/移除事件，还可以设置触发阶段
+5.js数据类型判断
+typeOf：string   Number  boolean symbol  bigint  undefined   object(null)    function
+instanceOf：Object   Function    Array   Date    RegExp  =>  也是object；判断实例是否是父类型/祖先类型的实例
+constructor：string  Boolean Number  Function    Date    Error   Array   HTMLDocument    window  
+objectObject.protoType.toString.call()：最准确的类型判断
+6.for in 与 for of 的区别：
+	for in ：更适合遍历对象，（数组也可遍历，但是遍历的是下标值），可以遍历到原型上的属性与方法（所有可枚举的属性，遍历健名）
+	for of：优化版，更适用于遍历数组，不可遍历没有迭代器的对象，遍历的是数组元素，不包括原型上的属性与方法，可遍历字符串
+7.循环方式for/优化版：len = arr.length    forEach / map object.keys()Object.getOwnPropertyNames()Reflect.ownKeys()
+8.在浏览器输入 URL 后
+	(1).浏览器向 DNS 服务器请求解析该 URL 中的域名所对应的 IP 地址
+	(2).解析出 IP 地址后，根据该 IP 地址和默认端口 80 ，和服务器建立 TCP 连接
+	(3).浏览器发出读取文件（URL 中域名后面部分对应的文件）的 HTTP 请求，该请求报文作为 TCP 三次挥手的第三个报文的数据发送给服务器
+	(4).服务器对浏览器请求作出响应，并把对应的  html 文本发送给浏览器
+	(5).释放 TCP 连接
+	(6).浏览器将该 html 文本并显示内容
+	(7).浏览器将获取的 HTML 文档解析成 DOM 树
+	(8).处理 CSS 标记，构成层叠样式表模型 CSSOM(9).将 DOM 和 CSSOM 合并成渲染树（rendering tree），将会被创建，代表一系列渲染对象
+
+9.浏览器缓存
+	(1).强缓存：所请求的数据在缓存数据库中尚未过期时，不与服务器交互，直接使用缓存数据库中的数据，header 头   expires资源失效时间；cache-control 资源有效期或者缓存方式
+	(2).协商缓存：当强缓存过期未命中或者响应报文 Cache-Control 中有 must-redalidate 标识必须每次请求验证资源状态时，便使用协商缓存的方式去处理缓存文件。从缓存数据库中取出缓存的标识，然后向浏览器发送请求验证请求的数据是否已经更新，如果已更新则返回新的数据。若未更新则使用缓存数据库中的缓存数据。注：强缓存不过服务器，协商缓存需要过服务器，可同时存在，强缓存优先级高，当执行强缓存，若命中缓存则直接使用缓存数据库中的数据，不再进行缓存协商。
+10.跨域
+	(1).修改响应头：Access-Control-Allow-Origin   后端
+	(2).JSONP：只有 Ajax 请求存在跨域
+11.防抖与节流
+	(1).防抖：用户触发事件过于频繁时，只要最后一次事件的操作
+	(2).节流：控制执行次数
+12.原型
+	(1).原型：任何一个 JS 对象都有一个原型对象 prto ，可以使用自己原型对象上的属性与方法，1> 通过对象的proto 获取；2> 通过构造函数的 protoType 属性获取；运用：用原型扩展对象上的属性与方法；3> 通过类的 protoType
+	(2).类与继承：子类可以继承父类的属性与方法（extend）
+	(3).原型继承：protoType 可以实现原型继承（通过构造函数的 proType）
+	(4).原型链：对象有原型，当调用方法或访问属性时，如果对象内部无，则去原型对象上找，会一直找到 Object 对象这个，形成原型链
+13.call    apply   bindcall( param1, param2, param3)call 可以改变 Animal 构造函数的 this :   apply( cat,[ num1, num2])   Animal.call(this)   可以实现多重继承
+14.事件循环process.nextTick()  setImmediate 方法process.nextTick()  同步代码执行之后，异步代码执行之前运行（callback）setImmediate()  异步代码执行之后执行  =>  当前事件循环结束后执行eventLoop：代码运行时，同步代码会直接放入运行栈，异步代码会放入任务队列中执行，将回调放入消息队列，当调用栈没有工作，也就是说同步代码已执行完毕，eventLoop 发挥作用，只做1件事情负责监听调用栈和消息队列，当调用栈没有任务，event 将消息队列中的异步任务放入调用栈执行宏任务、微任务：宏：计时器、ajax、读取文件；微：promise.then （new Promise（同步）、then（异步））同步=> process.nextTick() => 微任务 => 宏任务 => setImmediate
+15.TCP 协议TCP 工作在传输层，在程序之间传输数据；三次挥手，传输确认；四次挥手（连接中的客户端与服务端都可以发起关闭连接请求）目的：在不可靠的信道建立可靠连接第一次握手：发送 SYN 包，询问能否与服务器建立连接第二次握手：服务端同意连接，返回 SYN + ACK 包第三次握手：客户端收到回复 ACK 包，则连接建立（防止已失效的请求报文，传入服务器引起错误）第一次挥手：客户端发起关闭连接请求，发起 Fin 包表示请求关闭第二次挥手：服务端接收后发送 ACK ，进入关闭等待状态第三次挥手：客户端进入等待2状态，服务端发送未发送完数据 Fin 包，进入最后确认状态第四次挥手：客户端接收回复 ACK 包，进入超时等待状态，经过超时时间后关闭连接，服务端收到 ACK 包，立即关闭连接
+16.CORS浏览器发出 CORS 请求，会增加一个 origin 字段（自动完成）Access-Control-Allow-Origin 允许访问的资源
+17.原型proto：对象属性，在创建时就会生成（内置属性）原型（本身）；string/number 的原型是 string/number , 它们的原型的原型最终指向 Objectproto.constructor：指向创建a、b、c 的对象（构造a，b，c的对象，string/number）JS new 一个对象的过程：
+	(1).创建一个新对象 son 
+	(2).新对象会被执行[[protoType]]连接，son.propt = Mothe.protoType 
+	(3).新对象和函数调用的 this 绑定 => Mother.call(son, "Da")
+	(4).执行构造函数中的代码
+18.继承
+	(1).原型链继承：per.protoType = new Person()，则per构造函数中有 Person 上的属性方法，则 per instanceOf Person，让子类的原型等于父类的实例缺点：新实例无法向父类构造函数传参 
+	(2).构造函数继承：Person.call(this, 'jer') 用 call 和 apply 将父类构造函数引入子类函数
+	(3).组合继承（原型链继承 + 构造函数继承）：缺点：调用2次父类构造函数，子类的构造函数代替父类构造函数
+	(4).原型式继承：用一个函数包装一个对象，然后返回这个函数的调用，这个函数就变成了可以随意增添属性的实例或对象    Object.create()
+	(5).寄生式继承：原型继承外面套壳子(6).寄生组合式继承：函数内返回对象然后调用
+19.Node.js常用库及功能http 模块：主要用于搭建http服务，处理用户请求信息，创建静态服务器URL 模块：主要用于处理 url 的地址，方便对统一资源定位符进行操作处理path 模块：处理磁盘路径，绝对路径fs 模块：用于文件系统的增删改查20.webpack常用配置cache：是否缓存entry：入口文件output：输出文件devtool：开发工具 map    =>开发devServer：开发服务  =>开发module：loader 规则plugins：插件配置mode：模式 =>  区分开发和生产21.axios 拦截器请求拦截器：在请求发送前进行必要操作处理，例如添加统一cookie，请求体加验证、设置请求头等，相当于是对每个接口里相同操作的一个封装；​                   =>  instance.interceptors.request.use(req => {}, err => {})，必须返回 config响应拦截器：请求得到响应之后，对响应体的一些处理，通常是数据的统一处理等，也常来判断登录失效等。​                   =>  instance.interceptors.reponse.use(req => {},err => {})，返回响应结果
+
+
+
+易方达前端面试题
+笔试问题：
+1.CSS水平、垂直居中的写法，请至少写出4种?
+2.列举出js里基本的数据类型，如何检验?
+3.请将以下数组去重var arr = [ '2020', '2021', '2020', '2019', '2020', '2000', '2018', '2021'];
+4.列举出你知道的跨平台应用的前端框架，你最熟悉哪个？写出他的优势与使用心得
+一面问题：1. 请说下什么是动态组件，如何使用，以及keep-alive的作用
+2. 对前端工程师这个职位你是怎么样理解的
+3. 有没有对elementui组件进行过二次封装
+4. js延迟加载的方式有哪些？
+5. documentload和documentready的区别
+6. JavaScript继承的方法有哪些
+7. 说说你对语义化的理解
+8. 请讲一下对HTML5离线存储的理解
+9. HTML5新增了哪些新特性
+10. src和href的区别
+11. mvvm和mvc的区别
+12. 节流和防抖的区别
+13. Vue2跟vue3的区别
+14. 对vue响应式的理解
+15. vue的路由模式有几种及区别是什么
+16. 问项目细节

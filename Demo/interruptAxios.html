@@ -1,0 +1,35 @@
+
+<html> 
+<head> 
+<title>中断请求</title> 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+
+</head> 
+<body>
+    <div class="page" id="app">
+        <button  class="get-msg">获取数据</button>
+        <button  class="cancel">取消获取</button>
+    </div>
+    <script type="text/javascript">
+        var currentAjax = null
+        $('.get-msg').click(function () {
+            currentAjax = $.ajax({
+                type: 'GET',
+                url: 'http://jsonplaceholder.typicode.com/comments',
+                success: function (res) {
+                    console.log(res)
+                },
+                error: function (err) {
+                    console.log("获取失败")
+                }
+            })
+        })
+        $('.cancel').click(function () {
+            if (currentAjax) {
+                currentAjax.abort()
+            }
+        })
+    </script> 
+</body>
+
+</html>

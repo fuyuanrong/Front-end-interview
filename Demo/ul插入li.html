@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>新闻ul列表，插入3个li，获取index</title>
+    <meta charset='utf-8'>
+</head>
+<body>
+<ul id="ulList">
+    <li>a</li>
+    <li>b</li>
+    <li>c</li>
+    <li>d</li>
+    <li>e</li>
+</ul>
+<input type="button" id="addLi" value="添加li">
+<script type="text/javascript">
+var a=document.getElementById('ulList');
+(function(){
+    document.getElementById("addLi").addEventListener('click',function(){
+        a.innerHTML+="<li>1</li>";
+        var b=a.getElementsByTagName('li');
+        for(var i=0;i<b.length;i++){
+            b[i].addEventListener('click',function(e){
+                var c = e.target;
+                console.log(c.innerHTML);
+            },false);
+        }
+    },false);
+})();
+</script>
+</body>
+</html>

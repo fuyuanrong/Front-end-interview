@@ -1,0 +1,84 @@
+{
+    "cghthm":"1Y08301812000L",
+    "salehth":"WLMQ181204/18093 ",
+    "xmmc":"HEGS视频采购摄像机项目",
+    "cpx":"企业云通信",
+    "cpx1":"视频监控",
+    "cpx_pri":"企业通信",
+    "bsc":"乌鲁木齐办",
+    "khjl":"吴宇",
+    "dls":"新疆亿科一体化科技有限公司",
+    "je":1403273.76,
+    "sl":2034,
+    "rksj":"2018-12-30",
+    "zkts":95,
+    "sm":"库存",
+    "fxsm":null,
+    "comment":"填回复",
+    "quyu":"北区",
+    "promise":"填承诺",
+    "saleht_cpx":"华为监控"
+    },
+{
+    "cghthm":"1Y08301812000K",
+    "salehth":"WLMQ181204/18093 ",
+    "xmmc":"HEGS视频采购部分平台项目",
+    "cpx":"企业云通信",
+    "cpx1":"视频监控",
+    "cpx_pri":"企业通信",
+    "bsc":"乌鲁木齐办",
+    "khjl":"吴宇",
+    "dls":"新疆亿科一体化科技有限公司",
+    "je":1701109.83,
+    "sl":3804,
+    "rksj":"2018-12-31",
+    "zkts":94,
+    "sm":"库存",
+    "fxsm":null,
+    "comment":"填回复",
+    "quyu":"北区",
+    "promise":"填承诺",
+    "saleht_cpx":"华为监控"
+    },
+{
+    "cghthm":"1Y08301812000P",
+    "salehth":"WLMQ181204/18093 ",
+    "xmmc":"HEGS视频采购项目",
+    "cpx":"企业云通信",
+    "cpx1":"视频监控",
+    "cpx_pri":"企业通信",
+    "bsc":"乌鲁木齐办",
+    "khjl":"吴宇",
+    "dls":"新疆亿科一体化科技有限公司",
+    "je":3071473.49,
+    "sl":7054,
+    "rksj":"2018-12-31",
+    "zkts":94,
+    "sm":"库存",
+    "fxsm":null,
+    "comment":"填回复",
+    "quyu":"北区",
+    "promise":"填承诺",
+    "saleht_cpx":"华为监控"
+    },
+
+
+let senddept = ''
+let sendquyu = ''
+let senduser = ''
+axios.get('api3/mydept', {})
+.then((res) => {
+    senddept = res.data[0].dept
+    sendquyu = res.data[0].quyu
+    senduser = res.data[0].username
+}).catch((err) => {
+    console.log(err)
+})
+//储存登录用户名
+// _this.$router.push({path: '/Home', query: {username: _this.username}})  // 刷新后值会丢失
+const userData = {'username':senduser,'dept':senddept}
+sessionStorage.setItem('缓存用户名',JSON.stringify(userData))
+
+
+
+xmmc:'',salelx:'',htxse:0,quyu:'',bsc:'',saleman:'',dlsmc:'',cgcb:0,zkl:'',fwlb:''

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+
+    </style>
+     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+   
+</head>
+<body>
+    <div id="example">
+        <p id="msg">{{message}}</p>
+        <el-button size="mini" type="primary" @click="copyFn">复制这句话</el-button></br>
+        <input type="text" v-model="this.input_val1" id="input" v-on:blur="listen(this.input_val1)"></br>
+        <input type="text" v-model="input_val2" @change="listen(input_val2)"></br>
+        <input type="text" v-model="input_val3" onblur="listen(input_val3)"></br>
+        
+
+        </br>
+        </br>
+        </br>
+        </br>
+        <el-progress type="circle" :percentage="progress" v-bind:status='status'></el-progress>
+        <el-button @click="add">默认按钮</el-button>
+    </br>
+</br>
+</br>
+</br>
+        <label for="meeting">约会日期：</label>
+        <input id="meeting" type="date" value="2014-01-13"/>
+    </div>
+     <!-- import Vue before Element -->
+     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+     <!-- import JavaScript -->
+     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        // $('#input').blur(function(){
+        //     console.log($('input').val())
+        //     if($('input').val()==''){
+        //         alert("输入为空!")
+        //     }
+        // })
+        function listen(item){
+            console.log(item)
+            if(item==undefined||item==''){
+                alert("输入为空!")
+            }
+        }
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                message: 'Hello!input失焦方法测试',
+                input_val1:'',
+                input_val2:123,
+                input_val3:'',
+                progress:0,
+                status:'text',
+            },
+            created() {
+                
+            },
+            methods: {
+                listen(item){
+                    console.log(item)
+                    if(item==undefined||item==''){
+                        alert("输入为空!")
+                    }
+                },
+                copyFn(){
+                    var val = document.getElementById('msg');
+                    window.getSelection().selectAllChildren(val);
+                    document.execCommand ("Copy");
+                    this.$message({
+                        type:'success',
+                        message:'复制成功'
+                    })
+                },
+                add(){
+                    this.progress = this.progress+10
+                    if(this.progress==100 ){
+                        this.status="success"
+                    }else{
+                        this.status=""
+                    }
+                    if( this.progress>100){
+                        this.progress=10
+                    }
+                }
+            },
+            computed: {
+            
+            },
+            watch: {
+                
+            },
+        })
+    </script>
+</body>
+</html>

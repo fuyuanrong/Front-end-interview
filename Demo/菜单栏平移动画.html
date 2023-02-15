@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+    li{
+        background-color: #ddd;
+        display: block;
+        width: 400px;
+        height: 32px;
+        line-height: 32px;
+        padding: 2px;
+        left: 0;
+        position: relative;
+        border-radius: 5px;
+        /* transition-duration: 0.5s;
+        -webkit-transition-duration:0.5s; */
+    }
+    @keyframes mymove
+{
+	from {left:0px;}
+	to {left:46px;}
+}
+
+    @-webkit-keyframes mymove /*Safari and Chrome*/
+{
+	from {left:0px;}
+	to {left:46px;}
+}
+       ul li:hover{
+           /* left: 46px; */
+           animation:mymove 0.5s infinite;
+           -webkit-animation:mymove 0.5s infinite; /*Safari and Chrome*/
+           animation-iteration-count:1;/*动画只执行一次*/
+           animation-fill-mode: forwards; /*让动画停留在最后一帧 */
+
+       }
+       
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+        </ul>
+    </div>
+    <div>
+        <section class="a1">a1</section>
+        <section class="a2">a2</section>
+        <section class="a3">a3</section>
+        <section class="a4">a4</section>
+        <section class="a5">a5</section>
+    </div>
+    <style>
+        
+    </style>
+</body>
+</html>

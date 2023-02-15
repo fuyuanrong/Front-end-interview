@@ -1,0 +1,113 @@
+
+<html> 
+<head> 
+<title>css</title> 
+<link rel="stylesheet" href="https://at.alicdn.com/t/font_1356455_c5d3d3ohlbq.css">
+    <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script> -->
+    <style>
+        /* 去掉默认样式 */
+      input {
+        -webkit-appearance: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+
+      :root {
+        /*高亮颜色*/
+        --main: #ffa822;
+        /*默认颜色*/
+        --basic: #999;
+      }
+
+      .rate-content input[name="rate"] {
+        font-family: "iconfont";
+        /*之前引入的iconfont字体*/
+        font-size: 30px;
+        padding-right: 10px;
+      }
+
+      .rate-content input[name="rate"]::after {
+        content: "\e645";
+        color: var(--basic);
+        /*加点颜色过渡效果*/
+        transition: color .4s ease;
+      }
+
+      /* 实现选中单个星星 */
+      /* 高亮的星星 */
+      input[name="rate"]:checked::after,
+      input[name="rate"]:checked~input[name="rate"]::after {
+        /*实现连同兄弟元素一起高亮*/
+        content: "\e73c";
+        color: var(--main);
+      }
+
+      /* 把input反向排列 */
+      .rate-content {
+        display: flex;
+        flex-flow: row-reverse;
+      }
+
+      input[name="rate"] {
+        margin-right: 10px;
+        transition: transform .2s ease;
+      }
+
+      input[name="rate"]:checked,
+      input[name="rate"]:hover::after {
+        content: "\e73c";
+        color: var(--main);
+      }
+
+      /* 兄弟元素一起高亮 */
+      input[name="rate"]:hover~input[name="rate"]::after {
+        content: "\e73c";
+        color: var(--main);
+      }
+
+      input[name="rate"]:checked,
+      input[name="rate"]:hover {
+        transform: scale(1.2);
+      }
+    </style>
+</head> 
+<body>
+	<!-- https://coding.zhangbing.site/view.html?url=./list/css-hover-star/index.html -->
+    <div class="rate-content">
+      <input type="radio" name="rate">
+      <input type="radio" name="rate">
+      <input type="radio" name="rate">
+      <input type="radio" name="rate">
+      <input type="radio" name="rate">
+    </div>
+    <script type="text/javascript">
+      let Things = []
+      for (let i = 0; i < 10000; i++) {
+        Things[i] = getReturn()
+      }
+      console.log(Things)
+      let sumArr = 0
+      Things.forEach(i=>{
+        sumArr += i
+      })
+      console.log(sumArr/10000)
+      function getReturn(){
+        let count = 0
+        let sum = 0
+        while (sum<8){
+          let ran = Math.round(Math.random());
+          if(ran==1){
+            sum = sum+1
+          }else if(ran==0){
+            sum = sum-1
+          }
+          count++
+        }
+        console.log('result is '+sum)
+        return count
+      }
+    </script> 
+</body>
+
+</html>

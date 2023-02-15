@@ -1,0 +1,1275 @@
+﻿数组内对象的去重:
+ 	var hash = {}
+	arr = arr.reduce(function(item,next) {
+	 	hash[next.property] ? '' : hash[next.property] = true && item.push(next);
+	 	return item;
+	},[])
+es6语法 新特性: 
+.filter(i=>i)  数组去重
+promise axios
+.then()
+.catch()  
+.from()
+new Map([[...],[]])  二位数组存储 具有极快的查找速度
+
+jQ:
+.done()
+.fail()
+回调函数
+异步与同步
+.freeze() 效果与const 一样 不能修改
+
+一些方法:
+.split('T')[0]   去除T后面字符
+.replace(/,/g, "") 去除数字中所有的 , (逗号)
+
+遍历数组和遍历对象总结方法:
+JS原生:
+forEach 遍历数组
+for in  数组对象两者都可以遍历 
+for 遍历数组  
+for-of 遍历各种类数组集合(ES6)
+Object.keys() 返回一个由对象的可枚举属性名组成的数组 
+用for循环遍历数组
+用for-in遍历对象
+用for-of遍历类数组对象（ES6）
+用Object.keys()获取对象属性名的集合
+jQuery:
+$.each() 遍历数组和对象  接受两个参数，分别指代属性名/数组索引和属性值/数组元素
+其他:
+array.map(function(currentValue,index,arr), thisValue) 遍历数组
+
+ES6新特性
+声明: 块级作用域
+const 常量
+let 变量  
+ //ES5 
+    var name = 'lux'
+    console.log('hello' + name)
+//es6
+    const name = 'lux'
+    console.log(`hello ${name}`) //hello lux
+
+.include() 判断是否包含然后直接返回布尔值
+.repeat(): 获取字符串重复n次
+.startsWith() 和 .endsWith() 判断是否以 给定文本 开始或者结束
+.padStart() 和 .padEnd() 填充字符串，应用场景：时分秒
+
+箭头函数 => 1.不需要function 2.省略return 3.继承当前上下文的this
+Object.assign() 实现浅复制   把任意多个源对象自身可枚举的属性拷贝给目标对象，然后返回目标对象。第一参数即为目标对象。
+Spread Operator 组装对象或者数组
+ 	const color = ['red', 'yellow']
+    const colorful = [...color, 'green', 'pink']
+    console.log(colorful) //[red, yellow, green, pink]
+import导入模块、export导出模块
+	1.当用export default people导出时，就用 import people 导入（不带大括号）
+
+	2.一个文件里，有且只能有一个export default。但可以有多个export。
+	
+	3.当用export name 时，就用import { name }导入（记得带上大括号）
+	
+	4.当一个文件里，既有一个export default people, 又有多个export name 或者 export age时，导入就用 import people, { name, age } 
+	
+	5.当一个文件里出现n多个 export 导出很多模块，导入时除了一个一个导入，也可以用import * as example
+
+
+11.9填坑:
+获取标签的值用jQuery  不同标签不同用法  $("#id").val()  适用于 input  textarea 等要输入的标签   其他的例如 a p 等标签用 .html()或者.text()
+
+11.16标签元素总结
+block inline inline-block 区别
+block 独占一行 且可设宽高padding margin属性  
+inline 不独占一行 宽度随内容 多个并行 不可设置宽高
+inline-block  不独占一行  可以设置宽高
+常见块级元素: div form table p h1~6 dl ol ul
+常见内联元素: span a strong em lable input  select textarea img br button
+block元素可以包含block元素和inline元素；但inline元素只能包含inline元素
+比如 P 元素，只能包含inline元素，而不能包含block元素
+
+11.20	
+在js中，变量如果等于null,0,undefined, 这些与false等价
+11.22
+&&与||在运用中的逻辑:(默认两个条件)
+|| 逻辑或，相当于or，有一项正确就行
+&&逻辑与，相当于and,两项都正确才行
+善用vue watch 侦听
+
+11.26
+判断 this 指向谁，看执行时而非定义时，只要函数(function)没有绑定在对象上调用，它的 this 就是 window
+箭头函数:箭头函数的特征就是，定义在哪，this 就指向那。即箭头函数定义在一个对象里，那箭头函数里的 this 就指向该对象。
+const car = {
+  brand: 'Ford',
+  model: 'Fiesta',
+  start: function() {
+    console.log(`Started ${this.brand} ${this.model}`)
+  },
+  stop: () => {
+    console.log(`Stopped ${this.brand} ${this.model}`)
+  }
+}
+console控制台结果:
+car.start()
+car.stop()
+Started Ford Fiesta               //this==>car
+Stopped undefined undefined			//this==>window	
+
+11.27 页面之间传值  主要是用户名  参考:https://blog.csdn.net/qq_35430000/article/details/79291287
+通过设置 Session Storage缓存的形式进行传递:
+①两个组件A和B，在A组件中设置缓存orderData
+const orderData = { 'orderId': 123, 'price': 88 }
+sessionStorage.setItem('缓存名称', JSON.stringify(orderData))
+②B组件就可以获取在A中设置的缓存了
+const dataB = JSON.parse(sessionStorage.getItem('缓存名称'))
+
+11.29
+一、href="javacript:;"  用这个的话会出现浏览器访问“javascript:;”这个地址的现象，所以任何情况下都不建议使用；
+二、href="javacript:void(0);" 表示点击这个链接后执行一条javascript语句：void(0); 这条语句表示什么也不做，是个空语句。当绑定了onclick()事件并且点击后，页面会停留在原地；
+三、href="#" 这个是HTML的链接用法，意思是跳转到页面顶部，如果想快速地返回到顶部，那么就用这个链接，这种用法叫做锚。
+
+记住，永远不要直接比较两个浮点的大小
+0.1 + 0.2 = 0.30000000000000004
+ 三目运算符例子(嵌套的三目运算符):item.hmdlx == '一类黄黑名单' ? colortype1:(item.hmdlx == '二类黄黑名单' ?colortype2:(item.hmdlx == '三类黄黑名单'?colortype3:'')) 
+
+
+12.3 object.assign(target,arr1,arr2)
+ES6新添加的接口，主要的用途是用来合并多个JavaScript的对象
+
+  单页面应用 SPA 						多页面应用 MPA                详细参考https://juejin.im/post/5a0ea4ec6fb9a0450407725c
+一个外壳页面和多个页面片段组成			多个完整页面构成
+    局部刷新								整页刷新
+
+12.4
+JavaScript代码规范:https://github.com/BingKui/javascript-zh
+Array.from()方法就是将一个类数组对象或者可遍历对象转换成一个真正的数组。
+
+12.6填坑之路:对象属性访问的两种方式
+用点访问,Obj.Name ;
+用中括号访问,Obj["Name"];   ★有引号
+
+12.10
+	//去除对象内属性值为空的属性
+	export function removeProperty(object){
+		for(let prop in object){
+			if (object[prop]==='') {
+				delete object[prop]
+			}
+		}
+	}
+  全局方法 Vue.filter() 注册一个自定义过滤器,必须放在Vue实例化前面  可以设置两个过滤器参数,前提是不冲突 
+  使用方法:  {{item.value | filtername}}
+
+12.11 词法作用域只关注函数在何处被声明, 而不是在何处被调用
+词法作用域(只关注函数在何处声明)   一般情况下的this
+动态作用域(只关注函数从何处调用)   箭头函数this
+不同的对象在底层都表示为二进制, JavaScript 中二进制前三位都为0的话, 会判断为 object 类型, null 的二进制表示全是 0, 自然前三位也是 0, 所以执行 typeof 时会返回 object
+
+12.12 Code Review 代码评审，简称 CR
+提升代码质量
+减少Bug，降低系统风险
+相互讨论学习，提高团队能力
+
+控制台内network 随着页面刷新而刷新 可以解决post泄露问题 (多页面应用的优点)
+
+12.13
+vue项目启动做了什么
+
+1 在终端中运行：npm run dev，实际上就是运行了：webpack-dev-server ...
+2 使用 webpack-dev-server 开启一个服务器
+3 根据指定的入口 src/main.js 开始分析入口中使用到的模块
+4 当遇到 import 的时候，webpack 就会加载这些模块内容（如果有重复模块，比如：Vue，实际上将来只会加载一次），遇到代码就执行这些代码
+5 创建 Vue 实例，将 App 组件作为模板进行编译，并且将 App 组件中 template 的内容渲染在页面 #app 的位置
+
+setInterval和setTimeout中传入函数时，函数中的this会指向window对象,这是由于setTimeout()调用的代码运行在与所在函数完全分离的执行环境上。(异步)
+解决方法:1.箭头函数:箭头函数中的this总是指向外层调用者
+		2.将当前对象的this存到一个变量内，定时器内的函数利用闭包来访问这个变量
+		3.利用bind()方法:利用bind()将this绑定到定时器这个函数上
+
+在Vue中this始终指向Vue，但axios中this为undefined,可以用=>,或者把this存在一个变量that内使用that代替this来解决this为undefined的问题
+
+12.14 使用模板字符串用tab键上面的`****${}***`,不是单引号
+
+12.19 在vue中使用jQuery可能出现冲突问题,解决方法:使用jq的noConflict()方法代替$解决 var jq = jQuery.noCoflict(),jq代替$
+  vue this.$router.push()传参
+  传  	this.$router.push({path: '/Home', query: {username: this.username}})
+  取	this.$route.query.username
+  缺点:页面刷新后 值失效
+  this问题 187行   ☆☆☆
+
+  12.24
+|-- build                            // 项目构建(webpack)相关代码
+|   |-- build.js                     // 生产环境构建代码
+|   |-- check-version.js             // 检查node、npm等版本
+|   |-- dev-client.js                // 热重载相关
+|   |-- dev-server.js                // 构建本地服务器
+|   |-- utils.js                     // 构建工具相关
+|   |-- webpack.base.conf.js         // webpack基础配置
+|   |-- webpack.dev.conf.js          // webpack开发环境配置
+|   |-- webpack.prod.conf.js         // webpack生产环境配置
+|-- config                           // 项目开发环境配置
+|   |-- dev.env.js                   // 开发环境变量
+|   |-- index.js                     // 项目一些配置变量
+|   |-- prod.env.js                  // 生产环境变量
+|   |-- test.env.js                  // 测试环境变量
+|-- src                              // 源码目录
+|   |-- components                     // vue公共组件
+|   |-- store                          // vuex的状态管理
+|   |-- App.vue                        // 页面入口文件
+|   |-- main.js                        // 程序入口文件，加载各种公共组件
+|-- static                           // 静态文件，比如一些图片，json数据等
+|   |-- data                           // 群聊分析得到的数据用于数据可视化
+|-- .babelrc                         // ES6语法编译配置
+|-- .editorconfig                    // 定义代码格式
+|-- .gitignore                       // git上传需要忽略的文件格式
+|-- README.md                        // 项目说明
+|-- favicon.ico 					 // 页面标签图标
+|-- index.html                       // 入口页面
+|-- package.json                     // 项目基本信息
+
+12.26 监听数据变化做出相应方法 @change="***"或者 使用watch 监听   看情况
+@change  input内写完后立即不会执行,需要鼠标光标移除
+watch  按键按一次执行一次 频繁的向服务器请求数据，严重消耗性能 或导致页面崩溃
+
+1.7 不单提取公共样式组成独立的文件,再引入使用, 同样js也一样,例如多个页面都要使用职员列表岗位部门等等可以独立写个js页面 export出去  使用的页面在 import导入
+
+1.8 异或(即^操作)操作   相同数异或为0    
+
+1.9 JSON.parse('false')  可以将字符型的 true false null  转换回来
+[1,4,2,5,3,9,3,7].sort((a,b)=>a-b)升序
+[1,4,2,5,3,9,3,7].sort((a,b)=>b-a) 降序
+
+1.10  在数组原型链上写方法    使用example：[].unique()
+Array.prototype.unique = function (){
+				var temp = {}
+				arr1 = [],
+				len = this.length;
+				for(var i=0;i<len;i++){
+					if(!temp[this[i]]){
+						temp[this[i]] = "dad";
+						arr1.push(this[i]);
+					}
+				}
+				return arr1;
+			}
+1.14 $("input:checkbox").prop("checked",false)    //.prop() .attr() 更改属性
+•对于HTML元素本身就带有的固有属性，在处理时，使用prop方法。
+•对于HTML元素我们自己自定义的DOM属性，在处理时，使用attr方法。
+
+//格局化日期：yyyy-MM-dd 
+function	formatDate(date) {
+			var myyear = date.getFullYear();
+			var mymonth = date.getMonth() + 1;
+			var myweekday = date.getDate();
+			if (mymonth < 10) {
+				mymonth = "0" + mymonth;
+			}
+			if (myweekday < 10) {
+				myweekday = "0" + myweekday;
+			}
+			return (myyear + "-" + mymonth + "-" + myweekday);
+		}
+
+Object.keys(object).forEach(key=>object[key]="")  遍历对象各个属性,重置清空属性值
+
+2.15 this.$refs.input1  减少获取dom节点的消耗   this.$refs.***   $refs相对document.getElementById的方法，会减少获取dom节点的消耗。
+2.18 es6 Object.is(argument1,argument2)方法 用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。 不同之处只有两个：一是+0不等于-0，二是NaN等于自身。
+2.21 FormData的主要用途有两个：
+		1、将form表单元素的name与value进行组合，实现表单数据的序列化，从而减少表单元素的拼接，提高工作效率。
+		2、异步上传文件
+2.22 toFixed(2)  四舍五入保留2位小数 返回的是字符串
+2.28 vue 过滤器 
+		1.全局过滤器 : vue.filter('名字',function (value) { *** })
+		2.本地过滤器 : filter:{ '名字':function (value){***}}
+		过滤器使用 {{ message | '名字'}}   v-bind=" **  |  '名字'"
+		this.$set(this.someObject,'b',2)  创建对象  全局 Vue.set 方法的别名  Vue.set( target, key, value )
+	Vue.nextTick(function () {// DOM 更新了}) 在下次 DOM 更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的 DOM。  Vue.nextTick( [callback, context] )
+	Vue.delete( target, key ) 删除对象的属性。如果对象是响应式的，确保删除能触发更新视图。
+3.1 (new Date()).toLocaleString()   返回字符串  '2019/*/*  上午/下午**:**:**'
+	(new Date()).toLocaleString().split(' ')[0].replace(/\//g,'-')   
+	与toString的区别   1.当是数字时 (1654566).toLocaleString() 返回会让数字按三位逗号一分隔  2. 时间格式
+	
+	通过Jq复制选择器内的所有文字
+	var val = document.getElementById('copyMy');
+	window.getSelection().selectAllChildren(val);
+	document.execCommand ("Copy");
+3.4 vue mixins方法   引入外部js方法文件   
+1. 引入  import {public_dept} from './public_dept.js'
+2.export default{  
+	...
+	mixins:[public_dept],
+	...
+}
+组件中定义的方法与混入对象中的方法/属性一样,组件中的优先级大于混入对象中的(方法会调用多次)
+
+str.replace(/[\r\n]|[ ]/g,"")  去掉空格和换行符
+
+.replace(/<\/?.+?>/g,"").replace(/[\r\n]/g, "")   去掉换行符
+.match()   也可以加正则方法  返回一个数组
+
+3.18 
+new Set( *) 之后不是一个纯数组  需要转换
+Array.from(new Set([1, 1, 1, 2, 3, 2, 4]));
+3.19
+深度拷贝与浅度拷贝的区别主要在于有没有为拷贝出的新对象在堆中重新分配一块内存区域。
+浅度拷贝即直接赋值，拷贝的只是原始对象的引用地址，在堆中仍然共用一块内存。
+而深度拷贝为新对象在堆中重新分配一块内存，所以对新对象的操作不会影响原始对象。
+实现深度拷贝的方法:  
+  .slice()   返回一个新的数组,不会影响原有数组 不传参数 返回和array长度相等的数组
+  .concat()  拼接  不传参数  相当于拼接一个空数组，即返回与自身相同的数组。
+  Array.copyof()
+  前三种方法只能深度拷贝数据类型为基本类型的数组
+  JSON.parse(JSON.stringify(array))  可以实现数据类型不是基本变量的数组深度拷贝，可以理解为二级深度拷贝，这种拷贝就可以理解为对象的深度拷贝。
+  关于同步异步:
+  于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。
+  同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；
+  异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有等主线程任务执行完毕，"任务队列"开始通知主线程，请求执行任务，该任务才会进入主线程执行。
+	（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
+	（2）主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
+	（3）一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+	（4）主线程不断重复上面的第三步。
+	只要主线程空了，就会去读取"任务队列"，这就是JavaScript的运行机制。这个过程会不断重复。
+
+	在有循环嵌套时, 要把大循环写在内, 小循环写在外
+3.21  柯里化 封装
+柯里化是指这样一个函数(假设叫做createCurry)，他接收函数A作为参数，运行后能够返回一个新的函数。并且这个新的函数能够处理函数A的剩余参数。
+// 简单实现，参数只能从右到左传递
+function createCurry(func, args) {
+
+    var arity = func.length;
+    var args = args || [];
+    
+    return function() {
+        var _args = [].slice.call(arguments);
+        [].push.apply(_args, args);
+    
+        // 如果参数个数小于最初的func.length，则递归调用，继续收集参数
+        if (_args.length < arity) {
+            return createCurry.call(this, func, _args);
+        }
+    
+        // 参数收集完毕，则执行func
+        return func.apply(this, _args);
+    }
+}
+
+function test(){
+　//将参数转为一个数组　 
+　 	var args = Array.prototype.slice.apply(arguments);　 
+	console.log(args);　 
+}
+3.26
+判断对象是否为空
+1.for in     遍历属性
+2. JSON.stringfy() ==="{}"      将 JavaScript 值转换为 JSON 字符串
+3. Object.keys(obj).length===0 Object.keys()方法会返回一个由一个给定对象的自身可枚举属性组成的数组
+
+4.1 表格每列设置相同宽度则平分宽度
+
+4.19  vue   https://router.vuejs.org/zh/
+传参数是通过 this.$route.query或者 this.$route.params接收router-link传的参数
+this.$router.push('要跳转的路径名')
+router.push({ path: 'register', query: { plan: 'private' }})
+编程式的导航
+
+5.6 toFixed(2) 保留两位小数返回的是字符串  
+字符串之间的比较是比较第一个不同字符的ASCII码
+5.16 
+遍历数组的所有方法:
+for, forEach, for in, filter,map,some,every, for  of
+遍历对象的所有方法:
+for in ,Object.keys(obj)(得到key的数组),Object.values（obj）(得到value的数组)	,Object.getOwnPropertyNames(obj) (同Object.keys)
+
+6.27
+hasOwnProperty()方法，当遍历对象属性的时候可以过滤掉从原型链上下来的属性
+避免隐式类型转换   0==false => true
+
+
+7.8 Object.defineProperty(obj, prop, desc)
+obj --当前对象
+prop --属性名
+desc --属性描述符{  //默认
+	value: undefined
+	get: undefined
+	set: undefined
+	writable: false    //可修改性
+	enumerable : false     // 枚举性,描述属性是否会出现在for in 或者 Object.keys()的遍历中
+	configrable :false        //描述属性是否配置，以及可否删除
+
+}
+
+7.15
+在使用v-for循环渲染时 是不是用:key的影响
+1.当不使用时 diff速度会更加快速,因为没有key的情况下可以对节点 就地复用(原地复用)，提高性能。
+	不带key时节点能够复用，省去了销毁/创建组件的开销，同时只需要修改DOM文本内容而不是移除/添加节点
+2.当有key 时,带key就不是就地复用了,在增删节点上有耗时,但更加准确
+   利用key的唯一性生成map对象来获取对应节点，比遍历方式更快。
+
+
+Set,WeakSet,Map,WeakMap 
+1. Set
+Set本身是一个构造函数，用来生成 Set 数据结构   new Set  后Set 结构不会添加重复的值
+可以去除数组的重复成员
+属性和方法:
+Set 结构的实例有以下属性。
+Set.prototype.constructor：构造函数，默认就是Set函数。
+Set.prototype.size：返回Set实例的成员总数。
+Set 实例的方法分为两大类：操作方法（用于操作数据）和遍历方法（用于遍历成员）。下面先介绍四个操作方法。
+Set.prototype.add(value)：添加某个值，返回 Set 结构本身。
+Set.prototype.delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+Set.prototype.has(value)：返回一个布尔值，表示该值是否为Set的成员。
+Set.prototype.clear()：清除所有成员，没有返回值。
+遍历操作:
+Set 结构的实例有四个遍历方法，可以用于遍历成员。
+Set.prototype.keys()：返回键名的遍历器
+Set.prototype.values()：返回键值的遍历器
+Set.prototype.entries()：返回键值对的遍历器
+Set.prototype.forEach()：使用回调函数遍历每个成员
+
+2.WeakSet
+结构与 Set 类似，也是不重复的值的集合,WeakSet 的成员只能是对象，而不能是其他类型的值
+是一个构造函数，可以使用new命令，创建 WeakSet 数据结构。
+ES6 规定 WeakSet 不可遍历 所以size和forEach属性，结果都不能成功。
+方法:
+WeakSet.prototype.add(value)：向 WeakSet 实例添加一个新成员。
+WeakSet.prototype.delete(value)：清除 WeakSet 实例的指定成员。
+WeakSet.prototype.has(value)：返回一个布尔值，表示某个值是否在 WeakSet 实例之中。
+
+3.Map
+本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。
+遍历方法
+Map.prototype.keys()：返回键名的遍历器。
+Map.prototype.values()：返回键值的遍历器。
+Map.prototype.entries()：返回所有成员的遍历器。
+Map.prototype.forEach()：遍历 Map 的所有成员。
+
+
+4.WeakMap
+结构与Map结构类似，也是用于生成键值对的集合。
+WeakMap只接受对象作为键名（null除外），不接受其他类型的值作为键名。
+WeakMap的键名所指向的对象，不计入垃圾回收机制。
+注意，WeakMap 弱引用的只是键名，而不是键值。键值依然是正常引用。
+
+7.26 数组对象去重(对象可以不完全相同,可以忽略)
+   //item.唯一属性   === JSON.stringfy(item)
+let oldArrKeys = {};
+Array = Array.filter((item)=>{
+	if(!oldArrKeys[item.唯一属性]){
+		oldArrKeys[item.唯一属性] = true;
+		return item
+	}
+})
+唯一属性也可以是所有属性相加的字符串(保证唯一)
+es6 清除对象属性值
+Object.keys(obj).forEach(key=>{obj[key]=''})
+
+7.29 Object.assign 用于对象的合并，将源对象（source）的所有可枚举属性，复制到目标对象（target）。
+Object.assign方法实行的是浅拷贝，而不是深拷贝 
+
+8.29
+forEach跳出循环
+	return false  只能跳出本次循环
+	break   console会报错
+	solution:
+	1.try···catch捕获异常实现
+	2.使用arr.some()或者arr.every()替代forEach
+	       some()当内部return true时跳出整个循环
+		   every()当内部return false时跳出整个循环
+
+9.9
+js引入了事件和回调函数机制，对于一个IO操作，比如一个ajax，当发出一个异步请求后，程序不会阻塞在那里等待结果的返回，而是继续执行下面的代码。
+
+当请求成功获取到结果后，就会调用回调函数来处理后面的事情，这个就是异步的非阻塞。
+
+当然，异步 与 非阻塞，同步 与 阻塞，这两者之间概念很容易搞混。 
+
+一、同步与异步关注的是消息的通知方式。
+
+同步，当发起一个调用时，在没有获取结果之前，调用不会返回，直到获取结果。事一件一件做，做完一件再做下一件。
+
+异步，当发起一个调用时，在没有获取结果之前，调用就返回了，调用者并不会立即得到结果，而是被调用者通知调用者。通过回调函数处理结果。
+
+
+二、阻塞与非阻塞关注的是等待结果(返回值)时的状态
+
+阻塞，在等待结果的过程中，不能干其他事，线程被挂起，直到结果返回。
+
+非阻塞，在等待结果的过程中，还能干其他事，线程不会被阻塞。
+
+解释example:
+有个人，他去pizza店买pizza,然而pizza需要等待10分钟，作为客户，有两种选择
+等待，pizza完成后去做其他事，即为同步
+不等，先去做别的事，留个电话做好叫回来拿（回调函数），即为异步
+不等却没留电话（没回调函数），这个pizza就拿不到，这次操作（异步）无意义
+
+promise解决回调地狱
+function Grisaia() {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			console.log("Grisaia");
+			resolve()
+		}, 1000);
+	})
+}
+function kasami() {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			console.log("kasami");
+			resolve()
+		}, 1000);
+	})
+}
+function katsuki() {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			console.log("katsuki");
+			resolve()
+		}, 1000);
+	})
+}
+Grisaia().then(kasami).then(katsuki);
+//或者
+// await一定要配合async
+// 这种方式相对于promise的then调用更易于调换执行顺序
+(async function () {
+    await Grisaia();
+    await kasami();
+    await katsuki();
+})()
+console.log('output first')
+
+9.16 
+onresize 
+html: <body onresize="myFunction()">
+js: window.onresize=function(){SomeJavaScriptCode};
+onresize 事件会在窗口或框架被调整大小时发生
+
+onscroll 
+html: <div onscroll="myFunction()">
+js:object.onscroll=function(){myScript};
+	object.addEventListener("scroll", myScript);
+onscroll 事件在元素滚动条在滚动时触发。
+
+
+10.11  
+面试题
+js中new一个对象会发生什么？
+
+function Person(name, age){
+  // var this = {}
+  this.name = name
+  this.age = age
+  // return this
+}
+let p1 = new Person('han', 18) // Person{name: "han", age: 18}
+
+js中可以使用new构造函数的方法创建一个新对象，使用这种方式调用构造函数实际上会经历以下步骤：
+
+1、创建一个新对象?？
+2、将构造函数的作用域赋给新对象（this）
+3、执行构造函数中的代码（为新对象添加属性）
+4、返回该对象。
+因此对于一个构造函数即使它的内部语句最后并没有return，也会默认有return this；语句。
+
+线程与进程的区别 ？
+一个程序至少有一个进程，一个进程至少有一个线程。
+线程的划分尺度小于进程，使得多线程程序的并发性高。另外，进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。
+线程在执行过程中与进程还是有区别的。
+每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。
+从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。 但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。
+
+实现一个方法，使得：add(2, 5) 和 add(2)(5) 的结果都为 7
+var add = function (x, r) {
+	if (arguments.length == 1) {
+		return function (y) { return x + y; };
+	} else {
+		return x + r;
+	}
+};
+console.log(add(2)(5));  // 7
+console.log(add(2,5));  // 7
+arguments 参数的类数组 =>[x,r]
+
+10.12
+<input list="browsers">
+<datalist id="browsers">
+  <option value="Internet Explorer"><option>
+  <option value="Firefox"><option>
+  <option value="Chrome"><option>
+  <option value="Opera"><option>
+  <option value="Safari"><option>
+</datalist>
+input 输入下拉选择框 可输入不存在选项
+注意: Internet Explorer 9（更早 IE 版本），Safari 不支持 datalist 标签。
+
+10.31  
+面试题
+Vue 的内置组件有哪些？
+1）component
+
+2）transition
+
+3）transition-group
+
+4）keep-alive
+
+5）slot
+
+v-for 循环的时候为什么要绑 key，不绑 key 会报错吗，绑与不绑有什么区别？
+
+.vue 文件里的 style 标签，加上 scoped 和不加有什么区别？通过什么方式实现 scoped ？
+
+用vuex进行状态管理时,因为vuex数据存储在内存中，所以当前页面刷新数据会丢失
+solution: sessionStorage、localStorage、cookie   允许在浏览器中存储 key/value 对的数据
+建议sessionStorage 页面关闭即销毁
+浏览器窗口关闭后localStorage还保留数据
+
+11.18
+arguments 不是数组,所以大多数数组的方法不能用,但有callee和length属性
+类似类数组还有
+1.用getElementsByTagName/ClassName()获得的HTMLCollection
+2.用querySelector获得的nodeList
+怎么转化成数组?
+1.Array.from(arguments)
+2.Array.prototype.slice.call(arguments)
+3.ES6展开运算符 [...arguments]  //最为简单
+4.concat+apply==> Array.prototype.concat.apply([], arguments);//apply方法会把第二个参数展开
+
+forEach中断方法  return 无效
+1.使用try监视代码块，在需要中断的地方抛出异常。
+2.官方推荐方法（替换方法）：用every和some替代forEach函数。every在碰到return false的时候，中止循环。some在碰到return true的时候，中止循环
+
+11.21 收集的知识点面试题
+["1", "2", "3"].map(parseInt)
+==> [1,NaN,NaN]
+
+[typeof null, null instanceof Object]
+==> ['object',false]
+
+[1 < 2 < 3, 3 < 2 < 1]     解读:1<2 ==>  true    , true<3 ==> true ,Number(true) = 1 后面同理  3<2==> false  ,  false<1  ==> true  因为 Number(false) = 0
+==> [true,true]  
+
+12.10
+JSON.stringify() 特性总结 (9大特性)
+1.
+undefined、任意的函数以及 symbol 作为对象属性值时 JSON.stringify() 对跳过（忽略）它们进行序列化
+
+undefined、任意的函数以及 symbol 作为数组元素值时，JSON.stringify() 将会将它们序列化为 null
+
+undefined、任意的函数以及 symbol 被 JSON.stringify() 作为单独的值进行序列化时，都会返回 undefined
+2.
+非数组对象的属性不能保证以特定的顺序出现在序列化后的字符串中。
+3.
+转换值如果有 toJSON() 函数，该函数返回什么值，序列化结果就是什么值，并且忽略其他属性的值。
+4.
+JSON.stringify({ now: new Date() });
+// "{"now":"2019-12-08T07:42:11.973Z"}"
+JSON.stringify() 将会正常序列化 Date 的值。
+5.
+NaN 和 Infinity 格式的数值及 null 都会被当做 null
+6.
+布尔值、数字、字符串的包装对象在序列化过程中会自动转换成对应的原始值。
+7.
+其他类型的对象，包括 Map/Set/WeakMap/WeakSet，仅会序列化可枚举的属性
+8.
+对包含循环引用的对象（对象之间相互引用，形成无限循环）执行此方法，会抛出错误。
+9.
+所有以 symbol 为属性键的属性都会被完全忽略掉，即便 replacer 参数中强制指定包含了它们。
+
+12.11
+vue-router 中的导航钩子
+1.全局导航钩子：前置守卫、后置钩子
+//功能:判断有没有登陆  检查 验证sessionStorage、localStorage、cookie
+const router = new VueRouter({ ... });
+router.beforeEach((to, from, next) => {
+    // do someting
+});
+//跳转后dosomething
+router.afterEach((to, from) => {
+    // do someting
+});
+2. 路由独享的钩子  router.js  路由js文件内 参数与前置钩子一致
+cont router = new VueRouter({
+    routes: [
+        {
+            path: '/file',
+            component: File,
+            beforeEnter: (to, from ,next) => {
+                // do someting
+            }
+        }
+    ]
+});
+3. 组件内的导航钩子 beforeRouteEnter、beforeRouteUpdate (2.2 新增)、beforeRouteLeave
+
+
+12.13
+const clothes = ['jacket', 't-shirt'];
+clothes.length = 0;
+clothes[0]; // => undefined
+
+const length = 4;
+const numbers = [];
+for (var i = 0; i < length; i++);{
+  numbers.push(i + 1);
+}
+
+numbers; // => [5]    //注意;号,创建了一个空语句,循环了 4 次，忽略了实际上往数组里添加元素的代码块{ numbers.push(i + 1); }。
+
+2020.1.2
+联级筛选可以整合到一个数组,第一个select选项为对象字段(键名),每个字段默认为数组对应第二个select,三级联级类推
+
+example:地区办事处
+{
+	'直属':['北京办','广州办','深圳办'],
+	'南区':[........],
+	'北区':[.....]
+}
+{
+	"2019 ": (4) [1, 2, 3, 4]
+	"2020 ": [1]
+}
+
+
+let Allselect = {}
+//glquyu 全部区域 设置对象字段并未默认为空数组
+this.glquyu.forEach(data=>{
+	Allselect[data]=[]
+})
+//res.data  后台获取区域办事处数据
+res.data.forEach(data=>{
+	Allselect[data.quyu].includes(data.dept)?'':Allselect[data.quyu].push(data.dept)
+})
+
+console.log(Allselect)  //结果
+
+2020.2.25
+Vue 重复习
+生命周期:beforeCreate => create => beforeMount => mounted (=>beforeUpdate => updated)=> beforeDestroy => destroy
+vue中内置的方法 属性和vue生命周期的运行顺序（methods、computed、data、watch、props)
+data props computed watch methods 的生成顺序
+	props => methods =>data => computed => watch; 
+
+2020.3.3
+JSON.stringify 第二个参数，叫替换器参数。
+可以传一个字符串数组，作为对象属性白名单，这些属性将会包含在输出结果里
+let obj = {a:1,b:2}
+JSON.stringify(obj) => "{"a":1,"b":2}"
+JSON.stringify(obj,['a']) => "{"a":1}"
+也可以是一个函数
+
+
+引入外部css文件
+      1.main.js中引入  全局引入
+      import './style/reset.css'  --一般是全局样式
+      2..vue页面中引入  局部引入
+      <style scoped>
+        @import '../assets/iconfont/iconfont.css';     这个分号一定要写，要不会报错
+      </style>
+
+
+2020.4.7
+vue 传值
+父传子
+在引入子组件中用bind(用缩写:)绑定值到子组件身上  
+<child :inputName="name"></child>    inputName:子组件接收名字  name:父组件要传的值
+子组件用属性props接收
+export default {
+    // 接受父组件的值
+    props: {
+      inputName: String,
+      required: true
+    }
+}
+子传父
+事件中写入this.$emit(事件名,需要发送的值)，事件名：父组件on监听的方法
+childClick () {
+    // childByValue是在父组件on监听的方法
+    // 第二个参数this.childValue是需要传的值
+    this.$emit('childByValue', this.childValue)
+}
+父组件 在引入的组件中 on监听
+<child v-on:childByValue="childByValue"></child>
+方法methods :
+childByValue: function (childValue) {
+	// childValue就是子组件传过来的值
+	this.name = childValue
+}
+非父子组件进行传值
+1.使用vuex,sessionStorage......等
+2.创建个公共的公共实例文件bus.js，作为中间仓库来传值
+	两个组件都引入bug.js
+	传值方在方法methods里 Bug.$emit('val',this.elementValue)
+	接收方在mounted或者created内
+		var vm = this
+          // 用$on事件来接收参数
+          Bus.$on('val', (data) => {
+            console.log(data)
+            vm.name = data
+          })
+3.如果是页面跳转 可以通过router-link 带值
+
+
+2020.4.8
+渐进增强和优雅降级分别是什么意思？
+渐进增强(progressive enhancement):
+	针对低版本浏览器进行构建页面，保证最基本的功能，然后再针对高级浏览器进行效果、交互等改进和追加功能达到更好的用户体验。
+优雅降级 (graceful degradation):
+	一开始就构建完整的功能，然后再针对低版本浏览器进行兼容(测试和修复)。
+
+什么是CSS Hack？
+	是什么?
+	CSS hack是通过在CSS样式中加入一些特殊的符号，让不同的浏览器识别不同的符号（什么样的浏览器识别什么样的符号是有标准的，CSS hack就是让你记住这个标准），以达到应用不同的CSS样式的目的。
+	CSS Hack的目的，就是使你的CSS代码兼容不同的浏览器。
+	为什么?
+	对CSS的解析和认识不完全一样，因此会导致生成的页面效果不一样，得不到我们所需要的页面效果。
+	怎么做?
+	3种表现形式:
+	1.属性前缀法（CSS类内部 Hack）
+		div{
+			background:green;/*forfirefox*/  
+		    *background:red;/*forIE6 IE7*/ 
+		}
+		比如IE6能识别下划线"_"和星号"" ，IE7能识别星号""，但不能识别下划线,IE6-IE10都认识"\9",而Firefox这三个都不能认识。
+		对于书写顺序的关系，一般是将识别能力强的浏览器的CSS写在后边
+	2.选择器前缀法
+	语法:<hack> selector{ sRules }
+	例如：IE6能识别*html .class{} , IE7能识别 +html .class{}或:first-child+html .class{}
+	3.IE条件注释法（HTML 头部引用 Hack), 针对所有IE（注：IE10+已经不再支持条件注释）
+
+BFC可以解决哪些问题？
+	1.解决浮动元素令父元素高度坍塌的问题
+	2.非浮动元素被浮动元素覆盖(重叠)
+	3.两栏自适应布局
+	4.外边距垂直方向重合的问题
+	如何触发BFC？
+	float:left/right
+	position:absolute/fixed
+	overflow:auto/scroll/hidden
+	dispaly:inline-block/table-cell
+
+2020.4.9
+let a = 2
+typeof a+2;  ==> 'number2'  优先级原因
+
+var d = (a = 3, b = 4)
+console.log(d)  ==> 4  类似覆盖
+
+var a = 1;
+var b = 3;
+console.log( a+++b );   ==>4  a++返回的是1 1+3==>4
+a++ 与 ++a
+a++是表示先把值赋给其他为数字类型的变量,自己在+1。而++a 是自己先+1,再把值赋给数字类型的变量;
+var a=1; 
+var b=a++;//此时输出结果b为1，a为2
+var a=1; 
+var b=++a;//此时输出结果b为2，a为2 
+
+2020.4.10
+JS中基本数据类型
+Boolean、Null、Undefined、Number、String、Symbol（ES6 新增）、BigInt（ES10）
+复杂数据类型
+Object
+null 不是对象 但是typeof null 输出的是 Object
+基本数据和复杂数据类型有什么区别？
+1.内存的分配不同
+基本数据类型： 存放在栈内存中，它们是按值存放的
+引用数据类型： 存放在堆内存当中，它们是按引用地址存放的,栈中存储的变量，是指向堆中的引用地址
+2.访问机制不同
+基本数据类型是按值访问。
+复杂数据类型按引用访问，JS不允许直接访问保存在堆内存中的对象，在访问一个对象时，首先得到的是这个对象在堆内存中的地址，然后再按照这个地址去获得这个对象中的值
+3.复制变量时不同
+基本数据类型：a=b;是将b中保存的原始值的副本赋值给新变量a，a和b完全独立，互不影响。
+复杂数据类型：a=b;将b保存的对象内存的引用地址赋值给了新变量a;a和b指向了同一个堆内存地址，其中一个值发生了改变，另一个也会改变。
+4.参数传递的不同(实参/形参)
+函数传参都是按值传递(栈中的存储的内容)：基本数据类型，拷贝的是值；复杂数据类型，拷贝的是引用地址。
+
+typeof 是否正确判断类型? instanceof呢？ instanceof 的实现原理是什么？
+typeof 能够判断基本数据类型，但是除了null，typeof null 返回的是object
+对于对象来说typeof不能准确判断类型，typeof 函数会返回function，除此之外全部都是object，不能准确判断类型
+instanceof可以判断复杂数据类型，基本数据类型不可以
+instanceof是通过原型链来判断的 ，A instanceof B，在A的原型链中层层查找，是否有原型等于B.prototype，如果一直找到A的原型链的顶端（null，即Object.prototype._proto_），仍然不等于B，那么返回false，否则返回true
+
+js类数组转成数组的方法
+类数组:拥有length属性,元素保存在对象中，可以通过索引访问,但是没有数组的其他方法，例如：push、slice、indexOf等。
+1.slice
+	var arr = Array.prototype.slice.call(arguments)
+	//或者
+	var arr = [].slice.call(arguments)
+2.Array.from() es6方法
+3.$.makeArray()  Jq方法
+
+js有哪些内置对象
+时间对象date，字符串对象string，数学对象Math，数值对象Number，数组对象Array，函数对象function,函数参数集合arguments,布尔对象Boolean，错误对象Error,基础对象Object
+
+![] == []  ?  ====> true
+[] =>true  ![] => false
+false ==[]  ?  
+ECMA 标准又在 7.1.3 节规定了object类型转化为布尔值为true
+根据 ECMA 标准的 7.2.12 节，当表达式两边类型不同，且有一边是布尔值时，布尔值被转化为数字继续进行比较，所以false被转化为0，表达式变为0 == []。
+同样根据 ECMA 标准的 7.2.12 节，当数字与其他类型进行比较时，其他类型会被转化为数字进行比较，根据 ECMA 标准的 7.1.3 节，[]转化为数字也是0 。
+所以表达式转化为0 == 0，得到true。
+
+2020.4.17
+执行顺序
+var r = new Promise(function(resolve, reject){
+    console.log("a");
+    resolve()
+  });
+  
+  setTimeout(()=>console.log("d"), 0)
+  r.then(() => console.log("c"));
+  console.log("b")
+
+  // a b c d
+
+``
+
+```
+
+```
+
+``  2020.4.24
+  中文排序  在不考虑多音字的前提下，基本可以完美实现按照拼音排序
+ 	var array = ['武汉', '北京', '上海', '天津'];
+	var resultArray = array.sort(
+	    function compareFunction(param1, param2) {
+	        return param1.localeCompare(param2,"zh");
+	    }
+	);
+	console.log(resultArray);
+2020.4.26
+相同sqbom合并单元格
+第一步:
+let Priprop = {}   //获取所有出现的sqbom及其次数 并在sqbom在第一次出现的数据上加上rowspan属性
+data.forEach(item=>{
+    if(!Priprop[item.sqbom]){
+        Priprop[item.sqbom]=1
+        item.rowspan = true
+    }else{
+        Priprop[item.sqbom] ++
+	}
+})
+//  查找有没有rowspan属性 如果有就把次数赋值上去
+for (let index = 0; index < data.length; index++) {
+    if(data[index].hasOwnProperty('rowspan')){
+        for (const iterator in Priprop) {
+            if(iterator==data[index]['sqbom']){
+                data[index]['rowspan'] = Priprop[iterator]
+            }
+        }
+        
+    }
+}
+第二步:
+原生table 	
+:rowspan="item.rowspan" v-if="item.rowspan"
+element table
+:span-method="objectSpanMethod"
+
+objectSpanMethod({ row, column, rowIndex, columnIndex }) {
+	if(columnIndex===0){   //保证在第一列操作
+		if(!row.hasOwnProperty('rowspan')){
+			return {
+				rowspan :0,
+				colspan:1
+			}
+		}
+		if(row.hasOwnProperty('rowspan')){
+			return {
+				rowspan: row.rowspan,
+				colspan:1
+			}
+		}
+	}
+},
+
+2020.4.29
+js递归分析:
+递归:函数中用调用函数自己，此时就是递归，递归一定要有结束条件
+var arrList = [1,2,3,5,100,500,10000,10000,1000,10000002]
+ //for循环测试
+ function forTest(){
+     console.time("for循环")
+     for(let i in arrList){
+         console.log(((arrList[i] + arrList[i]) * 5 - arrList[i])/arrList[i])
+     }
+     console.timeEnd("for循环")
+ }
+ //递归遍历测试
+ function recursive() {
+     console.time("递归遍历")
+     const testFun = function (i) {
+         console.log(((arrList[i] + arrList[i]) * 5 - arrList[i])/arrList[i])
+         if(i == arrList.length - 1){
+             return
+         }
+         i++
+         testFun(i)
+     }
+     testFun(0)
+     console.timeEnd("递归遍历")
+ }
+ forTest()
+ recursive()
+
+递归遍历需要的时间更长
+1.很多时候可以用递归代替循环，可以理解为递归是一种特殊的循环，但通常情况下不推荐这样做。
+2.递归一般是在函数里面把函数自己给调用一遍，通过每次调用改变条件，来结束循环。
+3.递归在数据格式一致，在数据层级未知的情况下，比普通的遍历更有优势。
+4.递归在异步的时候，更容易理解，且更容易实现，因为可以在异步的回调里面，调用自己来实现每次都能拿到异步的结果再进行其他操作。
+5.递归实现的快速排序比普通遍历实现的排序效率更好。
+
+2020.5.15
+Diff算法的作用是用来计算出 Virtual DOM 中被改变的部分，然后针对该部分进行原生DOM操作，而不用重新渲染整个页面。
+Diff算法有三大策略：
+Tree Diff
+Component Diff
+Element Diff
+
+2020.05.29
+document.body.contentEditable='true';实现页面全部可编辑
+es6 字符串方法
+startsWith()：返回布尔值，判断参数字符串是否在原字符串的头部。
+endsWith()：返回布尔值，判断参数字符串是否在原字符串的尾部。
+includes() :返回布尔值，判断是否找到参数字符串。
+repeat()：返回新的字符串，表示将字符串重复指定次数返回,如果参数是小数，向下取整
+padStart：返回新的字符串，表示用参数字符串从头部（左侧）补全原字符串。
+padEnd：返回新的字符串，表示用参数字符串从尾部（右侧）补全原字符串。
+	console.log("h".padStart(5,"o"));  // "ooooh"
+	console.log("h".padEnd(5,"o"));    // "hoooo"
+	console.log("h".padStart(5));      // "    h"
+模板字符串 `${js}`
+标签模板  alert`Hello world!`;
+
+数组方法
+Array.of() 将参数中所有值作为元素形成数组。
+Array.from() 将类数组对象或可迭代对象转化为数组。
+
+
+2020.6.19
+'true'==true ; 为什么返回false
+在转换不同的数据类型时，相等和不相等操作符遵循下列基本规则：
+1. 如果有一个操作数是布尔值，则在比较相等性之前先将其转换为数值——false转换为0，而true转换为1；
+2. 如果一个操作数是字符串，另一个操作数是数值，在比较相等性之前先将字符串转换为数值；
+3. 如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的基本类型值按照前面的规则进行比较；
+'true' == true --> 'true' == 1 --> NaN == 1 --> false。
+
+2020.6.23
+1.使用左移运算符 << 迅速得出2的次方
+1 << 2  // 4, 即 2的2次方
+1 << 10 // 1024, 即 2的10次方
+    // 但是要注意使用场景
+    a = 2e9;   // 2000000000
+    a << 1;    // -294967296
+
+2. 使用 ^ 切换变量 0 或 1
+let  togle 
+ // 三目运算符
+togle = toggle ? 0 : 1;
+
+// --- after ---
+toggle ^= 1;
+
+3. 使用 & 判断奇偶性
+偶数 & 1 = 0
+奇数 & 1 = 1
+
+4. 使用 !! 将数字转为布尔值
+所有非0的值都是true，包括负数、浮点数：
+console.log(!!7);       // true
+console.log(!!0);       // false
+console.log(!!-1);      // true
+console.log(!!0.71);    // true
+
+5.使用~、>>、<<、>>>、|来取整
+相当于使用了 Math.floor()
+	console.log(~~11.71)     // 11
+    console.log(11.71 >> 0)  // 11
+    console.log(11.71 << 0)  // 11
+    console.log(11.71 | 0)   // 11
+    console.log(11.71 >>> 0) // 11
+注意 >>> 不可对负数取整
+
+6. 使用^来完成值交换
+
+7. 使用^判断符号是否相同
+
+8. 使用^来检查数字是否不相等
+
+9. n & (n - 1)，如果为 0，说明 n 是 2 的整数幂
+
+10. 使用 A + 0.5 | 0 来替代 Math.round()
+
+2020.7.20
+1、与AngularJS的区别
+相同点：都支持指令：内置指令和自定义指令；都支持过滤器：内置过滤器和自定义过滤器；都支持双向数据绑定；都不支持低端浏览器。
+不同点：AngularJS的学习成本高，比如增加了Dependency Injection特性，而Vue.js本身提供的API都比较简单、直观；在性能上，AngularJS依赖对数据做脏检查，所以Watcher越多越慢；Vue.js使用基于依赖追踪的观察并且使用异步队列更新，所有的数据都是独立触发的。
+2、与React的区别
+相同点：React采用特殊的JSX语法，Vue.js在组件开发中也推崇编写.vue特殊文件格式，对文件内容都有一些约定，两者都需要编译后使用；中心思想相同：一切都是组件，组件实例之间可以嵌套；都提供合理的钩子函数，可以让开发者定制化地去处理需求；都不内置列数AJAX，Route等功能到核心包，而是以插件的方式加载；在组件开发中都支持mixins的特性。
+不同点：React采用的Virtual DOM会对渲染出来的结果做脏检查；Vue.js在模板中提供了指令，过滤器等，可以非常方便，快捷地操作Virtual DOM。
+
+
+2020.07.29
+==操作符
+
+1.看操作数有没有boolean类型，如果有先将boolean类型变成number类型。
+
+2.看操作数有没有字符串类型，如果是两个都是字符串类型就直接比较；如果一个是字符串，一个是对象，对象转字符串再比较；如果一个是字符串，一个是数值，字符串转数值再比较。
+
+3.看操作数有没有对象类型，如果两个都是对象就直接比较；如果一个是对象一个是数值，对象转数值再比较。
+
+4.null,undefined不会进行类型转换，但是null,undefined相等。
+
+2020.9.21
+1）、同步和异步任务分别进入不同的执行"场所"，同步的进入主线程，异步的进入Event Table并注册函数
+2）、当指定的事情完成时，Event Table会将这个函数移入Event Queue。
+3）、主线程内的任务执行完毕为空，会去Event Queue读取对应的函数，进入主线程执行。
+4）、上述过程会不断重复，也就是常说的Event Loop(事件循环)。
+宏任务和微任务的分类
+宏任务：
+setTimeout
+setInterval
+
+js主代码
+setImmediate(Node)
+requestAnimationFrame(浏览器)
+
+微任务：
+process.nextTick
+Promise的then方法
+
+1）、存在微任务的话，那么就执行所有的微任务
+2）、微任务都执行完之后，执行下一个宏任务
+3）、1， 2以此循环着
+
+2020.9.28
+toString.call([])
+"[object Array]"
+toString.call('')
+"[object String]"
+toString.call({})
+"[object Object]"
+toString.call(function(){})
+"[object Function]"
+
+
+2020.11.3
+为什么 typeof null 等于 Object?
+不同的对象在底层原理的存储是用二进制表示的，在 javaScript中，如果二进制的前三位都为 0 的话，系统会判定为是 Object类型。
+null的存储二进制是 000，也是前三位，所以系统判定 null为 Object类型。
+扩展：这个 bug 个第一版的 javaScript留下来的。
+俺也进行扩展一下其他的几个类型标志位：
+000：对象类型。
+1：整型，数据是31位带符号整数。
+010：双精度类型，数据是双精度数字。
+100：字符串，数据是字符串。
+110：布尔类型，数据是布尔值。
+
+
+
+JSON.parse(JSON.stringfy(obj))
+这种方法深拷贝主要有如下几个问题：
+1.如果obj里面存在时间对象，拷贝完会变为字符串
+2.如果obj里有RegExp、Error对象，拷贝完变成空对象
+3.如果obj里有函数，undefined，拷贝完属性会丢失
+4.如果obj里有NaN、Infinity和-Infinity，拷贝会变成null
+5.如果obj中的对象是有构造函数生成的，拷贝后，会丢弃对象的constructor
+6.如果对象中存在循环引用的情况也无法正确实现深拷贝
+
+
+
+his.$router.push传递参数有2种方式：
+
+传递参数 – this.$router.push({path: ’ 路由 ', query: {key: value}})
+
+参数取值 – this.$route.query.key
+
+使用这种方式，传递参数会拼接在路由后面，出现在地址栏.
+
+传递参数 – this.$router.push({name: ’ 路由的name ', params: {key: value}})
+
+参数取值 – this.$route.params.key
+
+使用这种方式，参数不会拼接在路由后面，地址栏上看不到参数…
+
+
+总结方法:
+/** 
+ * es6语法
+ * 过滤JS数组中的空值,假值等(es6语法)
+ * @param array 需要过滤的数组 
+ * @returns {Array} [] 
+ **/  
+function filter_array(array) {  
+    return array.filter(item=>item); 
+} 
+数组内对象的去重:(对象完全相同情况下)
+ 	var hash = {}
+	arr = arr.reduce(function(item,next) {
+	 	hash[next.property] ? '' : hash[next.property] = true && item.push(next);
+	 	return item;
+	},[])
+
+	let oldArrKeys = {};
+	this.association = this.select_Data.filter((item)=>{
+		if(!oldArrKeys[item._identify]){
+			oldArrKeys[item._identify] = true;
+			return item
+		}
+	})
+
+去除某些字段:                    //针对字符串
+.replace("目的字段","")
+.split("↵").join("")    
+字符串分割为数组:
+.split(",")
+解决换行出现↵带来的问题
+.replace(/\n/g,'')
+
+去除数组内假值 ('',undefined,null,'  ') 
+[].filter(item=>{
+	return item&&item.trim()
+})
+
+转化为中文繁体金额
+function swapper(n) {
+	if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n))
+		return "数据非法";
+	var unit = "仟佰拾亿仟佰拾万仟佰拾元角分", str = "";
+	n += "00";
+	var p = n.indexOf('.');
+	if (p >= 0)
+		n = n.substring(0, p) + n.substr(p+1, 2);
+	unit = unit.substr(unit.length - n.length);
+	for (var i=0; i < n.length; i++)
+		str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+	return str.replace(/零(仟|佰|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
+}
+//日期转化为 YYYY-MM--DD HH:MM
+transformDate(date) {
+	let data = new Date(date)
+	let year = data.getFullYear();
+	let month = data.getMonth() + 1;
+	let day = data.getDate();
+	let hour = data.getHours();
+	let minutes = data.getMinutes();
+	if (Number(month) < 10) {
+		month = "0" + month;
+	}
+	if (Number(day) < 10) {
+		day = "0" + day;
+	}
+	if (Number(hour) < 10) {
+		hour = "0" + hour;
+	}
+	if (Number(minutes) < 10) {
+		minutes = "0" + minutes;
+	}
+	let result = (year + "-" + month + "-" + day + ' ' + hour + ':' + minutes)
+	if(result == "NaN-NaN-NaN NaN:NaN"){
+		console.log('表格时间格式有错误 ! 参考格式:2019/7/25 10:38')
+		return false
+	}else {
+		return result
+	}
+	
+}

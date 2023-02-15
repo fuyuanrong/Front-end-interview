@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        .wrapper{
+            width: 200px;
+            height: 200px;
+            /* background-color: aquamarine; */
+            border: 1px solid red;
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+        .box{
+            height: 50px;
+            width: 50px;
+            background-color: black;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="box"></div>
+    </div>
+    <script>
+    //      let arry=[
+    // {Code:'x',Quantity:1,ItemType:'normal'},
+    // {Code:'x',Quantity:2,ItemType:'normal'},
+    // {Code:'x',Quantity:5,ItemType:'normal'},
+    // {Code:'y',Quantity:1,ItemType:'spec'},
+    // {Code:'y',Quantity:2,ItemType:'spec'},
+    // {Code:'z',Quantity:1,ItemType:'normal'},
+    // ]
+    // let newfood=[];
+    // var temp = {};
+    //     for(var i in arry) {
+    //         var key= arry[i].Code;
+    //         if(temp[key]) {
+    //             temp[key].Code = temp[key].Code ;
+    //             temp[key].Quantity = temp[key].Quantity+ arry[i].Quantity;
+
+    //         } else {
+    //             temp[key] = {};
+    //             temp[key].Code = arry[i].Code;
+    //             temp[key].Quantity = arry[i].Quantity;
+
+    //         }
+    //         temp[key].ItemType= arry[i].ItemType; 
+    //     }
+    //   for(var k in temp){
+    //      newfood.push(temp[k])
+    //   }
+    //   alert(JSON.stringify(newfood));
+    var array= [
+            {key:'a',value:2},
+            {key:'a',value:2},
+            {key:'a',value:2},
+            {key:'b',value:8}
+        ]
+
+
+    var arr = [{
+					"code": "111",
+                    "ti":"qwe",
+					"num": 1
+				}, {
+					"code": "112",
+                    "ti":"qwe",
+					"num": 1
+				}, {
+					"code": "111",
+                    "ti":"qwe",
+					"num": 3
+				}, {
+					"code": "113",
+                    "ti":"qwe",
+					"num": 1
+				}, {
+					"code": "113",
+                    "ti":"qwe",
+					"num": 5
+				}, {
+					"code": "111",
+                    "ti":"qwe",
+					"num": 1
+				},{
+					"code": "111",
+                    "ti":"asd",
+					"num": 1
+				},{
+					"code": "111",
+                    "ti":"asd", 
+					"num": 1
+				}]
+
+			// 	function pollAdd(arr) {
+			// 		let res = [];
+			// 		let tmp = {};
+			// 		arr.forEach(v => {
+			// 			if (!tmp.hasOwnProperty(v.code)||!tmp.hasOwnProperty(v.ti)) {
+            //                 tmp[v.code] = res.length;
+			// 				return res.push(Object.assign({}, v));
+			// 			}
+			// 			res[tmp[v.code]].num += v.num;
+			// 		});
+
+			// 		return res;
+			// 	}
+			// console.log(pollAdd(arr));
+            array = array.reduce((resp, obj)=> {
+                // console.log(resp)
+                // console.log(obj)
+                var originObj = resp.find(item => item.key === obj.key);
+                if (originObj) {
+                    originObj.value+= obj.value;
+                } else {
+                    resp.push(obj)
+                }
+                return resp;
+            }, [])
+            console.log(array)
+    </script>
+</body>
+</html>

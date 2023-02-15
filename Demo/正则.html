@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div  id="example" class="wrapper">
+        <p>Before</p>   
+        <p>{{this.data1}}</p>
+        <p><button @click="doIt">转换</button></p>
+        <p>After</p>
+        <p>2=> {{this.data2}}</p>
+        <p>3=> {{this.data3}}</p>
+        <p>4=> {{this.data4}}</p>
+        <input type="checkbox" v-model="input_val">
+    </div>
+    <!-- import Vue before Element -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+               data1:'金华威项目订单文档\\1Y025019022011.xls 金华威项目订单文档\\1Y01001902000Q.xls 2014金华威项目订单文档\\1Y01501902000D.xls 金华威项目订单文档\\1Y02001902014C.xls 金华威项目订单文档\\1Y02301901020J.xls 2011金华威项目订单文档\\1Y08301902000P.xls 金华威项目订单文档\\1Y02101902000V.xls 金华威项目订单文档\\1Y05101901190U.xls 金华威项目订单文档\\1Y05101901190F.xls',
+               data2:'',
+               data:'([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})',
+               data3:'',
+               data4:'',
+               input_val:''
+            },
+            created() {
+                
+            },
+            methods: {
+                doIt(){
+                    this.data2=this.data1.replace(/[^\x00-\xff]|[\u4e00-\u9fa5]/g,'').replace(/(?<=.xls).*?(?=\\)/g,'').split('\\').filter(item=>item)
+                    this.data3 = this.data1.match(/(?<=\\).*?\.xls/gi)
+                    this.data4 = this.data1.replace(/[^\x00-\xff]|[\u4e00-\u9fa5]|2011金华威|2014金华威|2019年/g,'').split('\\').filter(item=>item)
+                    console.log(this.data2)
+                }
+            },
+            computed: {
+            
+            },
+            watch: {
+                input_val(){
+                    console.log(this.input_val)
+                }
+            },
+        })
+    </script>
+</body>
+</html>

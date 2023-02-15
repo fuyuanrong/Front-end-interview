@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+
+    </style>
+     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.6/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script> 
+   
+</head>
+<body>
+    <div id="example">
+        <ul>
+            <li v-for='(item,index) in answer' :key='index'>{{item}}</li>
+        </ul>
+        <input type="text" v-model="input_val1" id="input" @keyup.13='havedone'></br>
+    </div>
+     <!-- import Vue before Element -->
+     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+     <!-- import JavaScript -->
+     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#example',
+            data: {
+                input_val1:'',
+                answer:['你好我是人工智能,有什么想要问我的?'],
+            },
+            created() {
+                
+            },
+            methods: {
+                havedone(){
+                    if(!this.input_val1) return
+                    this.answer.push(this.input_val1)
+                    if(this.input_val1.includes('你')){
+                        this.input_val1 = this.input_val1.replace(/你/g,'')
+                    }
+                    this.input_val1.includes('吗')?this.answer.push(this.input_val1.split('吗')[0]+'!'):
+                    this.input_val1.includes('!')?this.answer.push(this.input_val1.split('!')[0]+'!'):
+                    this.input_val1.includes('啊')?this.answer.push(this.input_val1.split('啊')[0]+'!'):
+                    this.input_val1.includes('?')?this.answer.push(this.input_val1.split('?')[0]+'!'):''
+                    this.input_val1 = ''
+                }
+            },
+            computed: {
+            
+            },
+            watch: {
+                // answer(){
+                //     this.answer = [...new Set(this.answer)]
+                // }
+            },
+        })
+    </script>
+</body>
+</html>

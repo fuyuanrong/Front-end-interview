@@ -1,0 +1,52 @@
+
+<html> 
+<head> 
+<title>无标题文档</title> 
+
+</head> 
+<body>
+    <div onkeydown="return cellkeydown(event)"> 
+        <div> 
+            <textarea id="textArea" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <script type="text/javascript">
+        let str = '';
+        function cellkeydown(event) {
+            if (event.ctrlKey && event.keyCode == 86) { 
+                var ss = document.getElementById("textArea"); 
+                ss.focus(); 
+                ss.select(); 
+                // 等500毫秒，keyPress事件发生了再去处理数据 
+                setTimeout("dealwithData()",500); 
+            }     
+        } 
+        function dealwithData(event) {
+                var ss = document.getElementById("textArea"); //获取全部内容
+                ss.blur(); 
+                let str =ss.value.split('\n'); //回车分割数组
+                let arr = []
+                console.log(str)
+                str.forEach(i=>{
+                    // console.log(i.split('\t'))
+                    arr.push(i.split('\t'))
+                    // console.log(i)
+                })
+                // console.log(arr)
+                let key = arr.shift()   //获取表头  字段名
+                let arrlist = []
+                for(var j=0;j<arr.length;j++){
+                    let obj={}
+                    for(var i = 0 ; i<	key.length;i++){
+                        // 按照表头对应赋值
+                        obj[`${key[i]}`]=arr[j][i]
+                    }
+                    arrlist.push(obj)
+                    obj ={}
+                }
+                console.log(arrlist)
+        } 
+    </script> 
+</body>
+
+</html>

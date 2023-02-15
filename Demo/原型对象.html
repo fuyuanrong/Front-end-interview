@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <style>
+    </style>
+</head>
+<body>
+    <div>
+
+    </div>
+    <script>
+        function Person(name,sex,age) {
+            this.name = name;
+            this.sex = sex;
+            this.age = age
+            this.introduce = function () {
+                console.log('Hello, my name is ' + this.name + ','+this.age + ' years old!');
+            }
+        }
+        var Tom = new Person('Tom' , 'man' , 18)
+        console.log(Tom.name)
+        Tom.introduce()
+    </script>
+</body>
+</html>
