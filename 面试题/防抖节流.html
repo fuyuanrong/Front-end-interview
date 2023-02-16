@@ -52,14 +52,26 @@
 		btn1.onclick = debounce(handleBtn,500);
 		// console.log('----------------节流---------------');
 		// 节流直观效果:无论点多快,每隔一定时间间隔就触发一次(间隔自己设定)
+		//用例:提交表单,高频监听事件
 
 		function throttle(fn,delay){
+			//时间戳版本
 			var lastTime = 0;
 			return function(){
 				var nowTime = new Date().getTime();
 				if(nowTime-lastTime>delay){
 					fn();
 					lastTime = nowTime;
+				}
+			}
+			//另一版本  setTimeout版 
+			let timer = null;
+			return function(){
+				if(!timer){
+					timer = setTimeout(() => {
+						fn();
+						timer = null;
+					}, delay);
 				}
 			}
 		}
