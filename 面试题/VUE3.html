@@ -32,7 +32,7 @@
 			//  vue3 删除了 beforeCreate created  用setup代替   vue2 8个变成了6个
 			//  destory 改为了unmount
 			setup(props) {
-				msg = ref('你好');
+				msg = ref('你好');  //定义msg简单数据类型  '你好'  (可以看操作在vue2中data内定义初始化 msg:'你好')
 				console.log('1');
 				onBeforeMount(() => {
 					console.log('onBeforeMount: data没有渲染到页面',document.getElementById('app').innerHTML);

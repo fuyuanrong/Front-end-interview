@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>VUE2</title>
+	<script src="https://unpkg.com/vue@3"></script>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<div id="app">
+			{{msg}}
+		</div>
+		<p>VUE组件传参</p>
+		<p>1.父传子传参:props</p>
+
+		<!-- 
+			父组件通过标签属性进行数据传递 
+			<Child :msg="'我是传递的数据'"></Child>
+			子页面 :
+				vue3:
+					子组件通过defineProps获取父组件传过来的数据
+					子组件不允许修改父组件的数据
+					let props = defineProps(['msg'])
+					使用: props.msg
+				vue2: 
+					与data,created等同级
+					// 写法一 用数组接收
+					props:['msg'],
+					// 写法二 用对象接收，可以限定接收的数据类型、设置默认值、验证等
+					props:{
+						msg:{
+							type:String,
+							default:'这是默认数据'
+						}
+					},
+					使用:直接this.msg
+
+
+		-->
+
+		 	
+		<p>2.子传父传参:emit</p>
+		<!-- 
+			emits触发组件自定义事件
+			vue3:
+				子组件:
+					const emits = defineEmits(['getVal'])
+					事件方法内: emits("getVal",'要传的内容')
+				父组件:
+					<Child @getVal="getSonVal"></Child>
+					const getSonVal = (val)=>{
+						console.log(val)
+					}
+			vue2:
+				子组件:
+					data内定义要发送的内容msg:'发送的内容'
+					方法内:this.$emit('sendMsg',msg)
+				父组件:
+					<Child @sendMsg="getChildMsg"></Child>
+					getChildMsg(val){
+						getChildMsg
+					}
+		-->
+
+		<p>3.兄弟组件传参:事件总线BUS vue3使用mitt</p>
+		<!-- 
+			vue3:
+				使用 mitt  需要安装包  npm/snpm i mitt -S
+				事件总线:相当于全局的事件管理
+				使用:mitt.emit("方法名",参数):触发某个方法
+				mitt.on("对应方法名",callback)
+				mitt.off("移除对应方法名")
+		-->
+
+	</div> 
+	<script>
+		const { createApp ,onBeforeMount,onMounted,onBeforeUpdate,onUpdated,onBeforeUnmount,onUnmounted,ref} = Vue;
+		const app = createApp({
+			setup(props) {
+				
+			}
+		}).mount('#app')
+	</script>
+</body>
+</html>
