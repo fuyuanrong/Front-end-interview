@@ -24,17 +24,21 @@
 		  dv1 dv2 相隔不是 20 + 40   相隔规则:同正取最大(边界重叠) 一正一负取和 同负取绝对值最大
 		  BFC概念
 			块级格式化上下文
-			如何创建BFC
+		BFC规定了内部的Block Box如何布局
+			内部的Box会在垂直方向上一个接一个放置
+			Box垂直方向的距离由margin决定，属于同一个BFC的两个相邻Box的margin会发生重叠
+			每个元素的 margin box 的左边，与包含块 border box 的左边相接触
+			BFC的区域不会与float box重叠
+			BFC是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素
+			计算BFC的高度时，浮动元素也会参与计算
+		如何创建BFC
 
 			1.overflow : overflow的值不为visible
 			2. position: 值不为static，relative
 			3. display的值为inline-block、table-cell、table-caption
 			4.float的值不为none（默认）
-			BFC原理
-			1.就是在BFC这个元素的垂直方面边距(margin)会发生重叠
-			2.BFC的区域不会与浮动元素的box重叠
-			3.BFC在页面中是一个独立的容器，外面的元素不会影响它里面的元素
-			4.计算BFC高度的时候，浮动元素也会参与计算
+			5.根元素html
+			
 		*/
 	</style>
 </head>
