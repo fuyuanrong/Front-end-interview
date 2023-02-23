@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="inner">
+
+		</div>
+		<p>这里有些文字</p>
+
+	</div>
+	<script>
+		//解构赋值 : 对象/数组
+		let person = {
+			name:'张三',
+			age:20,
+		}
+		//若想不要相同命名 新名写在后面
+		//对象解构和顺序没关系
+		// let {name:name1,age,hobby} = person;
+		// console.log(name1,age,hobby);
+
+		//数组解构赋值和顺序有关
+		let [a,b,c] = [1,2,3];
+		console.log(a,b,c);
+
+		//对象解构赋值 默认值
+		//默认值想生效 对象内部对应的属性值得是undefined
+		let {name:name1,age,hobby='hobby  is  none'} = person;
+		console.log(name1,age,hobby);
+
+		// var {x=3} = {}
+		// console.log(x);
+
+		// var {x,y=5} = {x:1}
+		// console.log(x,y);
+
+		// var { x: y = 5} = {x:undefined}
+		// console.log(x,y);
+
+		// var { x: y = 3} = {x:undefined}
+		// console.log(x,y);
+
+		// var {message:msg='112233'} = {}
+		// console.log(msg);
+
+		// var {x=3} = {x:null}
+		// console.log(x);
+
+		// let x ;
+		// ({x} = {x:1})
+		// //如果要将已经声明的变量解构赋值 需要带()  因为系统会将{} 当成作用域块
+		// console.log(x);
+
+		//数组的本质是对象, 对数组进行对象属性的解构
+		let arr = [1,2,3];
+		let {0:first,[arr.length-1]:last} = arr;
+		console.log(first,last);
+
+
+	</script>
+</body>
+</html>
