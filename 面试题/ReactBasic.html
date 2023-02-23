@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>React</title>
+	<style type="text/css">
+	</style>
+	<script src="https://cdn.staticfile.org/react/16.4.0/umd/react.development.js"></script>
+	<script src="https://cdn.staticfile.org/react-dom/16.4.0/umd/react-dom.development.js"></script>
+	<script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+	<div id="root"></div>
+	<div id="app"></div>
+	<div id="compFun"></div>
+	<div id="compCla"></div>
+	<script type="text/babel">
+		var msg = '这是简单的react应用'
+		let vm = <h1>{msg}</h1>
+		/*
+			基本语法规则:
+				遇到以<开头的代码以标签的语法来解析,HTML同名的标签就转换成html的标签
+				遇到以{开头的代码以js的语法来解析 标签中的js语法一定要用{}包裹起来
+		*/
+		ReactDOM.render(vm,document.getElementById("root"));
+		/*
+			渲染虚拟DOM
+				语法 ReactDOM.render(参数1,参数2);
+				作用 将虚拟dom元素渲染到页面中的真实容器中去
+				参数说明:
+					参数1:纯js 或者jsx创建的虚拟dom对象
+					参数2:用来包含虚拟dom 元素的真实dom元素对象(一般是个div)
+			创建虚拟dom的两种方式
+				1.纯js
+					var virturDom = ReactDOM.creatElement('h1',{id:'myId'},msg)
+					ReactDOM.render(virturDom,document.getElementById("root"))
+				2.jsx
+					以上
+		*/
+
+		var arr = ['html','css','javascript','node'];
+		var ul = <ul>
+			{
+				arr.map((item,index)=>{
+					return (
+						<li key={index}>{item}</li>
+					)
+				})
+			}
+			</ul>
+		ReactDOM.render(ul,document.getElementById("app"));
+
+		//  组件 :  函数组件   类组件
+
+		// 函数组件  react-hooks 
+		function App(){
+			return (
+				<h1> 函数组件 </h1>
+			)
+		}
+		ReactDOM.render(<App/>,document.getElementById("compFun"));
+		/*
+		 	函数组件注意:
+				1. 函数名一定大写开头
+				2. 只能有一个根节点
+		*/
+		// class类组件
+		class App2 extends React.Component{
+			constructor(props){
+				super(props)
+				this.state = {
+					flag:false
+				}
+			}
+			
+			handleClick = ()=>{
+				let {flag} = this.state;
+				this.setState({
+					flag:!flag
+				})
+
+			}
+			render(){
+				let {flag} = this.state
+				let msg = flag?'11111111':'2222222'
+				return(
+					<div>
+						<h1 onClick={this.handleClick}>{msg}</h1>
+					</div>
+				)
+			}
+		}
+		ReactDOM.render(<App2/>,document.getElementById("compCla"));
+		
+		
+	</script>
+</body>
+</html>
