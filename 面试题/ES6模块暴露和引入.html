@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>this指向与改变</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="inner">
+
+		</div>
+		<p>这里有些文字</p>
+
+	</div>
+	<script>
+		/*
+		模块暴露
+			1.分别暴露
+				在需引入的js文件中
+					export let school = '某某某';
+					export function teach(){};
+			2. 统一暴露
+				在需引入的js文件中
+					let school = '某某某';
+					function teach(){};
+					export {school,teach}
+			3.默认暴露
+				在需引入的js文件中
+				export default{
+					school:'某某某',
+					teach:function(){
+
+					}
+				}
+		模块引入
+			1.通用引入
+				import  * as m1 from './导入文件.js'
+				console.log(m1)
+			2.解构赋值形式
+				import { school,teach} from './导入文件.js'
+				import { school as 别名,teach} from './导入文件.js'
+				console.log(别名)
+				console.log(teach)
+				import {default as m2} from './导入文件.js'     --默认暴露
+				console.log(m2)
+			3.简便形式  ---针对默认暴露
+				import m3 from './导入文件.js'
+				console.log(m3)   //对象
+				
+				
+		*/
+		
+	</script>
+</body>
+</html>
