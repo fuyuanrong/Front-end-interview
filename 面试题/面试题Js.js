@@ -7,7 +7,7 @@ fnc(112) // 输出 [1， 11， 112]
 
 function fnc(value){
 	let len = value.length;
-	let  resultArr : any = [];
+	let  resultArr  = [];
 	for (var i = 0; i < len; i++) {
 		resultArr[i] = "";
 	}
@@ -22,7 +22,7 @@ function fnc(value){
 // {1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]。
 
 let  obj = {1:222, 2:123, 5:888}
-let resultArr : any= [];
+let resultArr = [];
 for (var i = 0; i < 12; i++) {
 	resultArr[i] = null;
 }
@@ -35,14 +35,14 @@ console.log(resultArr)
 
 // 实现一个函数 5.add(3).minus(2)功能。例：5 + 3 - 2，结果为 6
 
-// Number.prototype.add = function(v) {
-// 	v =  v?Number(v):0
-// 	return this + v
-// };
-// Number.prototype.minus = function(v){
-// 	v =  v?Number(v):0
-// 	return this - v
-// }
+Number.prototype.add = function(v) {
+	v =  v?Number(v):0
+	return this + v
+};
+Number.prototype.minus = function(v){
+	v =  v?Number(v):0
+	return this - v
+}
 
 
 
