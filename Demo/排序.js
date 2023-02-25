@@ -1,5 +1,28 @@
 
-//js冒泡排序(加工版)
+//js冒泡排序  最慢的排序方式
+/**
+    比较相邻的两个元素,根据大小来决定是否交换位置
+    比较的次数位数组长度
+**/
+let arr = [9,5,3,6,2,1,4,7,8];
+for (let index = 0 ; index < arr.length - 1 ; index++) {
+    console.log('object');
+    for (let i = 0; i < arr.length-1; i++) {
+        if(arr[i] > arr[i+1]){
+            // 大数在前小数在后的话交换位置
+            let temp = arr[i];
+            arr[i] = arr[i+1];
+            arr[i+1] = temp;
+        }
+    }
+}
+console.log(arr);
+
+
+
+
+
+// (加工版)
 function bubbleSort(array,val) {
     // array  必须,所要排序的数组
     // val 可选,数组内所比较的属性,值必须是数字

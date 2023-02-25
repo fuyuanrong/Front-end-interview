@@ -98,6 +98,12 @@ function ajax_method(url,data,method,success) {
 
 8.sessionstorage  localstorage  cookies  区别
 
+9.position有哪些值?分别是根据什么定位?
+    static:默认值 没有定位
+    fixed: 固定定位,根据浏览器窗口进行定位
+    absolute:绝对定位,相对于第一个有relative的父元素,脱离文档流
+    relative:相对定位,相对于自身,不脱离文档流
+
 小米前端笔试
 1.爬虫引擎是怎么抓取页面的
 2.浏览器渲染页面的过程

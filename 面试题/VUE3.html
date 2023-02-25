@@ -16,14 +16,20 @@
 			{{msg}}
 		</div>
 		<p>VUE2与VUE3的对比</p>
+
+
+		<p>reactivity(响应性)  runtime(运行时)  complier(编辑器)</p>
+
+
 		<p>1.Composition API(VUE3) 和 OPtions API (VUE2)</p>
 		 	OPtions API  键值对一样成对出现,在比较繁重的项目内容易有命名冲突,冗余代码等<br>
 		 	Composition API setup方法:beforeCreate=>setup=>created<br>
 			<br>
-		<p>2.响应数据的绑定</p>
-			vue2使用的是Object.defineProperty的get set进行监控属性,无法监控对象的属性(data内未定义的属性)的 增加删除<br>
+		<p>2.响应数据的绑定  reactivity</p>
+			vue2使用的是Object.defineProperty的getter setter进行监控指定对象属性,无法监控对象的属性(data内未定义的属性)的 增加删除<br>
 			vue3 Proxy深度监控对象,监控对象的属性的增加删除都可以监控到<br>
 		<p>3.vue3打包的时候无用代码丢弃</p>
+		
 
 	</div> 
 	<script>
