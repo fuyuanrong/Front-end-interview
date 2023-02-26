@@ -110,9 +110,39 @@ function ajax_method(url,data,method,success) {
 3.异步编程的四种方法
 4.解释异步同步,阻塞非阻塞,并行并发之间的区别
 5.js实现数字千分位
+    function getThousand(number){
+        if(Number.isNaN(number))return false;
+        let deci = String(number).split('.')[1];
+        let result = [];
+        let temp = String(number).split('.')[0].split('').reverse();
+        let flag = 0;
+        temp.forEach((i,index)=>{
+            result.push(i);
+            flag ++;
+            if(flag===3&&(index!==temp.length-1)){
+                result.push(',');
+                flag = 0;
+            }
+        })
+        return result.reverse().join('') +  '.' + deci
+    }
 6.多语言网站建设应注意哪些事项
 7.react非父子,兄弟组件传值
 8.123456789876543212345678987654321...的第N位是什么?
+    function getNumber(n){
+        let result = 0;
+        let flag = true;
+        for (let i = 0; i <= n; i++) {
+            if(result==1){
+                flag = true;
+            }
+            if(result===9){
+                flag = false
+            }
+            flag?result++:result--
+        }
+        return result
+    }
 面试
 1.浏览器打开一个页面前端缓存了那些东西?
 2.vue的生命周期
