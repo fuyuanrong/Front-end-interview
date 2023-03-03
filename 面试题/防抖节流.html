@@ -24,6 +24,9 @@
 		<strong>总结:</strong>
 		<p>防抖：触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间</p>
 		<p>节流：高频事件触发，但在n秒内只会执行一次，节流会稀释函数的执行频率</p>
+		<p>区别:</p>
+		<p>防抖:只执行最后一次   应用场景:input输入框</p>
+		<p>节流:有规律的执行   应用场景:拖拽,scroll</p>
 
 		<button id="btn1">防抖</button>
 		<button id="btn2">节流</button>
@@ -45,6 +48,7 @@
 				clearTimeout(timer)
 				timer = setTimeout(() => {
 					fn();
+					timer = null;
 				}, delay);
 			}
 		}
