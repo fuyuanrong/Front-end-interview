@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tcp三次握手和四次挥手</title>
+
+	<style type="text/css">
+		.container {
+			display: flex;
+			flex-direction: column;
+		}
+		.container .inner {
+			display: flex;
+			flex-direction: row;
+		}
+		.container .inner img{
+			width: 50%;
+			border: 1px solid black;
+			margin: 1px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>tcp三次握手和四次挥手</h1>
+		<h2>三次握手</h2>
+		<p>标志位:数据包</p>
+		<p>SYN: Synchronize Sequence Numbers  同步序列编号</p>
+		<p>ACK: Acknowledgement 确认字符</p>
+		<p>状态:</p>
+		<p>listen:侦听TCP端口的连接请求  (我等着你发送连接请求呢)</p>
+		<p>SYN-SENT:  在发送连接请求后等待匹配的连接请求 (我发送了连接请求,我等你回复哈)</p>
+		<p>SYN-RECEIVED: 在收到和发送一个连接请求后等待对连接请求的确认 (我收到你的连接请求了,我等你回复我)</p>
+		<p>ESTABLISHED: 代表一个大开的连接,数据可以传送给用户 (建立连接了哈,我跟你说一下)</p>
+		
+		<div class="inner">
+			<img src="./tcp三次握手diagram.png" alt="">
+			<img src="./tcp三次握手.png" alt="">
+		</div>
+
+
+		<h2>四次挥手</h2>
+		<div>
+			<img src="./tcp四次挥手.jpg" alt="">
+		</div>
+
+	</div>
+	<script>
+	</script>
+</body>
+</html>
