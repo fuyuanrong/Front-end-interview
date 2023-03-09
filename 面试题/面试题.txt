@@ -1131,6 +1131,11 @@ console.log(obj)
 第 50 题：（百度）实现 (5).add(3).minus(2) 功能。例：5 + 3 - 2，结果为 6
 
 第 51 题：Vue 的响应式原理中 Object.defineProperty 有什么缺陷？为什么在 Vue3.0 采用了 Proxy，抛弃了 Object.defineProperty？
+	JS中做属性拦截常见的方法由三:defineProperty getter/setter和Proxies
+	Vue2中使用 defineProperty 的原因是,当时2013年只能用这种方式。
+	由于该API存在一些局限性,比如对数组的拦截有问题,为此vue需要专门为数组响应式做一套实现。另外不能拦截那些新增/删除属性;最后defineProperty 方案在初始化时需要深度递归遍历待处理对象才能对他完全拦截,明显增加了初始化的时间
+	以上两点在Proxy出现后迎刃而解,不仅可以对数组实现拦截,还能对Map Set实现拦截;另外Proxy的拦截也是懒处理行为,如果用户没有访问嵌套对象,那么也不会实施拦截,这就让初始化的速度和内存占用都改善了
+	当然Proxy是由兼容性的问题,IE完全不支持,所以如果需要IE支持就不合适
 第 52 题：怎么让一个 div 水平垂直居中
 第 53 题：输出以下代码的执行结果并解释为什么
 var a = {n: 1};
