@@ -148,11 +148,21 @@ Promise.all
 Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。
 
 Promise.all([promise1, promise2]).then(success1, fail1)
-promise1和promise2都成功才会调用success1
+// promise1和promise2都成功才会调用success1,有一个报错,就返回错误
+
+Promise.allSettled([promise1,promise2]).then(success1.fail1)
+// 同时返回全部的promise结果(无论成功或失败)
+// /返回的是数组对象
+// { status:"fulfilled",value:}
+// { status:"rejected",reason:}
+
 
 Promise.race
 Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。
 
 Promise.race([promise1, promise2]).then(success1, fail1)
-promise1和promise2只要有一个成功就会调用success1
+// promise1和promise2只要有一个成功就会调用success1
+
+Promise.any([promise1, promise2]).then(success1, fail1)
+//返回执行最快完成的Promise
 
