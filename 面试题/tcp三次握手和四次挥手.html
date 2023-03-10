@@ -37,6 +37,11 @@
 			<img src="./tcp三次握手diagram.png" alt="">
 			<img src="./tcp三次握手.png" alt="">
 		</div>
+		<p>浏览器拿到IP后，在向服务器发起http请求之前，先要和服务器建立TCP连接，称为TCP的三次握手</p>
+		<p>第一次握手:客户端发送'SYN'数据包给服务端</p>
+		<p>第二次握手:服务端收到客户端的数据包，返回'SYN/ACK'数据包给客户端</p>
+		<p>第三次握手:客户端收到服务端的返回后，发送'ACK'数据包给服务端</p>
+
 
 
 		<h2>四次挥手</h2>
@@ -54,7 +59,13 @@
 			<img src="./tcp四次挥手.jpg" alt="">
 			<img src="./tcp四次挥手.png" alt="">
 		</div>
-
+		<p>根据Connection请求头，如果是keep-alive服务器就保持住tcp连接</p>
+		<p>如果没有或是close则服务器响应传输完后主动关闭tcp连接</p>
+		<p>现在浏览器都是http1.1默认是keep-alive，在浏览器tab关闭时，tcp连接关闭</p>
+		<p>第一次挥手：浏览器发送一个FIN，以及选择号seq=u用来关闭Client到Server的数据传送，Client进入FIN_WAIT_1状态</p>
+		<p>第二次挥手：服务器收到FIN后，发送一个请求号seq=v和确认序号ack=u+1给Client，Server进入CLOSE_WAIT状态</p>
+		<p>第三次挥手：Server发送一个FIN，请求号为最新的seq=w和确认序号ack=u+1，用来关闭Server到Client的数据传送，Server进入LAST_ACK状态</p>
+		<p>第四次挥手：Client收到FIN后，Client进入TIME_WAIT状态，接着发送一个ACK给Server，确认序号为w+1，Server进入CLOSED状态</p>
 	</div>
 	<script>
 	</script>

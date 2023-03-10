@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ES6模块化和CommonJS模块化.html</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="inner">
+
+		</div>
+		<p>这里有些文字</p>
+
+	</div>
+	<script type="module">
+		/*
+		ES6模块化
+			使用.mjs为扩展名的文件就是ES6模块化
+		优势:
+			1.防止命名冲突
+			2.代码复用
+			3.高维护性
+		模块暴露
+			1.分别暴露
+				在需引入的js文件中
+					export let school = '某某某';
+					export function teach(){};
+			2. 统一暴露
+				在需引入的js文件中
+					let school = '某某某';
+					function teach(){};
+					export {school,teach}
+			3.默认暴露
+				在需引入的js文件中
+				export default{
+					school:'某某某',
+					teach:function(){
+
+					}
+				}
+		模块引入
+			1.通用引入
+				import  * as m1 from './导入文件.js'
+				*表示引入文件内的全部,尽量避免
+				console.log(m1)
+			2.解构赋值形式
+				import { school,teach} from './导入文件.js'
+				import { school as 别名,teach} from './导入文件.js'
+				console.log(别名)
+				console.log(teach)
+				import {default as m2} from './导入文件.js'     --默认暴露
+				console.log(m2)
+			3.简便形式  ---针对默认暴露
+				import m3 from './导入文件.js'
+				console.log(m3)   //对象
+			通过ES模块化 导入的内容都是常量,不可修改,但是复杂数据类型的可以修改
+
+		CommonJS模块化
+			使用.cjs为扩展名的文件就是CommonJS
+			模块引入
+				使用require('路径')函数引入
+				模块名要以./或../开头
+				可以省略扩展名,node会自动不全,优先顺序是 js>json>node(特殊)
+				const m1 = require(./m1.js)
+			模块暴露
+				通过exports或者module.exports
+				exports.a = '123';
+				exports.b = '123';
+				exports.c = '123';
+				module.exports = {
+					a:1,
+					b:2,
+					c:[],
+					d:{},
+					e:function(){}
+				}
+
+
+
+		common.js 和 es6 中模块引入的区别？
+		CommonJs : require引入 ES6 moudle 是import引入
+		CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+		CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+		CommonJs 是单个值导出，ES6 Module可以导出多个
+		CommonJs 是动态语法可以写在判断里，ES6 Module 静态语法只能写在顶层
+		CommonJs 的 this 是当前模块，ES6 Module的 this 是 undefined
+		CommonJs 不支持异步,ES6 Module支持异步
+		CommonJs 引入可以省略扩展名,ES6 Module不能
+
+
+		默认情况下,node中的模块化标准是CommonJS,要想使用ES的模块化,可以采用两种方法
+				1.使用mjs作为扩展名
+				2.修改package.json中type:module,将当期项目所有js文件默认为es module
+		*/
+		
+	</script>
+</body>
+</html>
