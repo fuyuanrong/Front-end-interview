@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>虚拟DOM转真实DOM案例</title>
+
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div>
+
+	</div>
+	<script>
+		const jsonObj = {
+			tag:"DIV",
+			attrs:{
+				id:'app'
+			},
+			children:[
+				{
+					tag:'P',
+					children:[
+						{
+							tag:"A",
+							text:'1111',
+							children:[]
+						}
+					]
+				},
+				{
+					tag:'P',
+					children:[
+						{tag:"A",text:'2222',children:[]},
+						{tag:"A",text:'3333',children:[]}
+					]
+				}
+			]
+		}
+		function render(vnode){
+			const dom = document.createElement(vnode.tag)
+			if(vnode.text){
+				dom.innerHTML = vnode.text;
+			}
+			if(vnode.attrs){
+				Object.keys(vnode.attrs).forEach(key=>{
+					const value = vnode.attrs[key]
+					dom.setAttribute(key,value)
+				})
+			}
+			vnode.children && vnode.children.forEach(ele => {
+				dom.appendChild(render(ele))
+				
+			});
+			return dom
+		}
+		document.body.appendChild(render(jsonObj));
+	</script>
+</body>
+</html>
