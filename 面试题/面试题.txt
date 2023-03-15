@@ -556,7 +556,7 @@ function checkSubmitMobil(){
 	String.prototype.trim=function(){
 		return this.replace(/^ +| +$/g,"");
 	}
-14、简述COOKIE。在JS中如何操作Cookie?
+14、简述COOKIE。在JS中如何操作?
 	简述cookie，在JS中如何操作cookie  https://www.jianshu.com/p/f348a388411d
 15、谈谈javascript数组排序方法sort()的使用，重点介绍sort()参数的使用及其内部机制。
 	JS数组排序方法sort()的使用 https://www.jianshu.com/p/14f0ca5c0b29
