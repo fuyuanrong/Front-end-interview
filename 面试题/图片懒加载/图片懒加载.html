@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片懒加载</title>
+
+	<style type="text/css">
+		.container{
+			display: flex;
+			flex-direction: column;
+		}
+		.container img{
+			padding: 4px;
+			width: 400px;
+			height: 300px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<img src="./loading.png" data-src="./image/alww.png" alt="">
+		<img src="./loading.png" data-src="./image/bg.png" alt="">
+		<img src="./loading.png" data-src="./image/cf.png" alt="">
+		<img src="./loading.png" data-src="./image/dd.png" alt="">
+		<img src="./loading.png" data-src="./image/ewm.png" alt="">
+		<img src="./loading.png" data-src="./image/fdj.jpg" alt="">
+		<img src="./loading.png" data-src="./image/gdapp.png" alt="">
+		<img src="./loading.png" data-src="./image/icon.png" alt="">
+		<img src="./loading.png" data-src="./image/jhs.png" alt="">
+		<img src="./loading.png" data-src="./image/likePic.jpg" alt="">
+		<img src="./loading.png" data-src="./image/logo.png" alt="">
+		<img src="./loading.png" data-src="./image/mallPic1.jpg" alt="">
+		<img src="./loading.png" data-src="./image/middlePic1.jpg" alt="">
+		<img src="./loading.png" data-src="./image/middlePic2.jpg" alt="">
+		<img src="./loading.png" data-src="./image/pic1.png" alt="">
+		<img src="./loading.png" data-src="./image/pic2.jpg" alt="">
+		<img src="./loading.png" data-src="./image/pic3.jpg" alt="">
+		<img src="./loading.png" data-src="./image/pic4.png" alt="">
+
+	</div>
+	<script>
+		//懒加载
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0
+		let imgNumber = document.getElementsByTagName("img").length;
+		let imgArr = document.getElementsByTagName("img");
+		let n = 0;
+		lazyLoad();
+		window.onscroll =  lazyLoad;
+		function lazyLoad(){
+			let viewHeight = document.documentElement.clientHeight;    //视口高度
+			let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			for (let index = n; index < imgNumber; index++) {
+				if(imgArr[index].offsetTop < scrollTop + viewHeight){
+					if( imgArr[index].getAttribute("src") == "./loading.png" ){
+						imgArr[index].src = imgArr[index].getAttribute("data-src")
+					}
+					n = index + 1;
+				}
+				
+			}
+		}
+	</script>
+</body>
+</html>
