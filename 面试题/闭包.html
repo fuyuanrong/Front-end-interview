@@ -87,6 +87,26 @@
 		// 通常会再使用一个函数包裹住 闭包结构,以起到对变量的保护
 		// 外界函数如果想要使用到闭包的变量,则需要return
 		//闭包不一定由return 不一定会造成内存泄漏
+
+
+		//闭包应用   => 处理私有数据
+		let makeCounter = function (){
+			let privateCounter = 0;
+			function changeBy(val) {
+				privateCounter += val;
+			}
+			return {
+				increment:function(){
+					changeBy(1);
+				},
+				decrement:function(){
+					changeBy(-1);
+				},
+				value:function(){
+					return privateCounter;
+				}
+			}
+		}
 	</script>
 </body>
 </html>

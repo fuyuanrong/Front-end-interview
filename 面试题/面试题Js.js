@@ -18,6 +18,7 @@ function fnc(value){
 	}
 	return resultArr
 }
+// --------------------------------------------------------------------------------------
 // 某公司 1 到 12 月份的销售额存在一个对象里面如下：
 // {1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]。
 
@@ -44,7 +45,7 @@ Number.prototype.minus = function(v){
 	return this - v
 }
 
-
+// --------------------------------------------------------------------------------------
 
 // 美团面试题
 	function fn(){
@@ -103,3 +104,35 @@ Number.prototype.minus = function(v){
 	
 	
 	*/
+
+// --------------------------------------------------------------------------------------
+
+	// 阿里面试题  输出什么?
+	var length = 10;
+	function test(){
+		console.log(this.length);
+	}
+	var obj = {
+		length:10,
+		action:function(){
+			test();      // 10
+			arguments[0]();   //4
+		}
+	}
+	obj.action(test,1,[1,2],4);
+	//解析:arguments : 参数的类数组   arguments[0] ==> arguments.test()  
+	//规则: 函数在运行时,看有没有调用者,如果没有调用者就指向window
+
+// --------------------------------------------------------------------------------------
+
+	// 作用域
+	var a = 10;
+	function test(){
+		console.log(a);   // undefined   var 变量提升
+		a = 100;
+		console.log(this.a);  //this  指向window
+		var a;
+		console.log(a);     // 此时129行a = 100;
+	}
+	test();    //undefined 10 100
+// --------------------------------------------------------------------------------------
