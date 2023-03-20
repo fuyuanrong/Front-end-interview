@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #00d8d6;
+            /* 透视 近大远小的效果   越小越近 */
+            perspective: 1000px;
+        }
+        #wrapper{
+            width: 400px;
+            height: 600px;
+            /* position: relative; */
+            /* 3d效果  开启三维空间效果 子元素大小就相对于父元素计算*/
+            transform-style: preserve-3d;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 0 15px black;
+            /* 背面面向就会隐藏 */
+            backface-visibility: hidden;   
+            transition: 2s;
+        }
+        #a2{
+            transform: rotateY(180deg);
+
+        }
+        body:hover #a2{
+            transform: rotateY(0deg);
+        }
+        body:hover #a1{
+            transform: rotateY(-180deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <img src="./2.jpg" id="a1" alt="">
+        <img src="./3.jpg" id="a2" alt="">
+    </div>
+</body>
+</html>
