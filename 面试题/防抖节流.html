@@ -44,10 +44,10 @@
 		//正常点击会有一定的延迟性 卡顿的感觉,用户体验不好,延迟多久取决于设定的时间
 		function debounce(fn,delay){
 			var timer = null
-			return function(){
+			return function(...args){
 				clearTimeout(timer)
 				timer = setTimeout(() => {
-					fn();
+					fn.apply(this,args);
 					timer = null;
 				}, delay);
 			}
@@ -61,19 +61,19 @@
 		function throttle(fn,delay){
 			//时间戳版本
 			var lastTime = 0;
-			return function(){
+			return function(...args){
 				var nowTime = new Date().getTime();
 				if(nowTime-lastTime>delay){
-					fn();
+					fn.apply(this,args);
 					lastTime = nowTime;
 				}
 			}
 			//另一版本  setTimeout版 
 			let timer = null;
-			return function(){
+			return function(...args){
 				if(!timer){
 					timer = setTimeout(() => {
-						fn();
+						fn.apply(this,args);
 						timer = null;
 					}, delay);
 				}
