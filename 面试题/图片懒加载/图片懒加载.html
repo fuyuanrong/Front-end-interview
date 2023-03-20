@@ -13,6 +13,7 @@
 			padding: 4px;
 			width: 400px;
 			height: 300px;
+			object-fit: contain;
 		}
 	</style>
 </head>
@@ -40,8 +41,7 @@
 	</div>
 	<script>
 		//懒加载
-		document.body.scrollTop = 0;
-		document.documentElement.scrollTop = 0
+		document.documentElement.scrollTop = 0   //初始化到顶端
 		let imgNumber = document.getElementsByTagName("img").length;
 		let imgArr = document.getElementsByTagName("img");
 		let n = 0;
@@ -49,9 +49,9 @@
 		window.onscroll =  lazyLoad;
 		function lazyLoad(){
 			let viewHeight = document.documentElement.clientHeight;    //视口高度
-			let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;   //当前窗口视图所在整个页面的位置(距离顶部的距离)
 			for (let index = n; index < imgNumber; index++) {
-				if(imgArr[index].offsetTop < scrollTop + viewHeight){
+				if(imgArr[index].offsetTop < scrollTop + viewHeight){     //  offsetTop 本张图片距离父元素顶部的距离
 					if( imgArr[index].getAttribute("src") == "./loading.png" ){
 						imgArr[index].src = imgArr[index].getAttribute("data-src")
 					}
