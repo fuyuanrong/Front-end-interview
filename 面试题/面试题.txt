@@ -114,9 +114,6 @@
 	W3C标准盒模型中padding、border所占的空间不在width、height范围内   content = width
 	IE盒模型中width、height包括content尺寸+padding+border			  content + padding + border = width
 
-
-
-
 16. 题目
 	var a = 1
     var c = {name: "oli", age: 2}

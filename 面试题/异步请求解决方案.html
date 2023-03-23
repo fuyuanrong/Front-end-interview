@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>异步请求解决方案</title>
+
+	<style type="text/css">
+	
+	</style>
+</head>
+<body>
+	<div class="layout">
+		<div class="dv1">top</div>
+		<div class="dv2">bottom</div>
+
+	</div>
+	<script>
+		// AJAX   A:异步 J:JavaScript A:and X:xml   异步的js和xml
+		// 作用:通过js向服务器发送请求来加载数据
+		//  xml:早期的AJAX使用的格式,当前使用json格式
+		// XMLHttpRequest(xhr)  Fetch   Axios
+
+		// CORS:跨域资源共享  协议 域名 端口 三种有一不同就是跨域
+		// 当通过AJAX发送跨域请求时,浏览器为了安全会阻止JS读取到服务器的数据(服务器已收到了,主要是浏览器拦截,保护服务器)
+		//解决方案: 在服务器设置一个允许跨域的头:
+		//  后台代码: res.setHeader("Access-Control-Allow-Origin","*")  // *表示任何客户端都可以发送请求  也可以写单独的(只能一个,可以不写死,动态设置)
+		/*
+			node设置中间件 限制
+			app.use((req,res,next)=>{
+				res.setHeader("Access-Control-Allow-Origin","*") 
+			})
+			// Access-Control-Allow-Methods  ("Access-Control-Allow-Methods","GET,POST") 表示允许的请求方式
+			// Access-Control-Allow-Header  ("Access-Control-Allow-Header","Content-type") 表示传递的请求头
+			next();  //没有,请求会一直转
+
+
+		*/
+
+		// ----------------------xhr----------------------------
+		//创建一个新的xhr对象,xhr表示请求信息
+		const xhr = new XMLHttpRequest();
+		//设置请求信息
+		xhr.open("GET","请求路径",true);    // true表示异步请求  false便是同步请求  当为true时须规定在onreadystatechange事件中就绪状态时的回调函数,false则可不必 
+		// 发送请求
+		xhr.send();
+		//读取相应信息
+		//可以绑定一个load事件
+		xhr.onload = function () {
+			// xhr.response   //表示响应信息  返回的结果需要JSON.parse()
+			let result = JSON.parse(xhr.response)
+			console.log(result)
+		}
+		//或者 设置 xhr.responseType = "json"  可不必再parse 解构
+
+		xhr.onreadystatechange = function (){
+			if(xhr.readyState==4){
+				if(xhr.status>=200&&xhr.status<207||xhr.status==304){
+					console.log(xhr.responseText)
+				}else{
+					console.log(xhr.status)
+				}
+			}
+		}
+
+		//-------------------------------Fetch------------------------------------
+		/*
+			Fetch  是xhr的升级版本,采用Promise API
+			作用:和AJAX一样,但是更加友好
+			fetch是原生js支持的一种ajax请求的方式
+		*/
+		fetch("路径").then((res)=>{
+			console.log(res)  
+			if(res.status === 200){
+				return res.json()   //返回的是Promise对象
+			}else{
+				throw new Error("请求出错!")
+			}
+		})
+		.then((res)=>{
+			//获取到普通正常的数据  再处理数据
+			console.log(res)
+		})
+		.catch(err=>{
+			console.log(err)
+		})
+
+		//------------------------------btw  浏览器本地存储:sessionStorage  localStorage  cookie  session token --------------------------
+		/*
+			sessionStorage: 会话存储空间  浏览器页面一关就失效
+				方法: 
+					存: sessionStorage.setItem( 'name', value  )
+					取: sessionStorage.getIten( 'name' )
+					删除: sessionStorage.removeItem('name')
+					清除: sessionStorage.clean()
+			localStorage: 本地存储空间,可设置存储过期时间
+				方法:
+					同上
+			cookie:服务器创建.发送给浏览器保存  也是会话级的  详情见node_express 项目
+
+
+			session:session是服务器中的一个对象,用来存储用户数据
+				每一个session对象都有一个唯一的id  id会通过cookie的形式传给客户端
+				客户端只需每次访问携带存有id的cookie发回服务器即可
+
+			token:
+				在node中使用 jsonwebtoken 这个包来对数据加密
+				jsonwebtoken(jwt)
+				使用:
+					安装 引入 jsonwebtoken
+					const jwt = require("jsonwebtoken")
+					const token = jwt.sign('加密数据', 私钥 ,{**(配置)})
+					const decodeData = jwt.verify(token,私钥)
+
+					前端:
+					在第一次登录成功后 服务器返回发给浏览器token  浏览器存储token 后续每一次请求需带上token
+					一般都是请求头来发送token
+					fetch('请求路径',{
+						header:{
+
+							"authorization" :  `Bearer ${token}`
+						}
+					})
+
+					node后台:
+					后台Access-Control-Allow-Header  ("Access-Control-Allow-Header","Content-type,authorization")  需带上authorization
+					const token = req.get('Authorization').split(" ")[1];  
+
+
+		*/
+
+	</script>
+</body>
+</html>
