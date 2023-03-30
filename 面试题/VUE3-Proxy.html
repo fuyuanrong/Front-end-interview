@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>Proxy</title>
+	<style type="text/css">
+		
+	</style>
+</head>
+<body>
+	<div class="container">
+		
+		<div id="app">
+		</div>
+		
+	</div> 
+	<script>
+		//创建一个对象
+		let obj = {
+			name:'swk',
+			age:18
+		}
+		//为对象创建一个代理
+		let handler = {    //handler用来指定代理的行为
+			// get用来指定读取数据时的行为,它的返回值就是最终读取到的值
+			// 指定get后，在通过代理读取对象时，就会调用get方法来获取值
+			get(target,prop,receiver){
+				console.log(target,prop,receiver)
+				//三个参数  第一个target:代理对象  第二个prop:访问读取的属性 第三个receiver:代理对象
+				return target[prop]
+			},
+			//set会在通过代理修改对象时调用
+			set(target,prop,value,receiver){
+				console.log(target,prop,value,receiver)
+				target[prop] = value
+				// trigger() 触发所有使用了该值的位置进行更新
+				//值修改之后做一些其他的操作
+			}
+		};
+		//创建代理
+		let proxy = new Proxy(obj,handler);
+
+		//读取 设置属性时都是在调用handler内的方法  
+		// 可以在 修改读取return之前做一些其他操作  
+		// 在vue中 data返回的数据会被vue所代理,vue代理后
+		//		当我们通过代理读取属性时,他会先做一个跟踪操作 track()  追踪谁用了这个操作
+		//		当通过代理去修改属性时,修改后会通知之前所有用到该属性值的位置进行更新  trigger()
+		proxy.age = 28;
+		console.log(proxy.name)
+	</script>
+</body>
+</html>
