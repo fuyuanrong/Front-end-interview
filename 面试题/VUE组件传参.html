@@ -67,14 +67,52 @@
 					}
 		-->
 
-		<p>3.兄弟组件传参:事件总线BUS vue3使用mitt</p>
+		<p>3.兄弟组件传参(非父子组件):事件总线BUS vue3使用mitt  provide inject </p>
 		<!-- 
+			事件总线BUS:eventbus
+			vue2:
+			exp:
+				传方
+					let Event= new Vue();
+					Event.$emit('dataname',data.msg)
+				接收方:
+					Event.$on('dataname',msg=>{
+						this.msg = msg
+					})
+				移除Event.$off('dataname')
 			vue3:
 				使用 mitt  需要安装包  npm/snpm i mitt -S
 				事件总线:相当于全局的事件管理
 				使用:mitt.emit("方法名",参数):触发某个方法
 				mitt.on("对应方法名",callback)
 				mitt.off("移除对应方法名")
+
+			provide/inject通信
+			vue2:
+				发送方
+				//与data使用一样  同级
+				provide(){
+					return {
+						dataname: data
+					}
+				}
+				接收方
+				inject:['dataname']
+				 直接this.dataname使用
+			vue3:
+				发送方
+
+				<script setup>
+					import {provide} from 'vue'
+					provide('name',data)
+				</script>
+				接收方
+				<script setup>
+					import {inject} from 'vue'
+					let name = inject('name')
+				</script>
+				
+
 		-->
 
 	</div> 
