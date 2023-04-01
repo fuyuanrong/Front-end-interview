@@ -111,6 +111,22 @@
 					import {inject} from 'vue'
 					let name = inject('name')
 				</script>
+			使用技巧(方法) : 状态提升
+			在公有父组件内设置 方法和data 在注入各自内部  实现共用一个数据或方法
+			例子:
+				公有父组件内:
+					let count = ref(0);
+					let increment = ()=>{
+						count.value++
+					}
+					provide('countname',{
+						count,
+						increment
+					})
+				各个子组件内:
+				let {count,increment} = inject('countname')
+
+
 				
 
 		-->
