@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跨域解决方案</title>
+
+	<style type="text/css">
+	
+	</style>
+</head>
+<body>
+	<div class="layout">
+		<div class="dv1">top</div>
+		<div class="dv2">bottom</div>
+
+	</div>
+	<script>
+		/*
+		跨域: 浏览器的同源策略
+		 		只要协议、域名、端口的任何一个不同，就被当做是跨域。
+			1.JSONP ; JSON With Padding
+				原理:
+					利用 <script>、<img> 等标签没有跨域限制的漏洞，网页可以得到从其他来源动态产生的 JSON 数据。JSONP请求需要对方的服务器做支持才可以。
+				缺点:
+					只支持get 不支持post
+
+		 	2. CORS 跨域资源共享
+				在发送请求中,需要在 HTTP 头部增加额外的信息：Origin：http://www.xxxx.com
+				在服务器端接口 响应信息的头部添加
+						Access-Control-Allow-Origin 指定允许其他域名访问，如果是公共资源，可以设置为*
+						Access-Control-Allow-Header 响应头设置
+						Access-Control-Allow-Methods 响应的类型
+						Access-Control-Allow-Credentials 是否允许请求时携带验证信息
+				提醒：
+
+					Access-Control-Allow-Origin 设置哪些网站可以访问当前的服务器资源，通过定义域名或者一个通配符 * 来决定是单一的网站还是所有网站都可以访问该服务器的资源。
+					如果 Access-Control-Allow-Origin 设置为通配符 * ，那么服务器端的 Access-Control-Allow-Credentials 选择就无效了，此时用户浏览器中的不同域 cookie 信息将默认不会在服务器请求里发送，即如果需要实现带 cookie 进行跨域请求，则要明确的配置允许来源的域，使用任意域的配置是不合法的。
+			3. 反向代理
+				nginx
+				vue框架跨域 webpack.config.js 的proxy代理
+
+
+				Java后端进行跨域解决CORS;
+				使用AJAX的JSONP;
+				使用jQuery的JSONP插件;
+				document.domain + iframe 跨域解决方案;
+				window.name + iframe 跨域解决方案;
+				location.hash + iframe 跨域解决方案;
+				postMessage跨域解决方案;
+				WebSocket协议跨域解决方案;
+				node代理跨域解决方案;
+				nginx代理跨域解决方案;
+		*/
+
+	</script>
+</body>
+</html>
