@@ -6,7 +6,6 @@
 **/
 let arr = [9,5,3,6,2,1,4,7,8];
 for (let index = 0 ; index < arr.length - 1 ; index++) {
-    console.log('object');
     for (let i = 0; i < arr.length-1; i++) {
         if(arr[i] > arr[i+1]){
             // 大数在前小数在后的话交换位置
@@ -82,4 +81,63 @@ function quickSort(arr) {
         }
     });
     return quickSort(left).concat([pivot],quickSort(right))
+}
+
+
+//  选择排序
+function selectSort(arr){
+    let len = arr.length;
+    let minIndex,temp;
+    for (let i = 0; i < len - 1 ; i++) {
+        minIndex = i;
+        for (let j = 0; j < len; j++) {
+            if(arr[j]<arr[minIndex]){
+                //寻找最小值
+                minIndex = j;  //将最小值索引保存
+            }
+            
+        }
+        temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] =  temp;
+        
+    }
+    return arr
+}
+
+//插入排序
+function insertSort(arr){
+    let length = arr.length;
+    //从1开始
+    for (let i = 1; i < length; i++) {
+        let preIndex = i - 1;
+        let current = arr[i];
+        //在i之前都是已排序好的数,while的作用是找到一个坑位,插入current
+        while (preIndex>=0&& arr[preIndex]>current) {
+            //对大于current的值,往后移一位,给current的插入腾出位置
+            arr[preIndex+1] = arr[preIndex];
+            preIndex--;
+        }
+        arr[preIndex+1] = current;
+    }
+    return arr
+}
+//希尔排序
+function hillSort(arr){
+    //每次向下得到一半的增量
+    let gap = Math.floor(arr.length/2);
+    // 根据步长得到的子序列如果间隔大于0,则表示还可以继续分组
+    while (gap>=1) {
+        //每个分组进行插入排序
+        for (let i = gap; i < arr.length; i++) {
+            let j,temp = arr[i];
+            for ( j = i-gap; j >=0&&temp<arr[j]; j = j - gap) {
+                arr[j + gap] = arr[j];
+            }
+            arr[j + gap] = temp;
+        }
+        //缩短一半步长
+        gap = Math.floor(gap/2);
+    }
+    return arr
 }
