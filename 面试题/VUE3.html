@@ -49,6 +49,10 @@
 		<p>8.打包优化</p>
 		<p>9.typescript支持</p>
 
+
+		<p>vue2的缺点：</p>
+		<p>1.Object.defineProperty只能劫持对象的属性,如果属性值是对象，还需要深度遍历。新增属性时，需要重新遍历对象，对其新增属性再使⽤ Object.defineProperty 进⾏劫持</p>
+		<p>2.Object.defineProperty无法监控到数组下标的变化，导致直接通过数组的下标给数组设置值，不能实时响应。 为了解决这个问题，经过vue内部处理后增加了下几种方法（八种）来监听数组</p>
 		
 
 	</div> 
