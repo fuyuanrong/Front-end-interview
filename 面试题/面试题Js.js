@@ -34,6 +34,11 @@ for(let i in  obj){
 }
 console.log(resultArr)
 
+// 方法2
+let arr = new Array(12).fill(null).map((item,index)=>{
+	return obj[index+1]||null
+})
+
 // 实现一个函数 5.add(3).minus(2)功能。例：5 + 3 - 2，结果为 6
 
 Number.prototype.add = function(v) {
