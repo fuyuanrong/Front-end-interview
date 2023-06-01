@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端性能优化</title>
+</head>
+<body>
+        <h1>前端性能优化统筹</h1>
+        
+        <h2><strong>一.性能排查</strong></h2>
+        <p>1.数据埋点上报</p>
+        <p>2.使用控制台的network,performance等</p>
+        <p>3.webpack-bundle-analyzer插件分析打包产物</p>
+
+        <h2><strong>二.http方面</strong></h2>
+        <p>1.gzip压缩</p>
+        <p>2.强缓存,协商缓存</p>
+
+        <h2><strong>三.图片方面</strong></h2>
+        <p>1.图片压缩</p>
+        <p>2.图片懒加载</p>
+        <p>3.雪碧图,使用字体图标,svg等</p>
+
+        <h2><strong>四.webpack方面</strong></h2>
+        <p>1.优化文件搜索</p>
+        <p>2.多进程打包</p>
+        <p>3.分包</p>
+        <p>4.代码压缩</p>
+        <p>5.使用cdn</p>
+
+        <h2><strong>五.框架方面</strong></h2>
+        <p>1.vue,react性能优化</p>
+        <p>2.异步组件</p>
+        <p>3.tree shanking</p>
+        <p>4.服务端渲染</p>
+
+        <h2><strong>六.代码方面</strong></h2>
+        <p>1.按需加载.逻辑后移,优先保证首屏内容渲染</p>
+        <p>2.复杂计算使用webworker</p>
+        <p>3.接口缓存,计算结果缓存</p>
+        <p>4.预加载</p>
+        <p>5.骨架屏</p>
+        <p>6.虚拟滚动</p>
+
+
+        <h2>具体：</h2>
+            路由组件异步加载<br>
+            动态加载一些初始不需要用到的资源<br>
+            频繁切换的组件使用KeepAlive进行缓存<br>
+            缓存复杂或常用的计算结果<br>
+            对实时性不高的接口进行缓存<br>
+            同一个接口多次请求时取消上一次没有完成的请求<br>
+            页面中存在很多接口时进行优先级排序，优先请求页面重要信息的接口，并关注同一时刻请求的接口数量，如果过多进行分批请求<br>
+            对于一些确实比较慢的接口使用loading或骨架屏<br>
+            懒加载列表，懒加载图片，对移出可视区的图片和dom进行销毁<br>
+            关注页面中使用到的图片大小，推动后端进行图片压缩<br>
+            地图撒点时使用聚合减少地图引擎渲染压力<br>
+            对于一些频繁的操作使用防抖或节流<br>
+            使用三方库或组件库尽量采用按需加载，减少打包体积<br>
+            组件卸载时取消事件的监听、取消组件中的定时器、销毁一些三方库的实例<br>
+
+</body>
+</html>
