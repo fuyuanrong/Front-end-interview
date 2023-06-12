@@ -74,8 +74,7 @@
 				msg: 'hello  world',
 				msg2: 'ssssss'
 			},
-			//8个
-			生命周期
+			//8个生命周期
 			//created mounted  updated  destroyed   还有四个前面加before
 			beforeCreate() {
 				console.log('beforeCreate----parent');
@@ -136,6 +135,16 @@
 			beforeMount -- child 
 			mounted -- child
 			mounted----parent
+			//更新
+			beforeUpdate----parent
+			beforeUpdate----child
+			updated----child
+			updated----parent
+			//销毁
+			beforeDestroy----parent
+			beforeDestroy -- child
+			destroyed -- child
+			destroyed----parent
 		*/
 	</script>
 </body>
