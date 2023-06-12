@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<title>VUE2</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+	<style type="text/css">
+
+	</style>
+</head>
+
+<body>
+	<div class="container">
+
+		<div id="app">
+			
+			<div>
+				{{msg}}
+
+				<my-components ref="child"></my-components>
+				<button id="btn1" @click="clickFunc"> click me to update</button>
+				<button id="btn"> click me to destroy</button>
+			</div>
+		</div>
+		
+		
+	</div>
+	<script>
+		var child = {
+			template: '<div>from child: {{childMsg}}</div>',
+			props: ['msg'],
+			data: function () {
+				return {
+					childMsg: 'child  component  '
+				}
+			},
+			methods: {
+				clickChildFunc(){
+					this.childMsg =  "child   changed";
+				}
+			},
+			beforeCreate: function () {
+				console.log('beforeCreate -- child');
+			},
+			created: function () {
+				console.log('created -- child');
+			},
+			beforeMount: function () {
+				console.log('beforeMount -- child');
+			},
+			mounted: function () {
+				console.log('mounted -- child');
+			},
+			beforeUpdate() {
+				console.log('beforeUpdate----child');
+			},
+			updated() {
+				console.log('updated----child');
+			},
+			beforeDestroy: function () {
+				console.log('beforeDestroy -- child');
+			},
+			destroyed: function () {
+				console.log('destroyed -- child');
+			},
+		};
+		const app = new Vue({
+			el: '#app',
+			data: {
+				msg: 'hello  world',
+				msg2: 'ssssss'
+			},
+			//8个生命周期
+			//created mounted  updated  destroyed   还有四个前面加before
+			beforeCreate() {
+				console.log('beforeCreate----parent');
+			},
+			created() {
+				console.log('created----parent');
+
+			},
+			beforeMount() {
+				console.log('beforeMount----parent');
+
+			},
+			mounted() {
+				console.log('mounted----parent');
+			},
+			beforeUpdate() {
+				console.log('beforeUpdate----parent');
+			},
+			updated() {
+				console.log('updated----parent');
+			},
+			beforeDestroy() {
+				console.log('beforeDestroy----parent');
+
+			},
+			destroyed() {
+				console.log('destroyed----parent');
+			},
+
+			methods: {
+				clickFunc(){
+					this.msg =  " HHHHHHHHHH";
+					this.$refs.child.clickChildFunc();
+				},
+				
+			},
+			computed: {
+
+			},
+			watch: {
+
+			},
+			components: {
+				'my-components': child
+			}
+		})
+		document.getElementById('btn').onclick = () => {
+			app.$destroy();
+		}
+	</script>
+</body>
+
+</html>
