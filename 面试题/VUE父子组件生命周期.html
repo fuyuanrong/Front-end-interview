@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"
+	>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>VUE2</title>
-	<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"
+	></script>
 	<style type="text/css">
 
 	</style>
@@ -72,7 +74,8 @@
 				msg: 'hello  world',
 				msg2: 'ssssss'
 			},
-			//8个生命周期
+			//8个
+			生命周期
 			//created mounted  updated  destroyed   还有四个前面加before
 			beforeCreate() {
 				console.log('beforeCreate----parent');
@@ -122,6 +125,18 @@
 		document.getElementById('btn').onclick = () => {
 			app.$destroy();
 		}
+		
+		/*
+			结果:
+			beforeCreate----parent
+			created----parent
+			beforeMount----parent 
+			beforeCreate -- child 
+			created -- child
+			beforeMount -- child 
+			mounted -- child
+			mounted----parent
+		*/
 	</script>
 </body>
 
