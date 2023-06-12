@@ -83,6 +83,24 @@
 			// /return 新obj
 			return targetObj
 		}
+
+		function deepClone(obj){
+			if(!obj || typeof obj!== 'object'){
+				return obj
+			}
+			let result = Array.isArray(obj)?[]:{}
+			
+			for(let key in obj){
+				if(obj.hasOwnProperty("key")){
+				if(obj[key] && typeof obj[key] === 'object'){
+					result[key] = deepClone(obj[key])
+				}else{
+					result[key] = obj[key]
+				}
+				}
+			}
+			return result
+		}
 		var newObj = deepCopy(oneobj);
 		newObj.list[0].deep = '222222';
 		console.log('oneobj',oneobj);
