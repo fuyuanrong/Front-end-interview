@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>轮播图</title>
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+  <style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .container{
+    width: 500px;
+    height: 300px;
+    margin: 10px auto;
+    overflow: hidden;
+    position: relative;
+  }
+  .container  .carousel{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: 0.5s;
+  }
+  .container  .carousel .item img{
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+  }
+  .container .indicator{
+    position: absolute;
+    bottom: 10px;
+    display: flex;
+    /* outline: 1px solid #fff; */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .container .indicator span{
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    margin: 0 3px;
+  }
+  .container .indicator span.active{
+    background: #fff;
+    border-color: #fff;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="carousel">
+        <div class="item" ><a href="#"><img src="./1.jpg"></a></div>
+        <div class="item" ><a href="#"><img src="./4.jpg"></a></div>
+        <div class="item" ><a href="#"><img src="./1.jpg"></a></div>
+        <div class="item" ><a href="#"><img src="./4.jpg"></a></div>
+    </div>
+    <div class="indicator">
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</body>
+<script>
+    let doms = {
+      carousel:document.querySelector(".carousel"),
+      indicators:document.querySelectorAll(".container .indicator span")
+    }
+    /*
+    * 移动轮播图到第几个板块
+    *@param {number} index 板块的索引
+    */
+    function moveTo(index){
+      doms.carousel.style.transform = `translateX(-${index}00%)`;
+      //去除选择
+      let active = document.querySelector(".indicator span.active");
+      active.classList.remove('active');
+      //重新设置选中
+      doms.indicators[index].classList.add('active');
+
+    }
+    doms.indicators.forEach(function(item,index){
+      item.onclick = function(){
+        moveTo(index);
+      }
+    })
+</script>
+</html>
