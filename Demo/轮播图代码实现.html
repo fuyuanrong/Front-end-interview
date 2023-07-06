@@ -68,6 +68,15 @@
   </div>
 </body>
 <script>
+    //自动运行轮播图
+    let length = document.querySelectorAll(".container .indicator span").length;
+    let first = 0;
+    let timer = setInterval(()=>{
+      first++;
+      if(first == length)first = 0;
+      moveTo(first);
+    },2000)
+
     let doms = {
       carousel:document.querySelector(".carousel"),
       indicators:document.querySelectorAll(".container .indicator span")
@@ -88,7 +97,10 @@
     doms.indicators.forEach(function(item,index){
       item.onclick = function(){
         moveTo(index);
+        clearInterval(timer)
+        first = index;
       }
     })
+    
 </script>
 </html>
