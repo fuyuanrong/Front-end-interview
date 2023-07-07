@@ -118,6 +118,30 @@
 		getData1();  //返回的是Promise对象
 		console.log('结果:',getData1());
 
+
+
+
+		//面试题 阿里二面 Promise.all怎么把成功失败的都返回
+
+		let p1 = Promise.resolve(1);
+		let p2 = Promise.resolve(2);
+		let p3 = Promise.reject('err-3');
+		let p4 = Promise.resolve(4);
+
+		Promise.all(
+			[p1,p2,p3,p4].map(item=>{
+				return item.then(res=>{
+					return res
+				}).catch(err=>{
+					return err
+				})
+			})
+		).then(res=>{
+			console.log('成功结果:',res)
+		}).catch(err=>{
+			console.log('失败结果:',err)
+		})
+
 	</script>
 </body>
 </html>
