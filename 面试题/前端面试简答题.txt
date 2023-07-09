@@ -171,3 +171,10 @@ cookie和session的区别
 3、设置cookie时间可以使cookie过期。但是使用session-destory（），我们将会销毁会话
 4、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用cookie
 5、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。(Session对象没有对存储的数据量的限制，其中可以保存更为复杂的数据类型)
+
+
+
+前端如何控制资源加载的优先级?
+1.增加rel属性 prefetch preload属性  rel="prefetch" /preload
+2.增加async defer属性
+3.img等资源标签增加importance优先级   标签内 importance="highest/low  medium"
